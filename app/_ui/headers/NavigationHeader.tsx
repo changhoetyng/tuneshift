@@ -1,4 +1,4 @@
-import HeaderButton from "../buttons/HeaderButton";
+import HeaderButton from "@/app/_ui/buttons/HeaderButton";
 import Image from "next/image";
 import Link from "next/link";
 import TuneShift from "@/public/tuneshift.svg";
