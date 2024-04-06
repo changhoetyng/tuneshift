@@ -1,11 +1,6 @@
-import Head from "next/head";
+import TuneShift from "@/public/tuneshift.svg";
+import Image from "next/image";
 
-function IndexPage() {
-  return (
-    <div>
-      <p>Home Page!</p>
-    </div>
-  );
+export default async function IndexPage() {
+  return <div></div>;
 }
-
-export default IndexPage;

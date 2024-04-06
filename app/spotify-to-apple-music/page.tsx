@@ -2,7 +2,7 @@
 import Head from "next/head";
 import { useEffect } from "react";
 
-import { authentication } from "../lib/apple-music-api-wrapper/authentication";
+import { authentication } from "../_lib/apple-music-api-wrapper/authentication";
 
 export default function SpotifyToAppleMusicPage() {
   useEffect(() => {
@@ -16,11 +16,12 @@ export default function SpotifyToAppleMusicPage() {
 
   return (
     <div>
-      <script
+      {/* <script
         src="https://js-cdn.music.apple.com/musickit/v3/musickit.js"
         data-web-components
         async
-      ></script>
+      ></script> */}
+      <h1>Spotify To Apple Music</h1>
     </div>
   );
 }
