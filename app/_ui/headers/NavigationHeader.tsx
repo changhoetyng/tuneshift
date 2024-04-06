@@ -1,8 +1,8 @@
+import HeaderButton from "../buttons/HeaderButton";
+import Image from "next/image";
+import Link from "next/link";
 import TuneShift from "@/public/tuneshift.svg";
 import GithubLogo from "@/public/github-mark-white.svg";
-import Image from "next/image";
-import HeaderButton from "../buttons/HeaderButton";
-import Link from "next/link";
 
 export default async function NavigationHeader() {
   return (
@@ -13,7 +13,7 @@ export default async function NavigationHeader() {
           alt="TuneShift Logo"
           width={500}
           height={500}
-          className="w-full h-auto"
+          className="w-full h-auto cursor-pointer"
           priority
         />
       </div>
@@ -38,7 +38,8 @@ export default async function NavigationHeader() {
               alt="Github Logo"
               width={500}
               height={500}
-              className="cursor-pointer"
+              className="w-full h-auto cursor-pointer"
+              priority
             />
           </a>
         </div>
