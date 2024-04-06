@@ -3,7 +3,23 @@
 @tailwind utilities;
 
 @layer base {
-    html {
-        @apply bg-zinc-900 font-default;
-    }
+  html {
+    @apply bg-zinc-900 font-default text-white;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.cursor {
+  animation: blink 1.3s infinite;
 }
