@@ -2,6 +2,10 @@
   "name": "tuneshift",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Max Chang Hoe Tyng",
+    "url": "https://www.linkedin.com/in/hoe-tyng-chang/"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
