@@ -1,10 +1,7 @@
 "use client";
-import Head from "next/head";
 import { useEffect } from "react";
 
-import { authentication } from "../_lib/apple-music-api-wrapper/authentication";
-
-export default function SpotifyToAppleMusicPage() {
+export default function MigrateToAppleMusic() {
   useEffect(() => {
     // console.log("RUN");
     // async function fetchData() {
@@ -21,7 +18,7 @@ export default function SpotifyToAppleMusicPage() {
         data-web-components
         async
       ></script> */}
-      <h1>Spotify To Apple Music</h1>
+      <h1>Migrate To Apple Music</h1>
     </div>
   );
 }

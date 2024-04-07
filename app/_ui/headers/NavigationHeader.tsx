@@ -21,7 +21,7 @@ export default async function NavigationHeader() {
         <Link href="/">
           <HeaderButton>Home</HeaderButton>
         </Link>
-        <Link href="/spotify-to-apple-music">
+        <Link href="/migrate">
           <HeaderButton>Migrate</HeaderButton>
         </Link>
       </div>

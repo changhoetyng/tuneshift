@@ -19,16 +19,14 @@ export default function RoundedButton({
   ...rest
 }: ButtonProps) {
   return (
-    <div>
-      <button
-        {...rest}
-        className={clsx(
-          "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-2 px-4 rounded",
-          className
-        )}
-      >
-        {children}
-      </button>
-    </div>
+    <button
+      {...rest}
+      className={clsx(
+        "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-2 px-4 rounded",
+        className
+      )}
+    >
+      {children}
+    </button>
   );
 }

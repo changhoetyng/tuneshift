@@ -1,5 +1,6 @@
 import MainPageWelcomeText from "@/app/_ui/main-page/MainPageWelcomeText";
 import RountedButton from "@/app/_ui/buttons/RoundedButton";
+import Link from "next/link";
 
 export default async function IndexPage() {
   // const [showButton, setShowButton] = useState(false);
@@ -22,9 +23,11 @@ export default async function IndexPage() {
         The easiest way to transfer your music between streaming services.
       </p>
 
-      <RountedButton className="mt-10 animate-fadeInUp mb-20">
-        Get Started
-      </RountedButton>
+      <Link href="/migrate">
+        <RountedButton className="mt-10 animate-fadeInUp mb-20">
+          Get Started
+        </RountedButton>
+      </Link>
     </div>
   );
 }
