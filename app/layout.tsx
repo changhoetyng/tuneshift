@@ -14,11 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <div>
+      <body className="h-screen flex flex-col">
+        <div className="mt-20">
           <NavigationHeader />
         </div>
-        {children}
+        <div className="flex-grow">{children}</div>
       </body>
     </html>
   );

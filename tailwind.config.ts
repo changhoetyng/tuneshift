@@ -15,19 +15,19 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        "background-default": "#000000", // Add this line
+        "background-default": "#18181B", // Add this line
       },
       fontFamily: {
         default: ["Helvetica", "Arial", "sans-serif"],
       },
       keyframes: {
         fadeInUp: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "0%": { opacity: "0", transform: "translateY(40px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
-        fadeInUp: "fadeInUp 1.4s ease-in forwards",
+        fadeInUp: "fadeInUp 1.2s ease-in forwards",
       },
     },
   },

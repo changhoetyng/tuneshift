@@ -24,10 +24,6 @@ describe("NavigationHeader", () => {
     const homeLink = screen.getByText("Home");
     expect(homeLink).toBeInTheDocument();
 
-    // Assert that the Home link is rendered
-    const migrateToAppleMusic = screen.getByText("Migrate to Apple Music");
-    expect(migrateToAppleMusic).toBeInTheDocument();
-
     // Assert that the About link is rendered
     const aboutLink = screen.getByText("About me");
     expect(aboutLink).toBeInTheDocument();

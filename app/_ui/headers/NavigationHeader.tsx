@@ -6,7 +6,7 @@ import GithubLogo from "@/public/github-mark-white.svg";
 
 export default async function NavigationHeader() {
   return (
-    <div className="flex flex-row justify-between p-5">
+    <div className="flex flex-row justify-between p-5 fixed w-full top-0 z-50 h-20 bg-background-default">
       <div className="w-32 h-10 items-center mt-2">
         <Image
           src={TuneShift}
@@ -22,7 +22,7 @@ export default async function NavigationHeader() {
           <HeaderButton>Home</HeaderButton>
         </Link>
         <Link href="/spotify-to-apple-music">
-          <HeaderButton>Migrate to Apple Music</HeaderButton>
+          <HeaderButton>Migrate</HeaderButton>
         </Link>
       </div>
       <div className="flex flex-row items-center">

@@ -8,6 +8,11 @@ interface ButtonProps {
   className?: string;
 }
 
+/**
+ * Renders a component that displays a typewriter effect for the welcome text.
+ * @param {ButtonProps} props - The props for the component.
+ * @returns {JSX.Element} The rendered component.
+ */
 export default function MainPageWelcomeText(props: ButtonProps) {
   const text = props.text || "";
   const [typedText, setTypedText] = useState("");
@@ -25,10 +30,9 @@ export default function MainPageWelcomeText(props: ButtonProps) {
   }, [index, text]);
 
   return (
-    <div>
-      <h1 className={clsx(props.className)}>
-        {typedText} <span className="cursor">|</span>
-      </h1>
+    <div className="flex flex-row">
+      <h1 className={clsx(props.className)}>{typedText}</h1>
+      <h1 className={clsx("cursor ml-3", props.className)}>|</h1>
     </div>
   );
 }
