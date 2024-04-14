@@ -1,13 +1,13 @@
 "use client";
 import { useEffect } from "react";
 import { AppleMusicAuthentication } from "@/app/_utils/apple-music-api-wrapper/apple-music-authentication";
-import credentialsStore from "@/stores/credentialsStore";
+import { useCredentialsStore } from "@/stores/credentialsStore";
 import { usePathname } from "next/navigation";
 import path from "path";
 
 export default function MigrateToAppleMusic() {
   const pathname = usePathname();
-  const { updateMusicKitInstance } = credentialsStore((state) => ({
+  const { updateMusicKitInstance } = useCredentialsStore((state) => ({
     updateMusicKitInstance: state.updateMusicKitInstance,
   }));
   useEffect(() => {

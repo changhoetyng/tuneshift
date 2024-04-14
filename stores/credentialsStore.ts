@@ -1,20 +1,53 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+import SpotifyApiHelper from "@/app/_utils/spotify-api-wrapper/SpotifyApiHelper";
 
 type CredentialsStore = {
   musicKitInstance: any;
-  spotifyUserToken: string | null;
   updateMusicKitInstance: (newMusicKitInstance: any) => void;
-  updateSpotifyUserToken: (spotifyUserToken: string) => void;
+  spotifyApiHelper: SpotifyApiHelper;
 };
 
-const useStore = create<CredentialsStore>((set) => ({
+type CredentialsPersistentStore = {
+  spotifyCodeVerifier: string | null;
+  spotifyAuthorizationCode: string | null;
+  spotifyAccessToken: string | null;
+  spotifyRefreshToken: string | null;
+  updateSpotifyCodeVerifier: (spotifyCodeVerifier: string | null) => void;
+  updateSpotifyAccessToken: (spotifyAuthorizationCode: string) => void;
+  updateSpotifyRefreshToken: (spotifyCode: string) => void;
+};
+
+export const useCredentialsStore = create<CredentialsStore>((set) => ({
   musicKitInstance: null,
   updateMusicKitInstance: (newMusicKitInstance: any) =>
     set({ musicKitInstance: newMusicKitInstance }),
 
-  spotifyUserToken: null,
-  updateSpotifyUserToken: (spotifyUserToken: string) =>
-    set({ spotifyUserToken: spotifyUserToken }),
+  spotifyApiHelper: new SpotifyApiHelper(),
 }));
 
-export default useStore;
+export const useCredentialsPersistantStore = create(
+  persist<CredentialsPersistentStore>(
+    (set) => ({
+      spotifyAuthorizationCode: null,
+      updateSpotifyAuthorizationCode: (spotifyAuthorizationCode: string) =>
+        set({ spotifyAuthorizationCode: spotifyAuthorizationCode }),
+
+      spotifyCodeVerifier: null,
+      updateSpotifyCodeVerifier: (spotifyCodeVerifier: string | null) =>
+        set({ spotifyCodeVerifier: spotifyCodeVerifier }),
+
+      spotifyAccessToken: null,
+      updateSpotifyAccessToken: (spotifyAccessToken: string) =>
+        set({ spotifyAccessToken: spotifyAccessToken }),
+
+      spotifyRefreshToken: null,
+      updateSpotifyRefreshToken: (spotifyRefreshToken: string) =>
+        set({ spotifyRefreshToken: spotifyRefreshToken }),
+    }),
+    {
+      name: "credentials-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
