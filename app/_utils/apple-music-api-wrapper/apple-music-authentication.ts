@@ -1,12 +1,12 @@
-export async function authentication() {
+export async function AppleMusicAuthentication() {
   try {
     if ((window as any).MusicKit) {
       // Configure MusicKit
       const musicKitInstance = await (window as any).MusicKit.configure({
-        developerToken: "YOUR_DEVELO",
+        developerToken: process.env.NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN,
         app: {
-          name: "Your App Name",
-          build: "Your App Version",
+          name: process.env.NEXT_PUBLIC_APP_NAME,
+          build: process.env.NEXT_PUBLIC_APP_BUILD,
         },
       });
 

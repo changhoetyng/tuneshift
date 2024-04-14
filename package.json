@@ -1,6 +1,6 @@
 {
   "name": "tuneshift",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "author": {
     "name": "Max Chang Hoe Tyng",
@@ -17,7 +17,8 @@
     "clsx": "^2.1.0",
     "next": "14.1.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.24.1",
