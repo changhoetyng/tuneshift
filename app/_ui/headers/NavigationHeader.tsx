@@ -1,8 +1,8 @@
 import HeaderButton from "@/app/_ui/buttons/HeaderButton";
 import Image from "next/image";
 import Link from "next/link";
-import TuneShift from "@/public/tuneshift.svg";
-import GithubLogo from "@/public/github-mark-white.svg";
+import TuneShift from "@/public/TuneShift.svg";
+import GithubLogo from "@/public//github-mark-white.svg";
 
 export default async function NavigationHeader() {
   return (

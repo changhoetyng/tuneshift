@@ -1,5 +1,5 @@
 import DestinationSelection from "@/app/migrate/_ui/DestinationSelection";
-import AppleMusicLogo from "@/public/Apple_Music_logo.svg";
+import AppleMusicLogo from "@/public//Apple_Music_logo.svg";
 import RoundedBorderCard from "@/app/_ui/card/RoundedBorderCard";
 
 export default async function Migrate() {
