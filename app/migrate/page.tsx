@@ -6,7 +6,7 @@ export default async function Migrate() {
   return (
     <div className="flex flex-col items-center transition-all ease-in-out animate-fadeInUpFast ">
       <h1 className="text-4xl text-center">Destination</h1>
-      <div className="grid grid-cols-4 gap-12 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 mt-6">
         <DestinationSelection
           logo={AppleMusicLogo}
           onClickLink="/migrate-to-apple-music"

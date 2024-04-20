@@ -15,11 +15,11 @@ export default function SpotifyAuthenticationRedirection() {
     spotifyCodeVerifier: state.spotifyCodeVerifier,
   }));
 
-  const { updateSpotifyCodeVerifier } = useCredentialsPersistantStore(
-    (state) => ({
-      updateSpotifyCodeVerifier: state.updateSpotifyCodeVerifier,
-    })
-  );
+  const { updateSpotifyAccessToken, updateSpotifyRefreshToken } =
+    useCredentialsPersistantStore((state) => ({
+      updateSpotifyAccessToken: state.updateSpotifyAccessToken,
+      updateSpotifyRefreshToken: state.updateSpotifyRefreshToken,
+    }));
 
   const { spotifyApiHelper } = useCredentialsStore((state) => ({
     spotifyApiHelper: state.spotifyApiHelper,
@@ -37,8 +37,8 @@ export default function SpotifyAuthenticationRedirection() {
           redirectionLink
         );
 
-        console.log(response);
-        updateSpotifyCodeVerifier(null);
+        updateSpotifyAccessToken(response.access_token);
+        updateSpotifyRefreshToken(response.refresh_token);
       }
       if (redirectionLink) {
         router.push(redirectionLink);
@@ -54,7 +54,8 @@ export default function SpotifyAuthenticationRedirection() {
     searchParams,
     spotifyCodeVerifier,
     spotifyApiHelper,
-    updateSpotifyCodeVerifier,
+    updateSpotifyAccessToken,
+    updateSpotifyRefreshToken,
   ]);
 
   return (

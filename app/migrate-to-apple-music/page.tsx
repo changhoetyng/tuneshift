@@ -41,7 +41,7 @@ export default function MigrateToAppleMusic() {
   }
 
   async function retrieveToken() {
-    spotifyApiHelper.retrieveToken();
+    spotifyApiHelper.retrieveLink();
   }
   async function spotifyAuthenticator() {
     const clientId = `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}`;
