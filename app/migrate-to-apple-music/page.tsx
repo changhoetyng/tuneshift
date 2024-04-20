@@ -11,16 +11,22 @@ import { sha256 } from "@/app/_utils/global-utils/generateSHA256";
 import { base64encode } from "@/app/_utils/global-utils/base64encode";
 import RoundedBorderCard from "@/app/_ui/card/RoundedBorderCard";
 import SessionRectangleCard from "@/app/_ui/card/SessionRectangleCard";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useUIStateStore } from "@/stores/UIStateStore";
 
 // import { Store } from "react-notifications-component";
 export default function MigrateToAppleMusic() {
   const [key, setKey] = useState(2);
-  const [showKey, setShowKey] = useState(false);
+  const [showKey, setShowKey] = useState(0);
   const { musicKitInstance } = useCredentialsStore((state) => ({
     musicKitInstance: state.musicKitInstance,
   }));
   const [isAppleMusicLoggedIn, setIsAppleMusicLoggedIn] = useState(false);
+  const { updateErrorMessage, updateErrorTitle, updateErrorRendererKey } =
+    useUIStateStore((state) => ({
+      updateErrorMessage: state.updateErrorMessage,
+      updateErrorTitle: state.updateErrorTitle,
+      updateErrorRendererKey: state.updateErrorRendererKey,
+    }));
 
   useEffect(() => {
     setIsAppleMusicLoggedIn(musicKitInstance?.isAuthorized);
@@ -40,21 +46,9 @@ export default function MigrateToAppleMusic() {
     console.log("LOGGING IN TO APPLE MUSIC");
     if (musicKitInstance) {
       await musicKitInstance.authorize().catch(() => {
-        setShowKey(true);
-        console.log("siu");
-        // Store.addNotification({
-        //   title: "Wonderful!",
-        //   message: "teodosii@react-notifications-component",
-        //   type: "danger",
-        //   insert: "top",
-        //   container: "top-right",
-        //   animationIn: ["animate__animated", "animate__fadeIn"],
-        //   animationOut: ["animate__animated", "animate__fadeOut"],
-        //   dismiss: {
-        //     duration: 5000,
-        //     onScreen: true,
-        //   },
-        // });
+        updateErrorRendererKey();
+        updateErrorTitle("Error");
+        updateErrorMessage("Error logging in to Apple Music");
       });
     } else {
       setKey((prevKey) => prevKey + 1);
@@ -119,21 +113,7 @@ export default function MigrateToAppleMusic() {
   return (
     <div>
       <MusicKitInitializer key={key} />
-      <Alert className="absolute z-30 bg-background bg-zinc-900 top-22 right-10 w-64">
-        <AlertTitle>Heads up!</AlertTitle>
-        <AlertDescription>
-          You can add components and dependencies to your app using the cli.
-        </AlertDescription>
-      </Alert>
       <div className="flex flex-row w-full justify-between">
-        {/* <RountedButton className="mt-10" onClick={fetchData}>
-          Log in to Apple Music
-        </RountedButton>
-
-        <RountedButton className="mt-10" onClick={spotifyAuthenticator}>
-          Log in to Spotify
-        </RountedButton> */}
-
         <SessionRectangleCard
           musicStreamingServiceName="Apple Music"
           isLoggedIn={isAppleMusicLoggedIn}
