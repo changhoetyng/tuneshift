@@ -12,6 +12,7 @@ import { base64encode } from "@/app/_utils/global-utils/base64encode";
 import RoundedBorderCard from "@/app/_ui/card/RoundedBorderCard";
 import SessionRectangleCard from "@/app/_ui/card/SessionRectangleCard";
 import { useUIStateStore } from "@/stores/UIStateStore";
+import PlaylistCard from "../_utils/playlist-card/PlaylistCard";
 
 // import { Store } from "react-notifications-component";
 export default function MigrateToAppleMusic() {
@@ -73,7 +74,7 @@ export default function MigrateToAppleMusic() {
   }
 
   async function retrieveToken() {
-    spotifyApiHelper.getPlaylistSongs(10, 0);
+    spotifyApiHelper.retrieveLink();
   }
   async function spotifyAuthenticator() {
     const clientId = `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}`;
@@ -120,8 +121,12 @@ export default function MigrateToAppleMusic() {
           onLogout={logoutFromAppleMusic}
           onLogin={loginToAppleMusic}
         />
+        <button onClick={retrieveToken}>click</button>
+        <button onClick={spotifyAuthenticator}>login spotify</button>
       </div>
-
+      <div>
+        <PlaylistCard />
+      </div>
       <div className="border-2 border-fuchsia-500 rounded-lg">
         <RoundedBorderCard className="flex flex-col justify-center items-center">
           <div className="flex flex-row justify-center self-center mt-16">
