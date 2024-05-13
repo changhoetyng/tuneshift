@@ -19,7 +19,7 @@ export default function RoundedBorderCard({
   return (
     <div
       className={clsx(
-        "h-full justify-between flex-nowrap rounded-lg bg-white/15 p-5 h-64 w-56 border-x border-y border-white/50 bg-white/10 hover:border-purple-400/70 hover:bg-purple-400/20 transition-all duration-300 ease-out ",
+        "h-full justify-between flex-nowrap rounded-lg bg-white/15 p-5 h-64 w-56 border-x border-y border-white/50 bg-white/10 hover:border-purple-400/70 hover:bg-purple-400/20 hover:scale-110 transition-all duration-300 ease-out ",
         className
       )}
     >
