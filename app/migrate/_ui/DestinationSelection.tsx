@@ -6,14 +6,19 @@ import Link from "next/link";
 interface DestinationSelectionProps {
   logo?: StaticImageData;
   onClickLink: string;
+  title: string;
+  titleHighlight: string;
 }
 
 export default async function DestinationSelection({
   logo,
   onClickLink,
+  title,
+  titleHighlight
 }: DestinationSelectionProps) {
   return (
-    <RoundedBorderCard className="flex flex-col justify-center items-center">
+    <RoundedBorderCard className="flex flex-nowrap flex-col justify-between items-stretch"> {/* < Tailwind here doesnt work */}
+    
       {logo && (
         <Image
           src={logo}
@@ -24,11 +29,15 @@ export default async function DestinationSelection({
           priority
         />
       )}
-      <div className="flex flex-row justify-center self-center mt-16">
-        <Link href={onClickLink}>
-          <RountedButton className="w-24">Migrate</RountedButton>
-        </Link>
-      </div>
+      {title && <h2 className="block w-full self-center self-end font-bold text-xl mt-auto leading-6">
+          {title.split('\\n').map((line, index) => ( //To insert line break from string
+            <span className="opacity-50" key={index}>{line}<br /></span>
+          ))}
+          {titleHighlight.split('\\n').map((line, index) => ( //To insert line break from string
+            <span key={index}>{line}<br /></span>
+          ))}
+      </h2>}
+      
     </RoundedBorderCard>
   );
 }
