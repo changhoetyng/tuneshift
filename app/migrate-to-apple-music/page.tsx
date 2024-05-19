@@ -12,7 +12,8 @@ import { base64encode } from "@/app/_utils/global-utils/base64encode";
 import RoundedBorderCard from "@/app/_ui/card/RoundedBorderCard";
 import SessionRectangleCard from "@/app/_ui/card/SessionRectangleCard";
 import { useUIStateStore } from "@/stores/UIStateStore";
-import PlaylistCard from "../_utils/playlist-card/PlaylistCard";
+import PlaylistCard from "../_ui/card/PlaylistCard";
+import FloatingIsland from "../_ui/buttons/FloatingIsland";
 
 // import { Store } from "react-notifications-component";
 export default function MigrateToAppleMusic() {
@@ -126,6 +127,7 @@ export default function MigrateToAppleMusic() {
       </div>
       <div>
         <PlaylistCard />
+        <FloatingIsland islandText="1 Selected" />
       </div>
       <div className="border-2 border-fuchsia-500 rounded-lg">
         <RoundedBorderCard className="flex flex-col justify-center items-center">

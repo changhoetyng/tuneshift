@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      transitionDelay: {
+        "4000": "4000ms",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

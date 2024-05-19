@@ -18,10 +18,78 @@
   animation: blink 1.3s infinite;
 }
 
+@keyframes expand {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 160px;
+  }
+}
+
+.expand-animation {
+  animation: expand 0.4s ease-out forwards;
+}
+
+@keyframes shrink {
+  0% {
+    width: 160px;
+  }
+  100% {
+    width: 0px;
+  }
+}
+
+.shrink-animation {
+  animation: shrink 0.4s ease-out forwards;
+}
+
+@keyframes showOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.show-word {
+  animation: showOpacity 0.6s ease-out forwards;
+  opacity: 0;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes hideOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.hide-word {
+  animation: hideOpacity 0.6s ease-out forwards;
+  opacity: 1;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.hide-icon {
+  animation: hideOpacity 0.2s ease-out forwards;
+  opacity: 1;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 @layer base {
   :root {
-    --background: "#18181b";
-    --foreground: "#ffffff";
+    --background: 240, 5%, 10%;
+    --foreground: 0, 0%, 100%;
 
     --card: 0 0% 100%;
     --card-foreground: 224 71.4% 4.1%;
@@ -29,10 +97,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
 
-    --primary: 220.9 39.3% 11%;
-    --primary-foreground: 210 20% 98%;
+    --primary: 292.31, 79.92%, 60.59%;
+    --secondary: 0, 0%, 23.5%;
+    /* --primary-foreground: 210 20% 98%; */
 
-    --secondary: 220 14.3% 95.9%;
+    /* --secondary: 220 14.3% 95.9%; */
     --secondary-foreground: 220.9 39.3% 11%;
 
     --muted: 220 14.3% 95.9%;
@@ -51,7 +120,7 @@
     --radius: 0.5rem;
   }
 
-  .dark {
+  /* .dark {
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
 
@@ -79,7 +148,7 @@
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 216 12.2% 83.9%;
-  }
+  } */
 }
 
 @layer base {

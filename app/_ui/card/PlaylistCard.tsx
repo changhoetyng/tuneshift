@@ -28,21 +28,25 @@ export default function PlaylistCard() {
             background: `linear-gradient(0.3turn, rgb(${data[0]}), rgb(${data[1]}), rgb(${data[2]}))`,
           }
         : {};
-      setBackgroundStyle(newBackgroundStyle);
+
       // Calculate brightness of the first color in the palette
-      const brightness = (color[0] / 255.0) * 0.3 + (color[1] / 255.0) * 0.59 + (color[2] / 255.0) * 0.11;
+      const brightness =
+        (color[0] / 255.0) * 0.3 +
+        (color[1] / 255.0) * 0.59 +
+        (color[2] / 255.0) * 0.11;
       // If brightness is above 125, set text color to white
-      console.log("Brightness", brightness);
       if (brightness > 0.4) {
         setTextColor("black");
       } else {
         setTextColor("white");
       }
-      console.log("Background Style", newBackgroundStyle);
+      setBackgroundStyle(newBackgroundStyle);
     };
 
     sample_image.crossOrigin = "anonymous";
-    const playlistImage = document.getElementById("playlist-image") as HTMLImageElement;
+    const playlistImage = document.getElementById(
+      "playlist-image"
+    ) as HTMLImageElement;
     if (playlistImage) {
       sample_image.src = playlistImage.src;
     }
@@ -50,15 +54,17 @@ export default function PlaylistCard() {
 
   return (
     <div className={clsx(styles["playlist-card"])} style={backgroundStyle}>
-      {/* <div className={styles["playlist-card"], style={backgroundStyle}}> */}
       <img
         ref={imgRef}
         src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da848c816e34bfa173c33187b6bf"
         id="playlist-image"
+        onLoad={extractImagePalette}
         width={130}
         alt="playlist"
       />
-      <h3 className="mt-3" style={{ color: textColor }}>Playlist Name</h3>
+      <h3 className="mt-3" style={{ color: textColor }}>
+        Playlist Name
+      </h3>
     </div>
   );
 }
