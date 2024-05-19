@@ -1,18 +1,11 @@
 "use client";
 
-import NavigationButton from "../_ui/buttons/NavigationButton";
-import FloatingCard from "../_ui/card/FloatingCard";
+import AuthenticationStep from "../_ui/migration-steps/AuthenticationStep";
 
 export default function MigrateToAppleMusic() {
   return (
     <div>
-      <FloatingCard
-        optionsBar={
-          <NavigationButton className="mt-4">Back to Options</NavigationButton>
-        }
-      >
-        Hello, world!
-      </FloatingCard>
+      <AuthenticationStep title="Migrate To Apple Music" />
     </div>
   );
 }

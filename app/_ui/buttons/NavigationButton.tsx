@@ -3,8 +3,8 @@ import BackArrow from "@/public/BackArrow.svg";
 import Image from "next/image";
 
 interface NavigationButtonProps {
-  children: React.ReactNode;
-  className: string;
+  children?: React.ReactNode;
+  className?: string;
 }
 
 export default function NavigationButton({
