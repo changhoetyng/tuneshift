@@ -8,7 +8,7 @@ interface VerticalSteps {
 }
 
 interface StepDataTypes {
-  title: string;
+  step: string;
   isDone: boolean;
   element: React.ReactNode;
 }
@@ -33,7 +33,7 @@ export default function VerticalSteps({
                 step.isDone ? "bg-green-500" : "bg-primary"
               )}
             >
-              {step.title}
+              {step.step}
             </Steps>
             <div>{step.element}</div>
           </div>

@@ -20,22 +20,24 @@ export default function AuthenticationStep({ title }: AuthenticationStepProps) {
           height={80}
           steps={[
             {
-              title: "1",
+              step: "1",
               isDone: true,
               element: (
                 <LongRoundedButton>Log In to Apple Music</LongRoundedButton>
               ),
             },
             {
-              title: "2",
+              step: "2",
               isDone: true,
-              element: <LongRoundedButton>Step 2</LongRoundedButton>,
+              element: <LongRoundedButton>Log In to Spotify</LongRoundedButton>,
             },
             {
-              title: "3",
+              step: "3",
               isDone: false,
               element: (
-                <LongRoundedButton disabled={true}>Step 3</LongRoundedButton>
+                <LongRoundedButton disabled={true}>
+                  Select Playlists
+                </LongRoundedButton>
               ),
             },
           ]}

@@ -6,12 +6,14 @@ interface LongRoundedButtonProps {
   children: React.ReactNode;
   className?: string;
   disabled?: boolean; // Added disabled prop
+  showArrow?: boolean;
 }
 
 export default function LongRoundedButton({
   children,
   className,
-  disabled = false, // Default value for disabled prop
+  disabled = false,
+  showArrow = false,
 }: LongRoundedButtonProps) {
   return (
     <div
@@ -29,9 +31,11 @@ export default function LongRoundedButton({
       onClick={!disabled ? () => {} : undefined}
     >
       <div>{children}</div>
-      <div>
-        <Image src={RightArrow} alt="RightArrow" height={15} />
-      </div>
+      {showArrow && (
+        <div>
+          <Image src={RightArrow} alt="RightArrow" height={15} />
+        </div>
+      )}
     </div>
   );
 }
