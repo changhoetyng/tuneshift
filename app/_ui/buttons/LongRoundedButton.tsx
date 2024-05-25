@@ -7,6 +7,7 @@ interface LongRoundedButtonProps {
   className?: string;
   disabled?: boolean; // Added disabled prop
   showArrow?: boolean;
+  onClick?: () => void;
 }
 
 export default function LongRoundedButton({
@@ -14,9 +15,11 @@ export default function LongRoundedButton({
   className,
   disabled = false,
   showArrow = false,
+  onClick,
+  ...rest
 }: LongRoundedButtonProps) {
   return (
-    <div
+    <button
       style={{ width: "300px" }}
       className={clsx(
         "rounded-lg h-9 font-bold pl-4 pr-4 pt-1 pb-1 bg-secondary border border-white text-white flex justify-between items-center",
@@ -26,9 +29,8 @@ export default function LongRoundedButton({
           "cursor-pointer": !disabled,
         } // Apply disabled styles
       )}
-      // Disable the button if disabled prop is true
-      // You can also add other event handlers if needed
-      onClick={!disabled ? () => {} : undefined}
+      onClick={!disabled ? onClick : undefined}
+      {...rest}
     >
       <div>{children}</div>
       {showArrow && (
@@ -36,6 +38,6 @@ export default function LongRoundedButton({
           <Image src={RightArrow} alt="RightArrow" height={15} />
         </div>
       )}
-    </div>
+    </button>
   );
 }

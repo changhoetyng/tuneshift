@@ -1,11 +1,14 @@
 "use client";
-
 import FloatingCard from "@/app/_ui/card/FloatingCard";
 import NavigationButton from "@/app/_ui/buttons/NavigationButton";
 import VerticalSteps from "@/app/_ui/widgets/VerticalSteps";
-import LongRoundedButton from "@/app/_ui/buttons/LongRoundedButton";
+import { useCredentialsStore } from "@/stores/credentialsStore";
+import LoginToAppleMusic from "@/app/_ui/migration-steps/LogInToAppleMusic";
 
 export default function MigrateToAppleMusic() {
+  const { isMusicKitInstanceAuthorized } = useCredentialsStore((state) => ({
+    isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
+  }));
   return (
     <div>
       <FloatingCard
@@ -19,24 +22,8 @@ export default function MigrateToAppleMusic() {
           steps={[
             {
               step: "1",
-              isDone: true,
-              element: (
-                <LongRoundedButton>Log In to Apple Music</LongRoundedButton>
-              ),
-            },
-            {
-              step: "2",
-              isDone: true,
-              element: <LongRoundedButton>Log In to Spotify</LongRoundedButton>,
-            },
-            {
-              step: "3",
-              isDone: false,
-              element: (
-                <LongRoundedButton disabled={true}>
-                  Select Playlists
-                </LongRoundedButton>
-              ),
+              isDone: isMusicKitInstanceAuthorized,
+              element: <LoginToAppleMusic />,
             },
           ]}
         ></VerticalSteps>

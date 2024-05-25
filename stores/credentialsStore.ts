@@ -5,6 +5,8 @@ import SpotifyApiHelper from "@/app/_utils/spotify-api-wrapper/SpotifyApiHelper"
 type CredentialsStore = {
   musicKitInstance: any;
   updateMusicKitInstance: (newMusicKitInstance: any) => void;
+  updateIsMusicKitAuthorized: (isMusicKitAuthorized: any) => void;
+  isMusicKitInstanceAuthorized: boolean;
   spotifyApiHelper: SpotifyApiHelper;
 };
 
@@ -20,9 +22,12 @@ type CredentialsPersistentStore = {
 
 export const useCredentialsStore = create<CredentialsStore>((set) => ({
   musicKitInstance: null,
+  isMusicKitInstanceAuthorized: false,
   updateMusicKitInstance: (newMusicKitInstance: any) =>
     set({ musicKitInstance: newMusicKitInstance }),
 
+  updateIsMusicKitAuthorized: (isMusicKitAuthorized: boolean) =>
+    set({ isMusicKitInstanceAuthorized: isMusicKitAuthorized }),
   spotifyApiHelper: new SpotifyApiHelper(),
 }));
 
