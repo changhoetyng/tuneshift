@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import NavigationHeader from "@/app/_ui/headers/NavigationHeader";
 import "./globals.css";
-import ErrorNotificationComponent from "@/app/_ui/global/ErrorNotificationComponent";
+import NotificationComponent from "@/app/_ui/global/NotificationComponent";
 
 export const metadata: Metadata = {
   title: "TuneShift",
@@ -20,7 +20,7 @@ export default function RootLayout({
           <NavigationHeader />
         </div>
         <div className="flex-grow">
-          <ErrorNotificationComponent />
+          <NotificationComponent />
           {children}
         </div>
       </body>

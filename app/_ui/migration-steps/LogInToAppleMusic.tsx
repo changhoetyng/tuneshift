@@ -17,12 +17,15 @@ export default function LoginToAppleMusic() {
     updateIsMusicKitAuthorized: state.updateIsMusicKitAuthorized,
   }));
   //   const [isAppleMusicLoggedIn, setIsAppleMusicLoggedIn] = useState(false);
-  const { updateErrorMessage, updateErrorTitle, updateErrorRendererKey } =
-    useUIStateStore((state) => ({
-      updateErrorMessage: state.updateErrorMessage,
-      updateErrorTitle: state.updateErrorTitle,
-      updateErrorRendererKey: state.updateErrorRendererKey,
-    }));
+  const {
+    updateNotificationMessage,
+    updateNotificationTitle,
+    updateNotificationRendererKey,
+  } = useUIStateStore((state) => ({
+    updateNotificationMessage: state.updateNotificationMessage,
+    updateNotificationTitle: state.updateNotificationTitle,
+    updateNotificationRendererKey: state.updateNotificationRendererKey,
+  }));
 
   useEffect(() => {
     updateIsMusicKitAuthorized(musicKitInstance?.isAuthorized);
@@ -30,28 +33,44 @@ export default function LoginToAppleMusic() {
   }, [musicKitInstance, updateIsMusicKitAuthorized]);
 
   async function onLoginAppleMusic() {
-    console.log("LOGGING IN TO APPLE MUSIC");
     if (musicKitInstance) {
-      await musicKitInstance.authorize().catch(() => {
-        updateErrorRendererKey();
-        updateErrorTitle("Error");
-        updateErrorMessage("Error logging in to Apple Music");
-      });
+      await musicKitInstance
+        .authorize()
+        .then(() => {
+          updateNotificationRendererKey();
+          updateNotificationTitle("Success!");
+          updateNotificationMessage("Logged in to Apple Music");
+        })
+        .catch(() => {
+          updateNotificationRendererKey();
+          updateNotificationTitle("Error!");
+          updateNotificationMessage("Error logging in to Apple Music");
+        });
     } else {
       setKey((prevKey) => prevKey + 1);
       if (musicKitInstance) {
-        await musicKitInstance.authorize().catch(() => {
-          console.log("LOGGED IN DONE TO APPLE MUSIC");
-        });
+        await musicKitInstance
+          .authorize()
+          .then(() => {
+            updateNotificationRendererKey();
+            updateNotificationTitle("Success!");
+            updateNotificationMessage("Logged in to Apple Music");
+          })
+          .catch(() => {
+            updateNotificationRendererKey();
+            updateNotificationTitle("Error!");
+            updateNotificationMessage("Error logging in to Apple Music");
+          });
       }
     }
     updateIsMusicKitAuthorized(musicKitInstance?.isAuthorized);
-    console.log("LOGGED IN SUCCESS TO APPLE MUSIC");
-    console.log(musicKitInstance.isAuthorized);
   }
   async function onLogoutAppleMusic() {
     if (musicKitInstance) {
       await musicKitInstance.unauthorize();
+      updateNotificationRendererKey();
+      updateNotificationTitle("Success!");
+      updateNotificationMessage("Logged out from Apple Music");
       updateIsMusicKitAuthorized(musicKitInstance?.isAuthorized);
     }
   }

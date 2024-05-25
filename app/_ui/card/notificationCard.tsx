@@ -6,12 +6,12 @@ import { Progress } from "@/components/ui/progress";
 
 export default function ErrorNotificationCard({
   triggerError,
-  errorDescription,
-  errorTitle,
+  notificationDescription,
+  notificationTitle,
 }: {
   triggerError: number;
-  errorDescription: string;
-  errorTitle: string;
+  notificationDescription: string;
+  notificationTitle: string;
 }) {
   const [progress, setProgress] = useState(100);
   useEffect(() => {
@@ -38,9 +38,9 @@ export default function ErrorNotificationCard({
           className="absolute z-30 bg-background bg-zinc-900 top-22 right-10 w-64 cursor-pointer"
           onClick={onCloseNotification}
         >
-          <AlertTitle>{errorTitle}</AlertTitle>
-          <AlertDescription>{errorDescription}</AlertDescription>
-          <Progress value={progress} />
+          <AlertTitle>{notificationTitle}</AlertTitle>
+          <AlertDescription>{notificationDescription}</AlertDescription>
+          <Progress className="mt-3" value={progress} />
         </Alert>
       )}
     </>
