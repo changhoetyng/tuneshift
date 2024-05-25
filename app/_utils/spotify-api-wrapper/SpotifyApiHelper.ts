@@ -34,10 +34,20 @@ export default class SpotifyApiHelper {
           error.config.__isRetryRequest = true;
           return this.spotifyApi.request(error.config);
         } else {
+          useCredentialsPersistantStore
+            .getState()
+            .updateSpotifyAccessToken(null);
+          useCredentialsPersistantStore
+            .getState()
+            .updateSpotifyRefreshToken(null);
           return Promise.reject(error);
         }
       }
     );
+  }
+
+  async getProfile() {
+    return this.spotifyApi.get("https://api.spotify.com/v1/me");
   }
 
   async getPlaylistList(limit: number, offset: number) {

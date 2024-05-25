@@ -6,6 +6,7 @@ import {
   useCredentialsStore,
 } from "@/stores/credentialsStore";
 import retrieveTokenWithCode from "@/app/_utils/spotify-api-wrapper/retrieveTokenWithCode";
+import { useUIStateStore } from "@/stores/UIStateStore";
 
 export default function SpotifyAuthenticationRedirection() {
   const router = useRouter();
@@ -20,6 +21,16 @@ export default function SpotifyAuthenticationRedirection() {
       updateSpotifyAccessToken: state.updateSpotifyAccessToken,
       updateSpotifyRefreshToken: state.updateSpotifyRefreshToken,
     }));
+
+  const {
+    updateNotificationMessage,
+    updateNotificationTitle,
+    updateNotificationRendererKey,
+  } = useUIStateStore((state) => ({
+    updateNotificationMessage: state.updateNotificationMessage,
+    updateNotificationTitle: state.updateNotificationTitle,
+    updateNotificationRendererKey: state.updateNotificationRendererKey,
+  }));
 
   const { spotifyApiHelper } = useCredentialsStore((state) => ({
     spotifyApiHelper: state.spotifyApiHelper,
@@ -41,6 +52,9 @@ export default function SpotifyAuthenticationRedirection() {
         updateSpotifyRefreshToken(response.refresh_token);
       }
       if (redirectionLink) {
+        updateNotificationRendererKey();
+        updateNotificationTitle("Success!");
+        updateNotificationMessage("Logged in to Spotify");
         router.push(redirectionLink);
       } else {
         router.push("/");

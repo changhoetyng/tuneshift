@@ -30,7 +30,10 @@ export default function VerticalSteps({
             <Steps
               className={clsx(
                 "mr-5",
-                step.isDone ? "bg-green-500" : "bg-primary"
+
+                steps.every((e, idx) => (idx > index ? true : e.isDone))
+                  ? "bg-green-500"
+                  : "bg-primary"
               )}
             >
               {step.step}

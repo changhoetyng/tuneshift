@@ -2,13 +2,24 @@
 import FloatingCard from "@/app/_ui/card/FloatingCard";
 import NavigationButton from "@/app/_ui/buttons/NavigationButton";
 import VerticalSteps from "@/app/_ui/widgets/VerticalSteps";
-import { useCredentialsStore } from "@/stores/credentialsStore";
+import {
+  useCredentialsStore,
+  useCredentialsPersistantStore,
+} from "@/stores/credentialsStore";
 import LoginToAppleMusic from "@/app/_ui/migration-steps/LogInToAppleMusic";
+import LoginToSpotify from "@/app/_ui/migration-steps/LoginToSpotify";
 
 export default function MigrateToAppleMusic() {
   const { isMusicKitInstanceAuthorized } = useCredentialsStore((state) => ({
     isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
   }));
+
+  const { spotifyAccessToken, updateSpotifyCodeVerifier } =
+    useCredentialsPersistantStore((state) => ({
+      updateSpotifyCodeVerifier: state.updateSpotifyCodeVerifier,
+      spotifyAccessToken: state.spotifyAccessToken,
+    }));
+
   return (
     <div>
       <FloatingCard
@@ -24,6 +35,11 @@ export default function MigrateToAppleMusic() {
               step: "1",
               isDone: isMusicKitInstanceAuthorized,
               element: <LoginToAppleMusic />,
+            },
+            {
+              step: "2",
+              isDone: spotifyAccessToken != null,
+              element: <LoginToSpotify />,
             },
           ]}
         ></VerticalSteps>
