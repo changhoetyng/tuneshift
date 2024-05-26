@@ -31,14 +31,22 @@ export default function MigrateToAppleMusic() {
 
   function onSelectPlaylist() {
     updateCanMigrate(true);
-    router.push("/playlist-selection?from=apple-music-to-spotify");
+    router.push("/playlist-selection?from=spotify-to-apple-music");
+  }
+
+  function backToOptions() {
+    router.push("/" + "migrate");
   }
 
   return (
     <div>
       <FloatingCard
         className="pl-14 pr-14 pb-14 pt-8"
-        optionsBar={<NavigationButton>Back to Options</NavigationButton>}
+        optionsBar={
+          <NavigationButton onClick={backToOptions}>
+            Back to Options
+          </NavigationButton>
+        }
       >
         <h1 className="text-2xl text-center">Migrate To Apple Music</h1>
         <VerticalSteps

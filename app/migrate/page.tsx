@@ -8,7 +8,7 @@ export default async function Migrate() {
     <div className="flex flex-col justify-center items-center h-full transition-all ease-in-out animate-fadeInUpFast ">
       <h1 className="text-3xl text-center font-bold p-6">Migrate Playlists</h1>
       <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 gap-12 mt-6">
-        <Link href="/migrate-to-apple-music">
+        <Link href="/spotify-to-apple-music">
           <DestinationSelection
             logo={AppleToSpotifyImage}
             className="cursor-pointer"

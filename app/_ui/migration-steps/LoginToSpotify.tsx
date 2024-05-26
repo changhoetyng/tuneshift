@@ -48,7 +48,7 @@ export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
   async function spotifyAuthenticator() {
     try {
       const clientId = `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}`;
-      const redirectUri = `${process.env.NEXT_PUBLIC_APP_CURRENT_URL}/spotify-authentication-redirection?redirect_link=/migrate-to-apple-music`;
+      const redirectUri = `${process.env.NEXT_PUBLIC_APP_CURRENT_URL}/spotify-authentication-redirection?redirect_link=/spotify-to-apple-music`;
 
       const codeVerifier = generateRandomString(64);
       const hashed = await sha256(codeVerifier);
