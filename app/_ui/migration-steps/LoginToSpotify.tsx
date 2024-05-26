@@ -9,7 +9,7 @@ import { base64encode } from "@/app/_utils/global-utils/base64encode";
 import { useEffect } from "react";
 import { useUIStateStore } from "@/stores/UIStateStore";
 
-export default function LoginToSpotify() {
+export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
   const {
     spotifyAccessToken,
     updateSpotifyCodeVerifier,
@@ -37,9 +37,12 @@ export default function LoginToSpotify() {
   }));
 
   useEffect(() => {
-    if (spotifyAccessToken) {
-      spotifyApiHelper.getProfile();
+    async function fetchData() {
+      if (spotifyAccessToken) {
+        await spotifyApiHelper.getProfile().catch();
+      }
     }
+    fetchData();
   });
 
   async function spotifyAuthenticator() {
@@ -87,12 +90,12 @@ export default function LoginToSpotify() {
   return (
     <div>
       {spotifyAccessToken && (
-        <LongRoundedButton onClick={logoutFromSpotify}>
+        <LongRoundedButton onClick={logoutFromSpotify} disabled={disabled}>
           Logged In to Spotify
         </LongRoundedButton>
       )}
       {!spotifyAccessToken && (
-        <LongRoundedButton onClick={spotifyAuthenticator}>
+        <LongRoundedButton onClick={spotifyAuthenticator} disabled={disabled}>
           Log In to Spotify
         </LongRoundedButton>
       )}

@@ -8,6 +8,7 @@ import {
 } from "@/stores/credentialsStore";
 import LoginToAppleMusic from "@/app/_ui/migration-steps/LogInToAppleMusic";
 import LoginToSpotify from "@/app/_ui/migration-steps/LoginToSpotify";
+import ShowPlaylist from "@/app/_ui/migration-steps/ShowPlaylist";
 
 export default function MigrateToAppleMusic() {
   const { isMusicKitInstanceAuthorized } = useCredentialsStore((state) => ({
@@ -34,12 +35,19 @@ export default function MigrateToAppleMusic() {
             {
               step: "1",
               isDone: isMusicKitInstanceAuthorized,
-              element: <LoginToAppleMusic />,
+              element: ({ disabled }) => (
+                <LoginToAppleMusic disabled={disabled} />
+              ),
             },
             {
               step: "2",
               isDone: spotifyAccessToken != null,
-              element: <LoginToSpotify />,
+              element: ({ disabled }) => <LoginToSpotify disabled={disabled} />,
+            },
+            {
+              step: "3",
+              isDone: true,
+              element: ({ disabled }) => <ShowPlaylist disabled={disabled} />,
             },
           ]}
         ></VerticalSteps>

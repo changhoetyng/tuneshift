@@ -5,7 +5,11 @@ import { useCredentialsStore } from "@/stores/credentialsStore";
 import MusicKitInitializer from "@/app/_utils/apple-music-api-wrapper/MusicKitInitializer";
 import { useUIStateStore } from "@/stores/UIStateStore";
 
-export default function LoginToAppleMusic() {
+export default function LoginToAppleMusic({
+  disabled,
+}: {
+  disabled?: boolean;
+}) {
   const [key, setKey] = useState(2);
   const {
     musicKitInstance,
@@ -79,12 +83,12 @@ export default function LoginToAppleMusic() {
     <div>
       <MusicKitInitializer key={key} />
       {!isMusicKitInstanceAuthorized && (
-        <LongRoundedButton onClick={onLoginAppleMusic}>
+        <LongRoundedButton onClick={onLoginAppleMusic} disabled={disabled}>
           Log In to Apple Music
         </LongRoundedButton>
       )}
       {isMusicKitInstanceAuthorized && (
-        <LongRoundedButton onClick={onLogoutAppleMusic}>
+        <LongRoundedButton onClick={onLogoutAppleMusic} disabled={disabled}>
           Logged In to Apple Music
         </LongRoundedButton>
       )}

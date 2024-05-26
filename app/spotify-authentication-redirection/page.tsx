@@ -70,6 +70,9 @@ export default function SpotifyAuthenticationRedirection() {
     spotifyApiHelper,
     updateSpotifyAccessToken,
     updateSpotifyRefreshToken,
+    updateNotificationRendererKey,
+    updateNotificationTitle,
+    updateNotificationMessage,
   ]);
 
   return (

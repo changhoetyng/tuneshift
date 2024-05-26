@@ -10,7 +10,7 @@ interface VerticalSteps {
 interface StepDataTypes {
   step: string;
   isDone: boolean;
-  element: React.ReactNode;
+  element: (props: any) => React.ReactNode;
 }
 
 export default function VerticalSteps({
@@ -18,6 +18,17 @@ export default function VerticalSteps({
   steps,
   className,
 }: VerticalSteps) {
+  function isStepDone(index: number) {
+    return steps.every((e, idx) => (idx > index ? true : e.isDone));
+  }
+
+  function shouldDisableStep(index: number) {
+    if (index === 0) return false; // The first step is never disabled
+    const previousStepDone = isStepDone(index - 1);
+    // If the previous step is not done then the current step should be disabled
+    return !previousStepDone;
+  }
+
   return (
     <div className={clsx("relative", className)}>
       {steps.map((step, index) => (
@@ -31,14 +42,16 @@ export default function VerticalSteps({
               className={clsx(
                 "mr-5",
 
-                steps.every((e, idx) => (idx > index ? true : e.isDone))
-                  ? "bg-green-500"
-                  : "bg-primary"
+                isStepDone(index) ? "bg-green-500" : "bg-primary"
               )}
             >
               {step.step}
             </Steps>
-            <div>{step.element}</div>
+            <div>
+              {step.element({
+                disabled: shouldDisableStep(index),
+              })}
+            </div>
           </div>
           {index !== steps.length - 1 && (
             <div
