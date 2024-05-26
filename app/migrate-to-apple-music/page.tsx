@@ -9,8 +9,16 @@ import {
 import LoginToAppleMusic from "@/app/_ui/migration-steps/LogInToAppleMusic";
 import LoginToSpotify from "@/app/_ui/migration-steps/LoginToSpotify";
 import ShowPlaylist from "@/app/_ui/migration-steps/ShowPlaylist";
+import { useRouter } from "next/navigation";
+import { useUIStateStore } from "@/stores/UIStateStore";
 
 export default function MigrateToAppleMusic() {
+  const router = useRouter();
+
+  const { updateCanMigrate } = useUIStateStore((state) => ({
+    updateCanMigrate: state.updateCanMigrate,
+  }));
+
   const { isMusicKitInstanceAuthorized } = useCredentialsStore((state) => ({
     isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
   }));
@@ -20,6 +28,11 @@ export default function MigrateToAppleMusic() {
       updateSpotifyCodeVerifier: state.updateSpotifyCodeVerifier,
       spotifyAccessToken: state.spotifyAccessToken,
     }));
+
+  function onSelectPlaylist() {
+    updateCanMigrate(true);
+    router.push("/playlist-selection?from=apple-music-to-spotify");
+  }
 
   return (
     <div>
@@ -47,7 +60,12 @@ export default function MigrateToAppleMusic() {
             {
               step: "3",
               isDone: true,
-              element: ({ disabled }) => <ShowPlaylist disabled={disabled} />,
+              element: ({ disabled }) => (
+                <ShowPlaylist
+                  disabled={disabled}
+                  onSelectPlaylist={onSelectPlaylist}
+                />
+              ),
             },
           ]}
         ></VerticalSteps>

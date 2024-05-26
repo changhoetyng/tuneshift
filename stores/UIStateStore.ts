@@ -7,6 +7,10 @@ type UIStateType = {
   updateNotificationTitle: (newNotificationTitle: string) => void;
   notificationMessage: string;
   updateNotificationMessage: (newNotificationMessage: string) => void;
+
+  // Migrate Context
+  canMigrate: boolean;
+  updateCanMigrate: (canShow: boolean) => void;
 };
 
 export const useUIStateStore = create<UIStateType>((set) => ({
@@ -21,4 +25,10 @@ export const useUIStateStore = create<UIStateType>((set) => ({
   notificationMessage: "",
   updateNotificationMessage: (newNotificationMessage: string) =>
     set({ notificationMessage: newNotificationMessage }),
+
+  canMigrate: false,
+  updateCanMigrate: (canShow: boolean) =>
+    set({
+      canMigrate: canShow,
+    }),
 }));
