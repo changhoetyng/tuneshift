@@ -14,9 +14,7 @@ export default function FloatingCard({
 }: FloatingCardProps) {
   return (
     <div
-      className={clsx(
-        "fixed inset-x-0 flex items-center justify-center flex-col"
-      )}
+      className={clsx("inset-x-0 flex items-center justify-center flex-col")}
     >
       <div>
         <div className="self-start mb-3">{optionsBar}</div>

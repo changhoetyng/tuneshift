@@ -32,7 +32,6 @@ export default function PlaylistCard({
       const color1 = data[0];
       const color2 = data[1];
       const color3 = data[2];
-      console.log("Color", data);
       const newBackgroundStyle = data
         ? {
             background: `linear-gradient(0.3turn, rgb(${data[0]}), rgb(${data[1]}), rgb(${data[2]}))`,
@@ -66,8 +65,6 @@ export default function PlaylistCard({
 
     sample_image.crossOrigin = "anonymous";
     const playlistImage = document.getElementById(id) as HTMLImageElement;
-
-    console.log("playlistImage", playlistImage, id);
 
     if (playlistImage) {
       sample_image.src = playlistImage.src;

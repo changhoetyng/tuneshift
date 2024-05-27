@@ -25,7 +25,7 @@ export default function FloatingIsland({ islandText }: IslandProps) {
   };
 
   return (
-    <div className={clsx("absolute inset-x-0 bottom-14 flex justify-center")}>
+    <div className={clsx("absolute inset-x-0 bottom-8 flex justify-center")}>
       <div
         className={clsx(
           "rounded-full h-12 w-40 bg-secondary relative flex mr-4 justify-center items-center",

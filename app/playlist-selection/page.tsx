@@ -8,6 +8,7 @@ import { PlaylistHelper } from "@/interfaces/PlaylistHelper";
 import { useCredentialsStore } from "@/stores/credentialsStore";
 import { UserPlaylist } from "@/types/playlists";
 import PlaylistCard from "@/app/_ui/card/PlaylistCard";
+import FloatingIsland from "@/app/_ui/buttons/FloatingIsland";
 
 export default function PlaylistSelection() {
   const router = useRouter();
@@ -87,16 +88,16 @@ export default function PlaylistSelection() {
   }, [apiHelper]);
 
   return (
-    <div>
+    <div className="mt-6 min-h-fit min-w-fit overflow-auto">
       <FloatingCard
-        className="pl-14 pr-14 pb-14 pt-8"
+        className="pl-20 pr-20 pb-14 pt-8 relative"
         optionsBar={
-          <NavigationButton onClick={() => backToFlow()}>
+          <NavigationButton className="mb-6" onClick={() => backToFlow()}>
             Back to Flow
           </NavigationButton>
         }
       >
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-6" style={{ minWidth: "860px" }}>
           {userPlaylists?.map((playlist, index) => (
             <PlaylistCard
               src={playlist.image}
@@ -106,6 +107,7 @@ export default function PlaylistSelection() {
             />
           ))}
         </div>
+        <FloatingIsland islandText="1 Selected" />
       </FloatingCard>
     </div>
   );
