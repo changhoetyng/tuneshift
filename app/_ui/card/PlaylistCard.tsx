@@ -4,7 +4,15 @@ import ColorThief from "colorthief";
 import { useRef, useEffect, useState } from "react";
 import clsx from "clsx";
 
-export default function PlaylistCard() {
+export default function PlaylistCard({
+  src,
+  name,
+  id,
+}: {
+  src: string;
+  name: string;
+  id: string;
+}) {
   const imgRef = useRef(null);
   const [backgroundStyle, setBackgroundStyle] = useState({});
   const [textColor, setTextColor] = useState("white");
@@ -21,8 +29,10 @@ export default function PlaylistCard() {
 
     sample_image.onload = () => {
       const data = color_thief.getPalette(sample_image);
-      const color = color_thief.getColor(sample_image);
-      console.log("Color", color);
+      const color1 = data[0];
+      const color2 = data[1];
+      const color3 = data[2];
+      console.log("Color", data);
       const newBackgroundStyle = data
         ? {
             background: `linear-gradient(0.3turn, rgb(${data[0]}), rgb(${data[1]}), rgb(${data[2]}))`,
@@ -30,12 +40,23 @@ export default function PlaylistCard() {
         : {};
 
       // Calculate brightness of the first color in the palette
-      const brightness =
-        (color[0] / 255.0) * 0.3 +
-        (color[1] / 255.0) * 0.59 +
-        (color[2] / 255.0) * 0.11;
-      // If brightness is above 125, set text color to white
-      if (brightness > 0.4) {
+      const brightness1 =
+        (color1[0] / 255.0) * 0.3 +
+        (color1[1] / 255.0) * 0.59 +
+        (color1[2] / 255.0) * 0.11;
+
+      const brightness2 =
+        (color2[0] / 255.0) * 0.3 +
+        (color2[1] / 255.0) * 0.59 +
+        (color2[2] / 255.0) * 0.11;
+
+      const brightness3 =
+        (color3[0] / 255.0) * 0.3 +
+        (color3[1] / 255.0) * 0.59 +
+        (color3[2] / 255.0) * 0.11;
+
+      const brightness = (brightness1 + brightness2 + brightness3) / 3;
+      if (brightness > 0.5) {
         setTextColor("black");
       } else {
         setTextColor("white");
@@ -44,9 +65,10 @@ export default function PlaylistCard() {
     };
 
     sample_image.crossOrigin = "anonymous";
-    const playlistImage = document.getElementById(
-      "playlist-image"
-    ) as HTMLImageElement;
+    const playlistImage = document.getElementById(id) as HTMLImageElement;
+
+    console.log("playlistImage", playlistImage, id);
+
     if (playlistImage) {
       sample_image.src = playlistImage.src;
     }
@@ -56,14 +78,14 @@ export default function PlaylistCard() {
     <div className={clsx(styles["playlist-card"])} style={backgroundStyle}>
       <img
         ref={imgRef}
-        src="https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da848c816e34bfa173c33187b6bf"
-        id="playlist-image"
+        src={src}
+        id={id}
         onLoad={extractImagePalette}
         width={130}
         alt="playlist"
       />
-      <h3 className="mt-3" style={{ color: textColor }}>
-        Playlist Name
+      <h3 className="mt-4" style={{ color: textColor, fontWeight: "bold" }}>
+        {name}
       </h3>
     </div>
   );

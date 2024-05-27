@@ -1,7 +1,9 @@
 import { useCredentialsPersistantStore } from "@/stores/credentialsStore";
+import { PlaylistHelper } from "@/interfaces/PlaylistHelper";
 import axios from "axios";
+import { UserPlaylist } from "@/types/playlists";
 
-export default class SpotifyApiHelper {
+export default class SpotifyApiHelper implements PlaylistHelper {
   private spotifyApi = axios.create();
 
   public constructor() {
@@ -50,14 +52,26 @@ export default class SpotifyApiHelper {
     return this.spotifyApi.get("https://api.spotify.com/v1/me");
   }
 
-  async getPlaylistList(limit: number, offset: number) {
-    console.log(useCredentialsPersistantStore.getState().spotifyAccessToken);
-    this.spotifyApi
+  async getPlaylist(limit: number, offset: number) {
+    return this.spotifyApi
       .get("https://api.spotify.com/v1/me/playlists", {
         params: { limit, offset },
       })
       .then((response) => {
-        console.log(response);
+        const playlists: UserPlaylist[] = response.data.items.map(
+          (playlist: any) => {
+            return {
+              id: playlist.id,
+              name: playlist.name,
+              image: playlist.images[0].url,
+            };
+          }
+        );
+        console.log(playlists);
+        return Promise.resolve(playlists);
+      })
+      .catch((error) => {
+        return Promise.reject(error);
       });
   }
 

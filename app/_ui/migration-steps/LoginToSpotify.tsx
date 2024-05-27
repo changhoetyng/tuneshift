@@ -39,6 +39,7 @@ export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
   useEffect(() => {
     async function fetchData() {
       if (spotifyAccessToken) {
+        console.log(spotifyApiHelper);
         await spotifyApiHelper.getProfile().catch();
       }
     }
