@@ -40,7 +40,7 @@ export default function ErrorNotificationCard({
           onClick={onCloseNotification}
         >
           <AlertTitle>{notificationTitle}</AlertTitle>
-          <AlertDescription>{notificationDescription}</AlertDescription>
+          <AlertDescription className ="text-zinc-400">{notificationDescription}</AlertDescription>
           <Progress className="mt-3" value={progress} />
         </Alert>
       )}
