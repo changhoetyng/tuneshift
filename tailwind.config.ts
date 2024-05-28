@@ -86,6 +86,16 @@ const config = {
           "0%": { opacity: "1", transform: "translateY(0px)" },
           "100%": { opacity: "0", transform: "translateY(-10px)" },
         },
+        popIn:{
+          "0%": { transform: "scale(0)", opacity: "0" },
+          "40%": { opacity: "0" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        popOut:{
+          "0%": { opacity: "1", transform: "scale(1)" },
+          "40%": { opacity: "0" },
+          "100%": { transform: "scale(0)", opacity: "0"  },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -102,6 +112,8 @@ const config = {
         fadeInUpFast: "fadeInUpLess 0.3s ease-in-out forwards",
         fadeOutUp: "fadeOutUp 0.6s ease-in forwards",
         fadeOutUpFast: "fadeOutUpLess 0.3s ease-in-out forwards",
+        popIn: "popIn 0.3s ease-in-out forwards",
+        popOut: "popOut 0.3s ease-in-out forwards"
       },
     },
     dropShadow: {
