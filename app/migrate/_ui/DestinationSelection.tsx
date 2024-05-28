@@ -9,11 +9,12 @@ interface DestinationSelectionProps {
   titleHighlight: string;
 }
 
-export default async function DestinationSelection({
+export default function DestinationSelection({
   logo,
   className,
   title,
   titleHighlight,
+  ...rest
 }: DestinationSelectionProps) {
   return (
     <RoundedBorderCard

@@ -39,9 +39,9 @@ export default function MigrateToAppleMusic() {
   }
 
   return (
-    <div>
+    <div className="flex animate-fadeInUpFast h-full justify-center align-center flex-col">
       <FloatingCard
-        className="pl-14 pr-14 pb-14 pt-8"
+        className="pl-14 pr-14 pb-14 pt-8 mb-40"
         optionsBar={
           <NavigationButton onClick={backToOptions}>
             Back to Options

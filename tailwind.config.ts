@@ -78,6 +78,14 @@ const config = {
           "0%": { opacity: "0", transform: "translateY(10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        fadeOutUp: {
+          "0%": { opacity: "1", transform: "translateY(0px)" },
+          "100%": { opacity: "0", transform: "translateY(40px)" },
+        },
+        fadeOutUpLess: {
+          "0%": { opacity: "1", transform: "translateY(0px)" },
+          "100%": { opacity: "0", transform: "translateY(-10px)" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -90,10 +98,25 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        fadeInUp: "fadeInUp 1.2s ease-in forwards",
-        fadeInUpFast: "fadeInUpLess 0.4s ease-in forwards",
+        fadeInUp: "fadeInUp 0.6s ease-in forwards",
+        fadeInUpFast: "fadeInUpLess 0.3s ease-in-out forwards",
+        fadeOutUp: "fadeOutUp 0.6s ease-in forwards",
+        fadeOutUpFast: "fadeOutUpLess 0.3s ease-in-out forwards",
       },
     },
+    dropShadow: {
+      '3xl': '0 0 35px rgba(0, 0, 0, 0.25)',
+      '4xl': [
+          '0 35px 35px rgba(0, 0, 0, 0.25)',
+          '0 45px 65px rgba(0, 0, 0, 0.15)'
+      ],
+      'w-3xl': '0 0 35px rgba(255, 255, 255, 0.1)',
+      'w-4xl': [
+          '0 35px 35px rgba(255, 255, 255, 0.25)',
+          '0 45px 65px rgba(255, 255, 255, 0.15)'
+      ],
+      'p-3xl': '0 0 35px rgba(255, 100, 255, 0.1)',
+    }
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
