@@ -17,7 +17,7 @@ export default function NavigationButton({
   return (
     <div
       className={clsx(
-        "pl-2 pr-4 pt-2 pb-2 text-xs rounded-lg bg-card text-white text-opacity-70 flex flex-row relative justify-center items-center w-fit",
+        "pl-2 pr-4 pt-2 pb-2 text-xs rounded-lg bg-card text-white text-opacity-70 flex flex-row relative justify-center items-center w-fit cursor-pointer transition-all hover:bg-zinc-800",
         className
       )}
       onClick={onClick}
