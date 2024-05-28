@@ -21,8 +21,14 @@ export default function PlaylistCard() {
 
     sample_image.onload = () => {
       const data = color_thief.getPalette(sample_image);
+<<<<<<< Updated upstream:app/_utils/playlist-card/PlaylistCard.tsx
       const color = color_thief.getColor(sample_image);
       console.log("Color", color);
+=======
+      const color1 = data[0];
+      const color2 = data[1];
+      const color3 = data[2];
+>>>>>>> Stashed changes:app/_ui/card/PlaylistCard.tsx
       const newBackgroundStyle = data
         ? {
             background: `linear-gradient(0.3turn, rgb(${data[0]}), rgb(${data[1]}), rgb(${data[2]}))`,
@@ -42,7 +48,12 @@ export default function PlaylistCard() {
     };
 
     sample_image.crossOrigin = "anonymous";
+<<<<<<< Updated upstream:app/_utils/playlist-card/PlaylistCard.tsx
     const playlistImage = document.getElementById("playlist-image") as HTMLImageElement;
+=======
+    const playlistImage = document.getElementById(id) as HTMLImageElement;
+
+>>>>>>> Stashed changes:app/_ui/card/PlaylistCard.tsx
     if (playlistImage) {
       sample_image.src = playlistImage.src;
     }
