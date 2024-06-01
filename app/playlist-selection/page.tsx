@@ -20,6 +20,7 @@ export default function PlaylistSelection() {
   const [selectedPlaylists, setSelectedPlaylists] = useState<Set<string>>(
     new Set()
   );
+  const [isFetching, setIsFetching] = useState(false);
   const selectedPlaylistLength = useMemo(() => {
     const size = selectedPlaylists.size;
     if (size == 0) {
@@ -94,9 +95,12 @@ export default function PlaylistSelection() {
 
   useEffect(() => {
     async function getPlaylists() {
+      setIsFetching(true);
+
       const playlistsRes:
         | { playlists: UserPlaylist[]; total: number }
         | undefined = await apiHelper?.getPlaylist(LIMIT, offset);
+
       setTotal(playlistsRes?.total ?? 0);
       const playlists = playlistsRes?.playlists;
       if (playlists === undefined) {
@@ -109,7 +113,8 @@ export default function PlaylistSelection() {
         return;
       }
 
-      setUserPlaylists([...userPlaylists, ...playlists]);
+      setUserPlaylists((prevState) => [...prevState, ...playlists]);
+      setIsFetching(false);
     }
 
     if (apiHelper) {
@@ -122,17 +127,22 @@ export default function PlaylistSelection() {
     updateNotificationMessage,
     updateNotificationRendererKey,
     updateNotificationTitle,
-    userPlaylists,
   ]);
 
   const fetchMoreData = async (): Promise<boolean> => {
     return new Promise((resolve) => {
-      if (userPlaylists?.length === total) {
+      if (userPlaylists?.length >= total) {
         resolve(false);
         return;
       }
 
       setOffset(offset + LIMIT);
+      const interval = setInterval(() => {
+        if (!isFetching) {
+          clearInterval(interval);
+          resolve(true);
+        }
+      }, 1000);
       resolve(false); // Resolve false if no more data
     });
   };
