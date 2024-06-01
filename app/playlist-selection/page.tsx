@@ -147,6 +147,29 @@ export default function PlaylistSelection() {
     });
   };
 
+  const migrate = () => {
+    console.log(selectedPlaylists);
+
+    if (selectedPlaylists.size === 0) {
+      updateNotificationRendererKey();
+      updateNotificationTitle("No Playlist Selected");
+      updateNotificationMessage("Please select at least one playlist.");
+      return;
+    }
+
+    let selectedPlaylistsObject: UserPlaylist[] = [];
+
+    for (const playlist of Array.from(selectedPlaylists)) {
+      selectedPlaylistsObject.push(
+        userPlaylists.find(
+          (userPlaylist) => userPlaylist.id === playlist
+        ) as UserPlaylist
+      );
+    }
+
+    console.log(selectedPlaylistsObject);
+  };
+
   return (
     <div className="mt-6 min-h-fit min-w-fit overflow-auto">
       <FloatingCard
@@ -173,7 +196,7 @@ export default function PlaylistSelection() {
             />
           ))}
         </InfiniteScrolling>
-        <FloatingIsland islandText={selectedPlaylistLength} />
+        <FloatingIsland islandText={selectedPlaylistLength} onClick={migrate} />
       </FloatingCard>
     </div>
   );

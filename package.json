@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@radix-ui/react-progress": "^1.0.3",
+    "@react-spring/web": "^9.7.3",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

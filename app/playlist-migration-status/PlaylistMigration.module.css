@@ -1,0 +1,12 @@
+@keyframes identifier {
+  0% {
+    margin-right: 0;
+  }
+  100% {
+    margin-right: 50;
+  }
+}
+
+.subject {
+  animation: identifier linear;
+}
