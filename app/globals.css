@@ -167,17 +167,17 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #d7d7d7;
+  background: #333333;
   opacity: 0.2;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #d246ef;
+  background: #ffddff55;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #d246ef;
+  background: #d246efaa;
 }
