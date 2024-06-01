@@ -1,27 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from "./PlaylistCard.module.css";
 import ColorThief from "colorthief";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 
 export default function PlaylistCard({
   src,
   name,
   id,
-}: {
+  onClick,
+  isSelected,
+}: Readonly<{
   src: string;
   name: string;
   id: string;
-}) {
+  isSelected?: boolean;
+  onClick?: () => void;
+}>) {
   const imgRef = useRef(null);
   const [backgroundStyle, setBackgroundStyle] = useState({});
   const [textColor, setTextColor] = useState("white");
 
-  useEffect(() => {
-    if (imgRef.current && (imgRef.current as HTMLImageElement).complete) {
-      extractImagePalette();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (imgRef.current && (imgRef.current as HTMLImageElement).complete) {
+  //     extractImagePalette();
+  //   }
+  // }, []);
 
   function extractImagePalette() {
     let color_thief = new ColorThief();
@@ -72,7 +76,14 @@ export default function PlaylistCard({
   }
 
   return (
-    <div className={clsx(styles["playlist-card"])} style={backgroundStyle}>
+    <button
+      className={clsx(
+        styles["playlist-card"],
+        isSelected ? "border-2 border-primary" : ""
+      )}
+      style={backgroundStyle}
+      onClick={onClick}
+    >
       <img
         ref={imgRef}
         src={src}
@@ -84,6 +95,6 @@ export default function PlaylistCard({
       <h3 className="mt-4" style={{ color: textColor, fontWeight: "bold" }}>
         {name}
       </h3>
-    </div>
+    </button>
   );
 }
