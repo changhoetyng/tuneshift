@@ -159,3 +159,25 @@
     @apply bg-zinc-900 text-white;
   }
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #d7d7d7;
+  opacity: 0.2;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d246ef;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #d246ef;
+}

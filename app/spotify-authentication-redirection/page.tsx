@@ -49,6 +49,7 @@ export default function SpotifyAuthenticationRedirection() {
         );
 
         updateSpotifyAccessToken(response.access_token);
+        console.log(response.refresh_token, "refresh token");
         updateSpotifyRefreshToken(response.refresh_token);
       }
       if (redirectionLink) {

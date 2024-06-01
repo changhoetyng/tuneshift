@@ -67,36 +67,10 @@ export default class SpotifyApiHelper implements PlaylistHelper {
             };
           }
         );
-        console.log(playlists);
-        return Promise.resolve(playlists);
+        return Promise.resolve({ playlists, total: response.data.total });
       })
       .catch((error) => {
         return Promise.reject(error);
-      });
-  }
-
-  async getPlaylistSongs(limit: number, offset: number) {
-    console.log(useCredentialsPersistantStore.getState().spotifyAccessToken);
-    this.spotifyApi
-      .get(
-        "https://api.spotify.com/v1/playlists/0Jzg8OGJafF8xj2SlZUMcU/tracks",
-        {
-          params: { limit, offset },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-      });
-  }
-
-  async retrieveLink() {
-    console.log(useCredentialsPersistantStore.getState().spotifyAccessToken);
-    this.spotifyApi
-      .get("https://api.spotify.com/v1/me/playlists", {
-        params: { limit: 20, offset: 0 },
-      })
-      .then((response) => {
-        console.log(response);
       });
   }
 

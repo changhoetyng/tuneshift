@@ -9,12 +9,14 @@ import { useCredentialsStore } from "@/stores/credentialsStore";
 import { UserPlaylist } from "@/types/playlists";
 import PlaylistCard from "@/app/_ui/card/PlaylistCard";
 import FloatingIsland from "@/app/_ui/buttons/FloatingIsland";
+import InfiniteScrolling from "../_ui/global/InfiniteScrolling";
 
 export default function PlaylistSelection() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
   const [apiHelper, setApiHelper] = useState<PlaylistHelper | null>(null);
+  const [total, setTotal] = useState<number>(0);
   const [selectedPlaylists, setSelectedPlaylists] = useState<Set<string>>(
     new Set()
   );
@@ -42,9 +44,9 @@ export default function PlaylistSelection() {
   }));
 
   // Playlists Data
-  const [offset] = useState(0);
-  const [userPlaylists, setUserPlaylists] = useState<UserPlaylist[]>();
-  const LIMIT = 6;
+  const [offset, setOffset] = useState(0);
+  const [userPlaylists, setUserPlaylists] = useState<UserPlaylist[]>([]);
+  const LIMIT = 9;
 
   const { canMigrate } = useUIStateStore((state) => ({
     canMigrate: state.canMigrate,
@@ -92,8 +94,11 @@ export default function PlaylistSelection() {
 
   useEffect(() => {
     async function getPlaylists() {
-      const playlists: UserPlaylist[] | undefined =
-        await apiHelper?.getPlaylist(LIMIT, offset);
+      const playlistsRes:
+        | { playlists: UserPlaylist[]; total: number }
+        | undefined = await apiHelper?.getPlaylist(LIMIT, offset);
+      setTotal(playlistsRes?.total ?? 0);
+      const playlists = playlistsRes?.playlists;
       if (playlists === undefined) {
         updateNotificationRendererKey();
         updateNotificationTitle("Error!");
@@ -104,7 +109,7 @@ export default function PlaylistSelection() {
         return;
       }
 
-      setUserPlaylists(playlists);
+      setUserPlaylists([...userPlaylists, ...playlists]);
     }
 
     if (apiHelper) {
@@ -117,7 +122,20 @@ export default function PlaylistSelection() {
     updateNotificationMessage,
     updateNotificationRendererKey,
     updateNotificationTitle,
+    userPlaylists,
   ]);
+
+  const fetchMoreData = async (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      if (userPlaylists?.length === total) {
+        resolve(false);
+        return;
+      }
+
+      setOffset(offset + LIMIT);
+      resolve(false); // Resolve false if no more data
+    });
+  };
 
   return (
     <div className="mt-6 min-h-fit min-w-fit overflow-auto">
@@ -129,7 +147,11 @@ export default function PlaylistSelection() {
           </NavigationButton>
         }
       >
-        <div className="grid grid-cols-3 gap-6" style={{ minWidth: "860px" }}>
+        <InfiniteScrolling
+          className="grid grid-cols-3 gap-6"
+          onScroll={fetchMoreData}
+          style={{ minWidth: "860px", maxHeight: "800px", overflowY: "scroll" }}
+        >
           {userPlaylists?.map((playlist, index) => (
             <PlaylistCard
               onClick={() => onSetSelectedPlaylists(playlist.id)}
@@ -140,7 +162,7 @@ export default function PlaylistSelection() {
               id={"playlist-image-" + index}
             />
           ))}
-        </div>
+        </InfiniteScrolling>
         <FloatingIsland islandText={selectedPlaylistLength} />
       </FloatingCard>
     </div>

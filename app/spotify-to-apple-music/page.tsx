@@ -23,11 +23,10 @@ export default function MigrateToAppleMusic() {
     isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
   }));
 
-  const { spotifyAccessToken, updateSpotifyCodeVerifier } =
-    useCredentialsPersistantStore((state) => ({
-      updateSpotifyCodeVerifier: state.updateSpotifyCodeVerifier,
-      spotifyAccessToken: state.spotifyAccessToken,
-    }));
+  const { spotifyAccessToken } = useCredentialsPersistantStore((state) => ({
+    updateSpotifyCodeVerifier: state.updateSpotifyCodeVerifier,
+    spotifyAccessToken: state.spotifyAccessToken,
+  }));
 
   function onSelectPlaylist() {
     updateCanMigrate(true);
