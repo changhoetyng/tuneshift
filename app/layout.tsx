@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import NavigationHeader from "@/app/_ui/headers/NavigationHeader";
 import "./globals.css";
 import NotificationComponent from "@/app/_ui/global/NotificationComponent";
+import Head from 'next/head';
 
 export const metadata: Metadata = {
   title: "TuneShift",
@@ -15,6 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="icon" href="/favicon.ico" sizes="16x16 32x32" type="image/x-icon" />
+        <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+        <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+      </Head>
       <body className="h-screen flex flex-col overflow-hidden">
         <div className="mt-20">
           <NavigationHeader />
