@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from "./PlaylistCard.module.css";
 import ColorThief from "colorthief";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import clsx from "clsx";
 
 export default function PlaylistCard({
@@ -10,22 +10,28 @@ export default function PlaylistCard({
   id,
   onClick,
   isSelected,
+  customStyle,
+  className,
+  style,
 }: Readonly<{
   src: string;
   name: string;
   id: string;
   isSelected?: boolean;
+  customStyle?: React.CSSProperties;
+  className?: string;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }>) {
   const imgRef = useRef(null);
   const [backgroundStyle, setBackgroundStyle] = useState({});
   const [textColor, setTextColor] = useState("white");
 
-  // useEffect(() => {
-  //   if (imgRef.current && (imgRef.current as HTMLImageElement).complete) {
-  //     extractImagePalette();
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (imgRef.current && (imgRef.current as HTMLImageElement).complete) {
+      extractImagePalette();
+    }
+  }, []);
 
   function extractImagePalette() {
     let color_thief = new ColorThief();
@@ -79,9 +85,14 @@ export default function PlaylistCard({
     <button
       className={clsx(
         styles["playlist-card"],
+        className,
         isSelected ? "border-2 border-primary" : ""
       )}
-      style={backgroundStyle}
+      style={{
+        ...backgroundStyle,
+        ...customStyle,
+        ...style,
+      }}
       onClick={onClick}
     >
       <img

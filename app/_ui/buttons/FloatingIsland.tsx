@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 interface IslandProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   islandText?: string | null;
+  onClick?: () => void;
 }
 /**
  * A floating island component.
@@ -16,7 +17,10 @@ interface IslandProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * @param {React.ButtonHTMLAttributes<HTMLButtonElement>} props.rest - The rest of the button attributes.
  * @returns {JSX.Element} The rendered island component.
  */
-export default function FloatingIsland({ islandText }: Readonly<IslandProps>) {
+export default function FloatingIsland({
+  islandText,
+  onClick,
+}: Readonly<IslandProps>) {
   const [key, setKey] = useState(false);
   const [isExpanding, setIsExpanding] = useState(false);
 
@@ -60,6 +64,7 @@ export default function FloatingIsland({ islandText }: Readonly<IslandProps>) {
         className={clsx(
           "transition-all rounded-full h-12 w-12 bg-secondary flex justify-center items-center cursor-pointer"
         )}
+        onClick={onClick}
       >
         <Image src={Arrow} alt="Arrow" height={18} />
       </button>
