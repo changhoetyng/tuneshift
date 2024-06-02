@@ -85,13 +85,14 @@ export default function PlaylistMigrationStatusPage() {
       <h1>Playlist Migration Status</h1>
       <FloatingCard className="pl-20 pr-20 pb-14 pt-8 relative">
         <div
-          className="items-center h-full"
+          className="h-full"
           style={{
             width: "1000px",
             overflowX: "hidden",
           }}
         >
           <div
+            className="flex items-center"
             style={{
               marginLeft: "420px",
               display: "flex",
