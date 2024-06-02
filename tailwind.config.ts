@@ -86,6 +86,20 @@ const config = {
           "0%": { opacity: "1", transform: "translateY(0px)" },
           "100%": { opacity: "0", transform: "translateY(-10px)" },
         },
+        fadeInOut: {
+          '0%' : { opacity: "0.5", filter: 'grayscale(0%) brightness(100%)', transform: "translateY(0px)" },
+          '10%' : { opacity: "1", filter: 'grayscale(0%) brightness(400%)' },
+          '15%' : { opacity: "1", filter: 'grayscale(0%) brightness(400%)' , transform: "translateY(-5px)" },
+          '25%' : { opacity: "0.5", filter: 'grayscale(0%) brightness(100%)' , transform: "translateY(0px)" },
+          '100%': { opacity: "0.5", filter: 'grayscale(0%) brightness(100%)' },
+        },
+        fadeInOutSpecial: {
+          '0%' : { opacity: "0.5", filter: 'grayscale(100%) brightness(250%)', transform: "translateY(0px)"  }, 
+          '10%' : { opacity: "1", filter: 'grayscale(0%) brightness(100%)' },
+          '15%' : { opacity: "1", filter: 'grayscale(0%) brightness(100%)', transform: "translateY(-5px)" },
+          '25%' : { opacity: "0.5", filter: 'grayscale(100%) brightness(250%)', transform: "translateY(0px)" }, 
+          '100%' : { opacity: "0.5", filter: 'grayscale(100%) brightness(250%)' }, 
+        },
         popIn:{
           "0%": { transform: "scale(0)", opacity: "0" },
           "40%": { opacity: "0" },
@@ -113,7 +127,11 @@ const config = {
         fadeOutUp: "fadeOutUp 0.6s ease-in forwards",
         fadeOutUpFast: "fadeOutUpLess 0.3s ease-in-out forwards",
         popIn: "popIn 0.3s ease-in-out forwards",
-        popOut: "popOut 0.3s ease-in-out forwards"
+        popOut: "popOut 0.3s ease-in-out forwards",
+        fadeInOut1: 'fadeInOutSpecial 2s infinite 0.5s',
+        fadeInOut2: 'fadeInOut 2s infinite 1s',
+        fadeInOut3: 'fadeInOut 2s infinite 1.5s',
+        fadeInOut4: 'fadeInOutSpecial 2s infinite 2s',
       },
     },
     dropShadow: {

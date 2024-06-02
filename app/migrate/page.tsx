@@ -59,7 +59,7 @@ export default function Migrate() {
     </div>
     :
     <div className="flex justify-center h-full">
-      <LoadingComponent size="large" type="apple-to-spotify"/>
+      <LoadingComponent size="small" type="apple-to-spotify"/>
     </div>
     
   );

@@ -79,9 +79,11 @@ export default function SpotifyAuthenticationRedirection() {
 
   return (
     
-    <div className="h-full justify-center align-center">
-      <LoadingComponent size="large" type="apple-to-spotify"/>
-      <h1>Logged in. Redirecting...</h1>
+    <div className="h-full flex flex-col justify-center align-middle">
+      <div className="h-min w-max flex flex-col m-auto justify-center">
+        <LoadingComponent size="small" type="apple-to-spotify" className="m-auto"/>
+        <h1 className="mt-3">Logged in. Redirecting...</h1>
+      </div>
     </div>
   );
 }
