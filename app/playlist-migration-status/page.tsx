@@ -43,47 +43,13 @@ export default function PlaylistMigrationStatusPage() {
     },
   ];
 
-  const customStyles = [
-    {
-      height: "235px",
-      width: "235px",
-      minWidth: "235px",
-      filter: "grayscale(100%)",
-    },
-    {
-      height: "235px",
-      width: "235px",
-      minWidth: "235px",
-      filter: "grayscale(100%)",
-    },
-    { height: "253px", width: "262px", minWidth: "262px" },
-    {
-      height: "235px",
-      width: "235px",
-      minWidth: "235px",
-      filter: "grayscale(100%)",
-    },
-    {
-      height: "235px",
-      width: "235px",
-      minWidth: "235px",
-      filter: "grayscale(100%)",
-    },
-    {
-      height: "235px",
-      width: "235px",
-      minWidth: "235px",
-      filter: "grayscale(100%)",
-    },
-  ];
-
   const props = useSpring({
     from: {
       height: "253px",
       width: "262px",
       minWidth: "262px",
       opacity: 1,
-      translateX: -117,
+      translateX: 0,
       filter: "grayscale(0%)",
     },
     to: {
@@ -91,10 +57,10 @@ export default function PlaylistMigrationStatusPage() {
       width: "235px",
       minWidth: "235px",
       opacity: 1,
-      translateX: -278 - 117,
+      translateX: -278,
       filter: "grayscale(100%)",
     },
-    config: { duration: 1500 },
+    config: { duration: 2500 },
   });
 
   const props2 = useSpring({
@@ -103,7 +69,7 @@ export default function PlaylistMigrationStatusPage() {
       width: "235px",
       minWidth: "235px",
       opacity: 1,
-      translateX: -117,
+      translateX: 0,
       filter: "grayscale(100%)",
     },
     to: {
@@ -111,10 +77,10 @@ export default function PlaylistMigrationStatusPage() {
       width: "235px",
       minWidth: "235px",
       opacity: 1,
-      translateX: -278 - 117,
+      translateX: -278,
       filter: "grayscale(100%)",
     },
-    config: { duration: 1500 },
+    config: { duration: 2500 },
   });
 
   const props3 = useSpring({
@@ -123,7 +89,7 @@ export default function PlaylistMigrationStatusPage() {
       width: "235px",
       minWidth: "235px",
       opacity: 1,
-      translateX: -117,
+      translateX: 0,
       filter: "grayscale(100%)",
     },
     to: {
@@ -131,16 +97,16 @@ export default function PlaylistMigrationStatusPage() {
       width: "262px",
       minWidth: "262px",
       opacity: 1,
-      translateX: -278 - 117,
+      translateX: -278,
       filter: "grayscale(0%)",
     },
-    config: { duration: 1500 },
+    config: { duration: 2500 },
   });
 
   function propsSelection(index: number) {
-    if (index === 2) {
+    if (index === 0) {
       return props;
-    } else if (index === 3) {
+    } else if (index === 1) {
       return props3;
     }
     return props2;
@@ -153,19 +119,31 @@ export default function PlaylistMigrationStatusPage() {
       <h1>Playlist Migration Status</h1>
       <FloatingCard className="pl-20 pr-20 pb-14 pt-8 relative">
         <div
-          className="flex flex-row items-center h-full"
-          style={{ width: "1000px", overflowX: "hidden" }}
+          className="items-center h-full"
+          style={{
+            width: "1000px",
+            overflowX: "hidden",
+            background: "#f4f4f4",
+          }}
         >
-          {SELECTED_DATA?.map((playlist, index) => (
-            <AnimatedDialog
-              src={playlist.image}
-              name={playlist.name}
-              key={"playlist-image-migration-" + index}
-              id={"playlist-image-migration-" + index}
-              className="mr-4"
-              style={propsSelection(index)}
-            />
-          ))}
+          <div
+            style={{
+              marginLeft: "420px",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            {SELECTED_DATA?.map((playlist, index) => (
+              <AnimatedDialog
+                src={playlist.image}
+                name={playlist.name}
+                key={"playlist-image-migration-" + index}
+                id={"playlist-image-migration-" + index}
+                className="mr-4"
+                style={propsSelection(index)}
+              />
+            ))}
+          </div>
         </div>
       </FloatingCard>
     </div>
