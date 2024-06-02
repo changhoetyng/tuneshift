@@ -66,7 +66,7 @@ export default function PlaylistMigrationStatusPage() {
   }
 
   let selectedIndex = 0;
-  const DEFAULT_ROTATION = -278;
+  const DEFAULT_ROTATION = -251;
 
   const [springs, api] = useSprings(6, (index) => initialState(index));
 
@@ -94,7 +94,7 @@ export default function PlaylistMigrationStatusPage() {
           <div
             className="flex items-center"
             style={{
-              marginLeft: "420px",
+              marginLeft: "360px",
               display: "flex",
               flexDirection: "row",
             }}
