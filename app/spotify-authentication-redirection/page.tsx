@@ -7,6 +7,7 @@ import {
 } from "@/stores/credentialsStore";
 import retrieveTokenWithCode from "@/app/_utils/spotify-api-wrapper/retrieveTokenWithCode";
 import { useUIStateStore } from "@/stores/UIStateStore";
+import LoadingComponent from "../_ui/global/LoadingComponent";
 
 export default function SpotifyAuthenticationRedirection() {
   const router = useRouter();
@@ -77,7 +78,9 @@ export default function SpotifyAuthenticationRedirection() {
   ]);
 
   return (
-    <div>
+    
+    <div className="h-full justify-center align-center">
+      <LoadingComponent size="large" type="apple-to-spotify"/>
       <h1>Logged in. Redirecting...</h1>
     </div>
   );

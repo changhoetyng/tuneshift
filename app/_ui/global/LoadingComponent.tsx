@@ -2,13 +2,13 @@
 
 import { useState, useRef, useEffect } from "react";
 
-type LoadingSpinnerProps = {
+type LoadingComponentProps = {
     type?: 'default' | 'spotify-to-apple' | 'apple-to-spotify';
     speed?: string;
     size?: 'small' | 'large';
   };
   
-  const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ type = 'spotify-to-apple', speed = '1s', size = 'small' }) => {
+  const LoadingComponent: React.FC<LoadingComponentProps> = ({ type = 'spotify-to-apple', speed = '1s', size = 'small' }) => {
     const [sequence, setSequence] = useState(0)
     const spinnerStyle = {
       width: size,
@@ -45,4 +45,4 @@ type LoadingSpinnerProps = {
         
   };
 
-  export default LoadingSpinner;
+  export default LoadingComponent;
