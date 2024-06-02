@@ -2,12 +2,21 @@ import HeaderButton from "@/app/_ui/buttons/HeaderButton";
 import Image from "next/image";
 import Link from "next/link";
 import TuneShift from "@/public/TuneShift.svg";
+import TuneShiftLogo from "@/public/logo.png";
 import GithubLogo from "@/public//github-mark-white.svg";
 
 export default async function NavigationHeader() {
   return (
     <div className="flex flex-row justify-between p-5 fixed w-full top-0 z-50 h-20 bg-background-default">
-      <div className="w-32 h-10 items-center mt-2">
+      <div className="flex flex-row w-32 h-10 items-center mt-2">
+        <Image
+            src={TuneShiftLogo}
+            alt="TuneShift Logo"
+            width={50}
+            height={200}
+            className="w-min h-auto cursor-pointer"
+            priority
+        />
         <Image
           src={TuneShift}
           alt="TuneShift Logo"
