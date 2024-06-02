@@ -26,7 +26,7 @@ export default function Migrate() {
 
 
 
-  return (countDown < 260 ?
+  return (countDown <= 250 ?
     <div className={`flex flex-col justify-center items-center h-full transition-all ease-in-out animate-fadeInUpFast ${isAnimating ? "animate-fadeOutUpFast" : ""}`}>
       <h1 className="text-3xl text-center font-bold p-6">Migrate Playlists</h1>
       <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 gap-12 mt-6">
