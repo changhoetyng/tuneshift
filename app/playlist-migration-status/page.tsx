@@ -1,7 +1,7 @@
 "use client";
 import PlaylistCard from "@/app/_ui/card/PlaylistCard";
 import FloatingCard from "../_ui/card/FloatingCard";
-import { useSpring, animated } from "@react-spring/web";
+import { animated, useSprings } from "@react-spring/web";
 
 export default function PlaylistMigrationStatusPage() {
   const SELECTED_DATA = [
@@ -43,73 +43,39 @@ export default function PlaylistMigrationStatusPage() {
     },
   ];
 
-  const props = useSpring({
-    from: {
-      height: "253px",
-      width: "262px",
-      minWidth: "262px",
-      opacity: 1,
-      translateX: 0,
-      filter: "grayscale(0%)",
-    },
-    to: {
-      height: "235px",
-      width: "235px",
-      minWidth: "235px",
-      opacity: 1,
-      translateX: -278,
-      filter: "grayscale(100%)",
-    },
-    config: { duration: 2500 },
-  });
-
-  const props2 = useSpring({
-    from: {
-      height: "235px",
-      width: "235px",
-      minWidth: "235px",
-      opacity: 1,
-      translateX: 0,
-      filter: "grayscale(100%)",
-    },
-    to: {
-      height: "235px",
-      width: "235px",
-      minWidth: "235px",
-      opacity: 1,
-      translateX: -278,
-      filter: "grayscale(100%)",
-    },
-    config: { duration: 2500 },
-  });
-
-  const props3 = useSpring({
-    from: {
-      height: "235px",
-      width: "235px",
-      minWidth: "235px",
-      opacity: 1,
-      translateX: 0,
-      filter: "grayscale(100%)",
-    },
-    to: {
-      height: "253px",
-      width: "262px",
-      minWidth: "262px",
-      opacity: 1,
-      translateX: -278,
-      filter: "grayscale(0%)",
-    },
-    config: { duration: 2500 },
-  });
-
-  function propsSelection(index: number) {
-    if (index === 0) {
-      return props;
-    } else if (index === 1) {
-      return props3;
+  function initialState(index: number) {
+    if (index === selectedIndex) {
+      return {
+        height: "253px",
+        width: "262px",
+        minWidth: "262px",
+        opacity: 1,
+        translateX: DEFAULT_ROTATION * selectedIndex,
+        filter: "grayscale(0%)",
+      };
+    } else {
+      return {
+        height: "235px",
+        width: "235px",
+        minWidth: "235px",
+        opacity: 1,
+        translateX: DEFAULT_ROTATION * selectedIndex,
+        filter: "grayscale(100%)",
+      };
     }
-    return props2;
+  }
+
+  let selectedIndex = 0;
+  const DEFAULT_ROTATION = -278;
+
+  const [springs, api] = useSprings(6, (index) => initialState(index));
+
+  async function animate() {
+    await api.start((index) => {
+      return initialState(index);
+    });
+    selectedIndex += 1;
+    selectedIndex %= 6;
   }
 
   const AnimatedDialog = animated(PlaylistCard);
@@ -123,7 +89,6 @@ export default function PlaylistMigrationStatusPage() {
           style={{
             width: "1000px",
             overflowX: "hidden",
-            background: "#f4f4f4",
           }}
         >
           <div
@@ -140,11 +105,12 @@ export default function PlaylistMigrationStatusPage() {
                 key={"playlist-image-migration-" + index}
                 id={"playlist-image-migration-" + index}
                 className="mr-4"
-                style={propsSelection(index)}
+                style={springs[index]}
               />
             ))}
           </div>
         </div>
+        <button onClick={animate}>Hello</button>
       </FloatingCard>
     </div>
   );
