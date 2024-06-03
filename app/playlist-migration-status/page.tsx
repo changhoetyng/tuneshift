@@ -2,6 +2,32 @@
 import PlaylistCard from "@/app/_ui/card/PlaylistCard";
 import FloatingCard from "../_ui/card/FloatingCard";
 import { animated, useSprings } from "@react-spring/web";
+import { Progress } from "@/components/ui/progress";
+import { useEffect, useState } from "react";
+
+const DEFAULT_ROTATION = -251;
+
+function initialState(index: number, selectedIndex: number = 0) {
+  if (index === selectedIndex) {
+    return {
+      height: "253px",
+      width: "262px",
+      minWidth: "262px",
+      opacity: 1,
+      translateX: DEFAULT_ROTATION * selectedIndex,
+      filter: "grayscale(0%)",
+    };
+  } else {
+    return {
+      height: "235px",
+      width: "235px",
+      minWidth: "235px",
+      opacity: 1,
+      translateX: DEFAULT_ROTATION * selectedIndex,
+      filter: "grayscale(100%)",
+    };
+  }
+}
 
 export default function PlaylistMigrationStatusPage() {
   const SELECTED_DATA = [
@@ -43,39 +69,23 @@ export default function PlaylistMigrationStatusPage() {
     },
   ];
 
-  function initialState(index: number) {
-    if (index === selectedIndex) {
-      return {
-        height: "253px",
-        width: "262px",
-        minWidth: "262px",
-        opacity: 1,
-        translateX: DEFAULT_ROTATION * selectedIndex,
-        filter: "grayscale(0%)",
-      };
-    } else {
-      return {
-        height: "235px",
-        width: "235px",
-        minWidth: "235px",
-        opacity: 1,
-        translateX: DEFAULT_ROTATION * selectedIndex,
-        filter: "grayscale(100%)",
-      };
-    }
-  }
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  let selectedIndex = 0;
-  const DEFAULT_ROTATION = -251;
+  const [springs, api] = useSprings(6, (index) =>
+    initialState(index, selectedIndex)
+  );
 
-  const [springs, api] = useSprings(6, (index) => initialState(index));
+  useEffect(() => {
+    api.start((index) => {
+      return initialState(index, selectedIndex);
+    });
+  }, [api, selectedIndex]);
 
   async function animate() {
-    await api.start((index) => {
-      return initialState(index);
+    setSelectedIndex((prevState) => {
+      const newIndex = (prevState + 1) % 6;
+      return newIndex;
     });
-    selectedIndex += 1;
-    selectedIndex %= 6;
   }
 
   const AnimatedDialog = animated(PlaylistCard);
@@ -88,6 +98,7 @@ export default function PlaylistMigrationStatusPage() {
           className="h-full"
           style={{
             width: "1000px",
+            height: "500px",
             overflowX: "hidden",
           }}
         >
@@ -109,6 +120,16 @@ export default function PlaylistMigrationStatusPage() {
                 style={springs[index]}
               />
             ))}
+          </div>
+          <div className="w-full flex flex-col items-center mt-8 word text-xl font-semibold">
+            <h1>
+              Transferring {selectedIndex + 1} / {SELECTED_DATA.length} ...
+            </h1>
+            <Progress
+              value={((selectedIndex + 1) / SELECTED_DATA.length) * 100}
+              max={SELECTED_DATA.length}
+              className="w-1/2"
+            />
           </div>
         </div>
         <button onClick={animate}>Hello</button>
