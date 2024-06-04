@@ -4,6 +4,8 @@ import FloatingCard from "../_ui/card/FloatingCard";
 import { animated, useSprings } from "@react-spring/web";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
+import { useUIStateStore } from "@/stores/UIStateStore";
+import { useRouter } from "next/navigation";
 
 const DEFAULT_ROTATION = -251;
 
@@ -30,60 +32,29 @@ function initialState(index: number, selectedIndex: number = 0) {
 }
 
 export default function PlaylistMigrationStatusPage() {
-  const SELECTED_DATA = [
-    {
-      id: "4exDLLPRSHk3oMD6LM97bj",
-      name: "chai",
-      image:
-        "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84d341c654594e1ac355739bee",
-    },
-    {
-      id: "4exDLLPRSHk3oMD6LM97bj",
-      name: "chai",
-      image:
-        "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84d341c654594e1ac355739bee",
-    },
-    {
-      id: "6orLHWtXuqPFxJRzZfqEUI",
-      name: "🧸",
-      image:
-        "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8456729b03951b546ff30ec2cc",
-    },
-    {
-      id: "2AlXUwTubfHSowAptDqsQV",
-      name: "lao",
-      image:
-        "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84f7c82ea9ad8273db54956586",
-    },
-    {
-      id: "4exDLLPRSHk3oMD6LM97bj",
-      name: "chai",
-      image:
-        "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84d341c654594e1ac355739bee",
-    },
-    {
-      id: "4exDLLPRSHk3oMD6LM97bj",
-      name: "chai",
-      image:
-        "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84d341c654594e1ac355739bee",
-    },
-  ];
-
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const router = useRouter();
+  const { selectedPlaylists } = useUIStateStore((state) => ({
+    // Migrate Context
+    selectedPlaylists: state.selectedPlaylists,
+  }));
 
-  const [springs, api] = useSprings(6, (index) =>
+  const [springs, api] = useSprings(selectedPlaylists.length, (index) =>
     initialState(index, selectedIndex)
   );
 
   useEffect(() => {
+    if (selectedPlaylists.length === 0) {
+      return router.push("/migrate");
+    }
     api.start((index) => {
       return initialState(index, selectedIndex);
     });
-  }, [api, selectedIndex]);
+  }, [api, router, selectedIndex, selectedPlaylists.length]);
 
   async function animate() {
     setSelectedIndex((prevState) => {
-      const newIndex = (prevState + 1) % 6;
+      const newIndex = (prevState + 1) % selectedPlaylists.length;
       return newIndex;
     });
   }
@@ -92,7 +63,6 @@ export default function PlaylistMigrationStatusPage() {
 
   return (
     <div>
-      <h1>Playlist Migration Status</h1>
       <FloatingCard className="pl-20 pr-20 pb-14 pt-8 relative">
         <div
           className="h-full"
@@ -106,11 +76,12 @@ export default function PlaylistMigrationStatusPage() {
             className="flex items-center"
             style={{
               marginLeft: "360px",
+              height: "300px",
               display: "flex",
               flexDirection: "row",
             }}
           >
-            {SELECTED_DATA?.map((playlist, index) => (
+            {selectedPlaylists?.map((playlist, index) => (
               <AnimatedDialog
                 src={playlist.image}
                 name={playlist.name}
@@ -123,11 +94,11 @@ export default function PlaylistMigrationStatusPage() {
           </div>
           <div className="w-full flex flex-col items-center mt-8 word text-xl font-semibold">
             <h1>
-              Transferring {selectedIndex + 1} / {SELECTED_DATA.length} ...
+              Transferring {selectedIndex + 1} / {selectedPlaylists.length} ...
             </h1>
             <Progress
-              value={((selectedIndex + 1) / SELECTED_DATA.length) * 100}
-              max={SELECTED_DATA.length}
+              value={((selectedIndex + 1) / selectedPlaylists.length) * 100}
+              max={selectedPlaylists.length}
               className="w-1/2"
             />
           </div>

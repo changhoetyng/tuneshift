@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { UserPlaylist } from "@/types/playlists";
 
 type UIStateType = {
   notificationKey: number;
@@ -11,6 +12,10 @@ type UIStateType = {
   // Migrate Context
   canMigrate: boolean;
   updateCanMigrate: (canShow: boolean) => void;
+  selectedPlaylists: UserPlaylist[];
+  updateSelectedPlaylists: (newState: UserPlaylist[]) => void;
+  migrationMethod: string | null;
+  updateMigrationMethod: (newMethod: string | null) => void;
 };
 
 export const useUIStateStore = create<UIStateType>((set) => ({
@@ -26,9 +31,20 @@ export const useUIStateStore = create<UIStateType>((set) => ({
   updateNotificationMessage: (newNotificationMessage: string) =>
     set({ notificationMessage: newNotificationMessage }),
 
+  // Migrate Context
   canMigrate: false,
   updateCanMigrate: (canShow: boolean) =>
     set({
       canMigrate: canShow,
+    }),
+  selectedPlaylists: [],
+  updateSelectedPlaylists: (newState: UserPlaylist[]) =>
+    set({
+      selectedPlaylists: newState,
+    }),
+  migrationMethod: null,
+  updateMigrationMethod: (newMethod: string | null) =>
+    set({
+      migrationMethod: newMethod,
     }),
 }));

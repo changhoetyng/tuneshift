@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 import { useUIStateStore } from "@/stores/UIStateStore";
 import FloatingCard from "@/app/_ui/card/FloatingCard";
@@ -13,8 +13,6 @@ import InfiniteScrolling from "../_ui/global/InfiniteScrolling";
 
 export default function PlaylistSelection() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from");
   const [apiHelper, setApiHelper] = useState<PlaylistHelper | null>(null);
   const [total, setTotal] = useState<number>(0);
   const [selectedPlaylists, setSelectedPlaylists] = useState<Set<string>>(
@@ -34,10 +32,16 @@ export default function PlaylistSelection() {
     updateNotificationMessage,
     updateNotificationTitle,
     updateNotificationRendererKey,
+    updateSelectedPlaylists,
+    migrationMethod,
   } = useUIStateStore((state) => ({
     updateNotificationMessage: state.updateNotificationMessage,
     updateNotificationTitle: state.updateNotificationTitle,
     updateNotificationRendererKey: state.updateNotificationRendererKey,
+
+    // Migrate Context
+    updateSelectedPlaylists: state.updateSelectedPlaylists,
+    migrationMethod: state.migrationMethod,
   }));
 
   const { spotifyApiHelper } = useCredentialsStore((state) => ({
@@ -55,11 +59,11 @@ export default function PlaylistSelection() {
   }));
 
   function backToFlow() {
-    router.push("/" + from);
+    router.push("/" + migrationMethod);
   }
   useEffect(() => {
     function getApiHelper() {
-      if (from === "spotify-to-apple-music") {
+      if (migrationMethod === "spotify-to-apple-music") {
         return spotifyApiHelper;
       }
 
@@ -68,13 +72,14 @@ export default function PlaylistSelection() {
 
     function checkRoute() {
       const VALID_MODE = ["spotify-to-apple-music"];
-      if (from === null || !VALID_MODE.includes(from)) router.push("/");
+      if (migrationMethod === null || !VALID_MODE.includes(migrationMethod))
+        router.push("/");
       if (!canMigrate) router.push("/");
     }
 
     checkRoute();
     setApiHelper(getApiHelper());
-  }, [canMigrate, from, router, spotifyApiHelper]);
+  }, [canMigrate, migrationMethod, router, spotifyApiHelper]);
 
   const onSetSelectedPlaylists = (id: string) => {
     if (selectedPlaylists.has(id)) {
@@ -148,8 +153,6 @@ export default function PlaylistSelection() {
   };
 
   const migrate = () => {
-    console.log(selectedPlaylists);
-
     if (selectedPlaylists.size === 0) {
       updateNotificationRendererKey();
       updateNotificationTitle("No Playlist Selected");
@@ -167,7 +170,8 @@ export default function PlaylistSelection() {
       );
     }
 
-    console.log(selectedPlaylistsObject);
+    updateSelectedPlaylists(selectedPlaylistsObject);
+    router.push("/" + "playlist-migration-status");
   };
 
   return (

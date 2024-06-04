@@ -15,9 +15,12 @@ import { useUIStateStore } from "@/stores/UIStateStore";
 export default function MigrateToAppleMusic() {
   const router = useRouter();
 
-  const { updateCanMigrate } = useUIStateStore((state) => ({
-    updateCanMigrate: state.updateCanMigrate,
-  }));
+  const { updateCanMigrate, updateMigrationMethod } = useUIStateStore(
+    (state) => ({
+      updateCanMigrate: state.updateCanMigrate,
+      updateMigrationMethod: state.updateMigrationMethod,
+    })
+  );
 
   const { isMusicKitInstanceAuthorized } = useCredentialsStore((state) => ({
     isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
@@ -30,7 +33,8 @@ export default function MigrateToAppleMusic() {
 
   function onSelectPlaylist() {
     updateCanMigrate(true);
-    router.push("/playlist-selection?from=spotify-to-apple-music");
+    updateMigrationMethod("spotify-to-apple-music");
+    router.push("/playlist-selection");
   }
 
   function backToOptions() {
