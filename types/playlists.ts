@@ -7,3 +7,8 @@ export interface UserPlaylist {
   name: string;
   image: string;
 }
+
+export interface PlaylistSongs {
+  name: string;
+  artist: string;
+}

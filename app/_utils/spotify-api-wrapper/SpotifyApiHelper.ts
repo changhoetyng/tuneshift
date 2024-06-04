@@ -1,7 +1,7 @@
 import { useCredentialsPersistantStore } from "@/stores/credentialsStore";
 import { PlaylistHelper } from "@/interfaces/PlaylistHelper";
-import axios from "axios";
-import { UserPlaylist } from "@/types/playlists";
+import axios, { AxiosResponse } from "axios";
+import { UserPlaylist, PlaylistSongs } from "@/types/playlists";
 
 export default class SpotifyApiHelper implements PlaylistHelper {
   private spotifyApi = axios.create();
@@ -50,6 +50,35 @@ export default class SpotifyApiHelper implements PlaylistHelper {
 
   async getProfile() {
     return this.spotifyApi.get("https://api.spotify.com/v1/me");
+  }
+
+  async getSongs(playlistId: string) {
+    let songs: PlaylistSongs[] = [];
+    let nextUrl:
+      | string
+      | null = `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=0&limit=100`;
+
+    try {
+      while (nextUrl) {
+        const response: AxiosResponse<any> = await this.spotifyApi.get(nextUrl);
+        const items = response.data.items;
+
+        items.forEach((item: any) => {
+          songs.push({
+            name: item.track.name,
+            artist: item.track.artists
+              .map((artist: any) => artist.name)
+              .join(", "),
+          });
+        });
+
+        nextUrl = response.data.next;
+      }
+
+      return songs;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getPlaylist(limit: number, offset: number) {

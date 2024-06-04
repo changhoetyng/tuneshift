@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 import { useUIStateStore } from "@/stores/UIStateStore";
 import { useRouter } from "next/navigation";
+import { useCredentialsStore } from "@/stores/credentialsStore";
 
 const DEFAULT_ROTATION = -251;
 
@@ -43,6 +44,10 @@ export default function PlaylistMigrationStatusPage() {
     initialState(index, selectedIndex)
   );
 
+  const { spotifyApiHelper } = useCredentialsStore((state) => ({
+    spotifyApiHelper: state.spotifyApiHelper,
+  }));
+
   useEffect(() => {
     if (selectedPlaylists.length === 0) {
       return router.push("/migrate");
@@ -53,6 +58,9 @@ export default function PlaylistMigrationStatusPage() {
   }, [api, router, selectedIndex, selectedPlaylists.length]);
 
   async function animate() {
+    console.log(
+      await spotifyApiHelper.getSongs(selectedPlaylists[selectedIndex].id)
+    );
     setSelectedIndex((prevState) => {
       const newIndex = (prevState + 1) % selectedPlaylists.length;
       return newIndex;

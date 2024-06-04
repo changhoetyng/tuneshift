@@ -1,8 +1,10 @@
-import { UserPlaylist } from "@/types/playlists";
+import { UserPlaylist, PlaylistSongs } from "@/types/playlists";
 
 export interface PlaylistHelper {
   getPlaylist(
     limit: number,
     offset: number
   ): Promise<{ playlists: UserPlaylist[]; total: number }>;
+
+  getSongs(playlistId: string): Promise<PlaylistSongs[]>;
 }
