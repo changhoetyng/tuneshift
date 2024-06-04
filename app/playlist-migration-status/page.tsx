@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useUIStateStore } from "@/stores/UIStateStore";
 import { useRouter } from "next/navigation";
 import { useCredentialsStore } from "@/stores/credentialsStore";
+import { PlaylistSongs } from "@/types/playlists";
 
 const DEFAULT_ROTATION = -251;
 
@@ -44,9 +45,12 @@ export default function PlaylistMigrationStatusPage() {
     initialState(index, selectedIndex)
   );
 
-  const { spotifyApiHelper } = useCredentialsStore((state) => ({
-    spotifyApiHelper: state.spotifyApiHelper,
-  }));
+  const { musicKitInstance, spotifyApiHelper } = useCredentialsStore(
+    (state) => ({
+      spotifyApiHelper: state.spotifyApiHelper,
+      musicKitInstance: state.musicKitInstance,
+    })
+  );
 
   useEffect(() => {
     if (selectedPlaylists.length === 0) {
@@ -58,9 +62,31 @@ export default function PlaylistMigrationStatusPage() {
   }, [api, router, selectedIndex, selectedPlaylists.length]);
 
   async function animate() {
-    console.log(
-      await spotifyApiHelper.getSongs(selectedPlaylists[selectedIndex].id)
+    const songs: PlaylistSongs[] = await spotifyApiHelper.getSongs(
+      selectedPlaylists[selectedIndex].id
     );
+    console.log(songs);
+
+    let musics = [];
+
+    for (const song of songs) {
+      const queryParameters = {
+        term: song.name + " " + song.artist,
+        types: ["songs"],
+      };
+      let music = await musicKitInstance.api.music(
+        "/v1/catalog/{{storefrontId}}/search",
+        queryParameters
+      );
+      console.log(music.data.results, queryParameters);
+      if (!music?.data?.results?.songs?.data?.length) {
+        continue;
+      }
+      musics.push(music.data.results.songs.data[0].id);
+    }
+
+    console.log(musics);
+
     setSelectedIndex((prevState) => {
       const newIndex = (prevState + 1) % selectedPlaylists.length;
       return newIndex;
