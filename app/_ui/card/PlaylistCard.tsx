@@ -31,6 +31,7 @@ export default function PlaylistCard({
     if (imgRef.current && (imgRef.current as HTMLImageElement).complete) {
       extractImagePalette();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function extractImagePalette() {

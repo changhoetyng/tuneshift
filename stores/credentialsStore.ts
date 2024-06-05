@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import SpotifyApiHelper from "@/app/_utils/spotify-api-wrapper/SpotifyApiHelper";
+import AppleMusicApiHelper from "@/app/_utils/apple-music-api-wrapper/AppleMusicApiHelper";
 
 type CredentialsStore = {
   musicKitInstance: any;
@@ -8,6 +9,7 @@ type CredentialsStore = {
   updateIsMusicKitAuthorized: (isMusicKitAuthorized: any) => void;
   isMusicKitInstanceAuthorized: boolean;
   spotifyApiHelper: SpotifyApiHelper;
+  appleMusicHelper: AppleMusicApiHelper;
 };
 
 type CredentialsPersistentStore = {
@@ -30,6 +32,7 @@ export const useCredentialsStore = create<CredentialsStore>((set) => ({
     set({ isMusicKitInstanceAuthorized: isMusicKitAuthorized }),
 
   spotifyApiHelper: new SpotifyApiHelper(),
+  appleMusicHelper: new AppleMusicApiHelper(),
 }));
 
 export const useCredentialsPersistantStore = create(

@@ -8,6 +8,7 @@ import { useUIStateStore } from "@/stores/UIStateStore";
 import { useRouter } from "next/navigation";
 import { useCredentialsStore } from "@/stores/credentialsStore";
 import { PlaylistSongs } from "@/types/playlists";
+import AppleMusicApiHelper from "../_utils/apple-music-api-wrapper/AppleMusicApiHelper";
 
 const DEFAULT_ROTATION = -251;
 
@@ -36,19 +37,22 @@ function initialState(index: number, selectedIndex: number = 0) {
 export default function PlaylistMigrationStatusPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
-  const { selectedPlaylists } = useUIStateStore((state) => ({
-    // Migrate Context
-    selectedPlaylists: state.selectedPlaylists,
-  }));
+  const { selectedPlaylists, songsToMigrate, songsInfomationLoaded } =
+    useUIStateStore((state) => ({
+      // Migrate Context
+      selectedPlaylists: state.selectedPlaylists,
+      songsToMigrate: state.songsToMigrate,
+      songsInfomationLoaded: state.songsInfomationLoaded,
+    }));
 
   const [springs, api] = useSprings(selectedPlaylists.length, (index) =>
     initialState(index, selectedIndex)
   );
 
-  const { musicKitInstance, spotifyApiHelper } = useCredentialsStore(
+  const { appleMusicHelper, spotifyApiHelper } = useCredentialsStore(
     (state) => ({
       spotifyApiHelper: state.spotifyApiHelper,
-      musicKitInstance: state.musicKitInstance,
+      appleMusicHelper: state.appleMusicHelper,
     })
   );
 
@@ -65,27 +69,10 @@ export default function PlaylistMigrationStatusPage() {
     const songs: PlaylistSongs[] = await spotifyApiHelper.getSongs(
       selectedPlaylists[selectedIndex].id
     );
-    console.log(songs);
 
-    let musics = [];
+    const songsId = await appleMusicHelper.getSongsId(songs);
 
-    for (const song of songs) {
-      const queryParameters = {
-        term: song.name + " " + song.artist,
-        types: ["songs"],
-      };
-      let music = await musicKitInstance.api.music(
-        "/v1/catalog/{{storefrontId}}/search",
-        queryParameters
-      );
-      console.log(music.data.results, queryParameters);
-      if (!music?.data?.results?.songs?.data?.length) {
-        continue;
-      }
-      musics.push(music.data.results.songs.data[0].id);
-    }
-
-    console.log(musics);
+    console.log(songsId);
 
     setSelectedIndex((prevState) => {
       const newIndex = (prevState + 1) % selectedPlaylists.length;
@@ -132,7 +119,15 @@ export default function PlaylistMigrationStatusPage() {
             </h1>
             <Progress
               value={((selectedIndex + 1) / selectedPlaylists.length) * 100}
-              max={selectedPlaylists.length}
+              className="w-1/2"
+            />
+          </div>
+          <div className="w-full flex flex-col items-center mt-8 word text-xl font-semibold">
+            <h1>
+              Transferring {songsInfomationLoaded} / {songsToMigrate} ...
+            </h1>
+            <Progress
+              value={(songsInfomationLoaded / songsToMigrate) * 100}
               className="w-1/2"
             />
           </div>

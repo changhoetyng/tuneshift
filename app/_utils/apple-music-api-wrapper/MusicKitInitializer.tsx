@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { AppleMusicAuthentication } from "@/app/_utils/apple-music-api-wrapper/apple-music-authentication";
 import { useCredentialsStore } from "@/stores/credentialsStore";
 import { usePathname } from "next/navigation";
-import path from "path";
 
 export default function MigrateToAppleMusic() {
   const pathname = usePathname();

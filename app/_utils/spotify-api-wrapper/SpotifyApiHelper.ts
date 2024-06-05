@@ -14,6 +14,14 @@ export default class SpotifyApiHelper implements PlaylistHelper {
     return useCredentialsPersistantStore.getState().spotifyAccessToken !== null;
   }
 
+  getSongsId(songs: PlaylistSongs[]): Promise<string[]> {
+    return Promise.resolve([]);
+  }
+
+  addSongsOntoPlaylist(songs: PlaylistSongs[]): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+
   initializeApi() {
     this.spotifyApi.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${

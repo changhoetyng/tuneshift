@@ -20,7 +20,6 @@ export default function LoginToAppleMusic({
     isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
     updateIsMusicKitAuthorized: state.updateIsMusicKitAuthorized,
   }));
-  //   const [isAppleMusicLoggedIn, setIsAppleMusicLoggedIn] = useState(false);
   const {
     updateNotificationMessage,
     updateNotificationTitle,

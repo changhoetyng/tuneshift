@@ -16,6 +16,12 @@ type UIStateType = {
   updateSelectedPlaylists: (newState: UserPlaylist[]) => void;
   migrationMethod: string | null;
   updateMigrationMethod: (newMethod: string | null) => void;
+
+  // Progress Tracker
+  songsToMigrate: number;
+  updateSongsToMigrate: (newSongsToMigrate: number) => void;
+  songsInfomationLoaded: number;
+  updateSongsMigrated: (songInfomationLoaded: number) => void;
 };
 
 export const useUIStateStore = create<UIStateType>((set) => ({
@@ -46,5 +52,17 @@ export const useUIStateStore = create<UIStateType>((set) => ({
   updateMigrationMethod: (newMethod: string | null) =>
     set({
       migrationMethod: newMethod,
+    }),
+
+  // Progress Tracker
+  songsToMigrate: 0,
+  updateSongsToMigrate: (newSongsToMigrate: number) =>
+    set({
+      songsToMigrate: newSongsToMigrate,
+    }),
+  songsInfomationLoaded: 0,
+  updateSongsMigrated: (songInfomationLoaded: number) =>
+    set({
+      songsInfomationLoaded: songInfomationLoaded,
     }),
 }));
