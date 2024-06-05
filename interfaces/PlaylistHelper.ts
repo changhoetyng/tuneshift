@@ -7,6 +7,9 @@ export interface PlaylistHelper {
   ): Promise<{ playlists: UserPlaylist[]; total: number }>;
 
   getSongs(playlistId: string): Promise<PlaylistSongs[]>;
-  addSongsOntoPlaylist(songs: PlaylistSongs[]): Promise<boolean>;
+  addSongsOntoPlaylist(
+    songsIds: string[],
+    playlist: UserPlaylist
+  ): Promise<boolean>;
   getSongsId(songs: PlaylistSongs[]): Promise<string[]>;
 }

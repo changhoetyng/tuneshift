@@ -70,9 +70,12 @@ export default function PlaylistMigrationStatusPage() {
       selectedPlaylists[selectedIndex].id
     );
 
-    const songsId = await appleMusicHelper.getSongsId(songs);
+    const songsIds = await appleMusicHelper.getSongsId(songs);
 
-    console.log(songsId);
+    await appleMusicHelper.addSongsOntoPlaylist(
+      songsIds,
+      selectedPlaylists[selectedIndex]
+    );
 
     setSelectedIndex((prevState) => {
       const newIndex = (prevState + 1) % selectedPlaylists.length;

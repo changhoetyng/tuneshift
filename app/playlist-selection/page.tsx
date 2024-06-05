@@ -187,7 +187,7 @@ export default function PlaylistSelection() {
         <InfiniteScrolling
           className="grid grid-cols-3 gap-6"
           onScroll={fetchMoreData}
-          style={{ minWidth: "860px", maxHeight: "800px", overflowY: "scroll" }}
+          style={{ minWidth: "860px", maxHeight: "400px", overflowY: "scroll" }}
         >
           {userPlaylists?.map((playlist, index) => (
             <PlaylistCard

@@ -2,6 +2,7 @@ import { PlaylistHelper } from "@/interfaces/PlaylistHelper";
 import { useUIStateStore } from "@/stores/UIStateStore";
 import { useCredentialsStore } from "@/stores/credentialsStore";
 import { PlaylistSongs, UserPlaylist } from "@/types/playlists";
+import axios from "axios";
 
 export default class AppleMusicApiHelper implements PlaylistHelper {
   private get musicKitInstance() {
@@ -41,7 +42,6 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
         "/v1/catalog/{{storefrontId}}/search",
         queryParameters
       );
-      console.log(music.data.results, queryParameters);
       if (!music?.data?.results?.songs?.data?.length) {
         continue;
       }
@@ -58,9 +58,38 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
     return musics;
   }
 
-  addSongsOntoPlaylist(songs: PlaylistSongs[]): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      // Your implementation here
-    });
+  async addSongsOntoPlaylist(
+    songsIds: string[],
+    playlist: UserPlaylist
+  ): Promise<boolean> {
+    let payload = {
+      attributes: {
+        name: playlist.name,
+      },
+      relationships: {
+        tracks: {
+          data: songsIds.map((songId) => ({
+            id: songId,
+            type: "songs",
+          })),
+        },
+      },
+    };
+    const url = "https://api.music.apple.com/v1/me/library/playlists";
+
+    try {
+      const response = await axios.post(url, payload, {
+        headers: {
+          Authorization: `Bearer ${this.musicKitInstance.developerToken}`,
+          "Music-User-Token": this.musicKitInstance.musicUserToken,
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("Playlist created:", response.data);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
