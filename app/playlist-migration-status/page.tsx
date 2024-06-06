@@ -3,7 +3,7 @@ import PlaylistCard from "@/app/_ui/card/PlaylistCard";
 import FloatingCard from "../_ui/card/FloatingCard";
 import { animated, useSprings } from "@react-spring/web";
 import { Progress } from "@/components/ui/progress";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useUIStateStore } from "@/stores/UIStateStore";
 import { useRouter } from "next/navigation";
 import { useCredentialsStore } from "@/stores/credentialsStore";
@@ -57,6 +57,10 @@ export default function PlaylistMigrationStatusPage() {
   );
 
   useEffect(() => {
+    setSelectedIndex(0);
+  }, []);
+
+  useEffect(() => {
     if (selectedPlaylists.length === 0) {
       return router.push("/migrate");
     }
@@ -65,23 +69,29 @@ export default function PlaylistMigrationStatusPage() {
     });
   }, [api, router, selectedIndex, selectedPlaylists.length]);
 
-  async function animate() {
-    const songs: PlaylistSongs[] = await spotifyApiHelper.getSongs(
-      selectedPlaylists[selectedIndex].id
-    );
+  useEffect(() => {
+    async function animate() {
+      console.log(selectedIndex);
+      const songs: PlaylistSongs[] = await spotifyApiHelper.getSongs(
+        selectedPlaylists[selectedIndex].id
+      );
 
-    const songsIds = await appleMusicHelper.getSongsId(songs);
+      const songsIds = await appleMusicHelper.getSongsId(songs);
 
-    await appleMusicHelper.addSongsOntoPlaylist(
-      songsIds,
-      selectedPlaylists[selectedIndex]
-    );
+      await appleMusicHelper.addSongsOntoPlaylist(
+        songsIds,
+        selectedPlaylists[selectedIndex]
+      );
 
-    setSelectedIndex((prevState) => {
-      const newIndex = (prevState + 1) % selectedPlaylists.length;
-      return newIndex;
-    });
-  }
+      setSelectedIndex(selectedIndex + 1);
+    }
+
+    if (selectedIndex < selectedPlaylists.length) {
+      animate();
+    } else {
+      router.push("/migration-done");
+    }
+  }, [selectedIndex]);
 
   const AnimatedDialog = animated(PlaylistCard);
 

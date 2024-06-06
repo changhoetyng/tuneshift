@@ -42,10 +42,6 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
         "/v1/catalog/{{storefrontId}}/search",
         queryParameters
       );
-      if (!music?.data?.results?.songs?.data?.length) {
-        continue;
-      }
-      musics.push(music.data.results.songs.data[0].id);
 
       // Update songs migration progress
       useUIStateStore
@@ -53,6 +49,11 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
         .updateSongsMigrated(
           useUIStateStore.getState().songsInfomationLoaded + 1
         );
+
+      if (!music?.data?.results?.songs?.data?.length) {
+        continue;
+      }
+      musics.push(music.data.results.songs.data[0].id);
     }
 
     return musics;

@@ -1,10 +1,32 @@
+"use client";
+import { useRouter } from "next/navigation";
 import NavigationButton from "../_ui/buttons/NavigationButton";
 import Link from "next/link";
 import FloatingCard from "../_ui/card/FloatingCard";
 import Tick from "@/public/tick.svg";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useUIStateStore } from "@/stores/UIStateStore";
 
-export default function migrationDone() {
+export default function MigrationDone() {
+  const router = useRouter();
+  const { selectedPlaylists, updateSelectedPlaylists } = useUIStateStore(
+    (state) => ({
+      // Migrate Context
+      selectedPlaylists: state.selectedPlaylists,
+      updateSelectedPlaylists: state.updateSelectedPlaylists,
+    })
+  );
+
+  useEffect(() => {
+    console.log(selectedPlaylists);
+    if (selectedPlaylists.length <= 0) {
+      return router.push("/migrate");
+    }
+
+    updateSelectedPlaylists([]);
+  }, []);
+
   return (
     <div className="w-full h-full">
       <FloatingCard
