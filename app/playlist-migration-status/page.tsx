@@ -135,7 +135,6 @@ export default function PlaylistMigrationStatusPage() {
             />
           </div>
         </div>
-        <button onClick={animate}>Hello</button>
       </FloatingCard>
     </div>
   );

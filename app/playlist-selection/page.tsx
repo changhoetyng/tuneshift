@@ -10,10 +10,11 @@ import { UserPlaylist } from "@/types/playlists";
 import PlaylistCard from "@/app/_ui/card/PlaylistCard";
 import FloatingIsland from "@/app/_ui/buttons/FloatingIsland";
 import InfiniteScrolling from "../_ui/global/InfiniteScrolling";
+import SpotifyApiHelper from "../_utils/spotify-api-wrapper/SpotifyApiHelper";
 
 export default function PlaylistSelection() {
   const router = useRouter();
-  const [apiHelper, setApiHelper] = useState<PlaylistHelper | null>(null);
+  const [apiHelper, setApiHelper] = useState<SpotifyApiHelper | null>();
   const [total, setTotal] = useState<number>(0);
   const [selectedPlaylists, setSelectedPlaylists] = useState<Set<string>>(
     new Set()
@@ -175,7 +176,7 @@ export default function PlaylistSelection() {
   };
 
   return (
-    <div className="mt-6 min-h-fit min-w-fit overflow-auto">
+    <div className="mt-6 min-h-fit min-w-fit">
       <FloatingCard
         className="pl-20 pr-20 pb-14 pt-8 relative"
         optionsBar={
@@ -187,7 +188,10 @@ export default function PlaylistSelection() {
         <InfiniteScrolling
           className="grid grid-cols-3 gap-6"
           onScroll={fetchMoreData}
-          style={{ minWidth: "860px", maxHeight: "400px", overflowY: "scroll" }}
+          style={{
+            minWidth: "860px",
+            maxHeight: "800px",
+          }}
         >
           {userPlaylists?.map((playlist, index) => (
             <PlaylistCard
