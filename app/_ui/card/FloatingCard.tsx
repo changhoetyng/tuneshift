@@ -4,20 +4,25 @@ interface FloatingCardProps {
   optionsBar?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
+  parentClassName?: string;
 }
 
 export default function FloatingCard({
   optionsBar,
   children,
   className,
+  parentClassName,
   ...rest
 }: FloatingCardProps) {
   return (
     <div
-      className={clsx("inset-x-0 flex items-center justify-center flex-col")}
+      className={clsx(
+        "inset-x-0 flex items-center justify-center flex-col",
+        parentClassName
+      )}
     >
-      <div>
-        <div className="self-start mb-3">{optionsBar}</div>
+      <div className={clsx(parentClassName)}>
+        {optionsBar && <div className="self-start mb-3">{optionsBar}</div>}
         <div className={clsx("bg-card", className)} {...rest}>
           {children}
         </div>
