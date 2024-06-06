@@ -191,9 +191,10 @@ export default function PlaylistSelection() {
           onScroll={fetchMoreData}
           style={{
             minWidth: "860px",
-            maxHeight: "400px",
+            minHeight: "700px",
           }}
         >
+          {!userPlaylists?.length && new Array(10).fill().map(() => <div className="w-[250px] h-[250px] animate-pulse"></div>)}
           {userPlaylists?.map((playlist, index) => (
             <PlaylistCard
               onClick={() => onSetSelectedPlaylists(playlist.id)}

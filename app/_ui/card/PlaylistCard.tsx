@@ -87,11 +87,13 @@ export default function PlaylistCard({
       className={clsx(
         styles["playlist-card"],
         className,
-        isSelected ? "border-2 border-primary" : ""
+        isSelected ? "border-2 border-primary" : "",
+        "w-[262px] h-[253px]"
+        
       )}
       onClick={onClick}
     >
-      <div className={`flex flex-col relative z-[0] w-full h-full justify-center align-middle content-center transition-all rounded-[5px] overflow-hidden ${isSelected ? "scale-90" : ""}`}
+      <div className={`flex flex-col relative z-[0] w-[262px] h-[253px] justify-center align-middle content-center transition-all overflow-hidden ${isSelected ? "scale-90 rounded-[5px]" : "rounded-[11px]"}`}
       >
 
         <div
@@ -105,7 +107,7 @@ export default function PlaylistCard({
         </div>
 
         <div
-          className={`absolute w-full h-full z-[-1] transition-all duration-1000 rotate-90 blur-lg ${isSelected ? "scale-[3] opacity-40" : "scale-125 opacity-70"}`}
+          className={`absolute w-full h-full z-[-1] transition-all duration-700 rotate-90 blur-lg ${isSelected ? "scale-[3] opacity-40" : "scale-125 opacity-70"}`}
           style={{
             ...backgroundStyle,
             ...customStyle,
@@ -130,9 +132,9 @@ export default function PlaylistCard({
         onLoad={extractImagePalette}
         width={130}
         alt="playlist"
-        className="m-auto mb-0 mt-0"
+        className={`m-auto mb-0 mt-0 transition-all duration-700 ${isSelected ? "scale-[1.02]" : "scale-100"}`}
       />
-      <h3 className="mt-4" style={{ color: textColor, fontWeight: "bold" }}>
+      <h3 className="mt-4 p-2 mix-blend-overlay" style={{ color: textColor, fontWeight: "bold", opacity: "0.8"}}>
         {name}
       </h3>
       </div>
