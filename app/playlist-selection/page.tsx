@@ -136,6 +136,7 @@ export default function PlaylistSelection() {
   ]);
 
   const fetchMoreData = async (): Promise<boolean> => {
+    console.log("Fetching")
     return new Promise((resolve) => {
       if (userPlaylists?.length >= total) {
         resolve(false);
@@ -178,7 +179,7 @@ export default function PlaylistSelection() {
   return (
     <div className="mt-6 min-h-fit min-w-fit">
       <FloatingCard
-        className="pl-20 pr-20 pb-14 pt-8 relative"
+        className="p-5 pb-14 pt-8 relative"
         optionsBar={
           <NavigationButton className="mb-6" onClick={() => backToFlow()}>
             Back to Flow
@@ -190,7 +191,7 @@ export default function PlaylistSelection() {
           onScroll={fetchMoreData}
           style={{
             minWidth: "860px",
-            maxHeight: "800px",
+            maxHeight: "400px",
           }}
         >
           {userPlaylists?.map((playlist, index) => (

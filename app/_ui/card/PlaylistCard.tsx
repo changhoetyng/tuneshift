@@ -45,7 +45,7 @@ export default function PlaylistCard({
       const color3 = data[2];
       const newBackgroundStyle = data
         ? {
-            background: `linear-gradient(0.3turn, rgb(${data[0]}), rgb(${data[1]}), rgb(${data[2]}))`,
+            background: `linear-gradient(162deg, rgb(${data[0]}) -25%, rgb(${data[1]}) 40%, rgba(${data[0]}, 0.5) 65%, rgb(${data[2]}) 90%, rgb(${data[1]}) 115%)`,
           }
         : {};
 
@@ -89,13 +89,40 @@ export default function PlaylistCard({
         className,
         isSelected ? "border-2 border-primary" : ""
       )}
-      style={{
-        ...backgroundStyle,
-        ...customStyle,
-        ...style,
-      }}
       onClick={onClick}
     >
+      <div className={`flex flex-col relative z-[0] w-full h-full justify-center align-middle content-center transition-all rounded-[5px] overflow-hidden ${isSelected ? "scale-90" : ""}`}
+      >
+
+        <div
+          className={`absolute w-full h-full z-[-1] transition-all duration-1200 opacity-50 blur-lg ${isSelected ? "scale-[1.5] opacity-70" : "scale-100 opacity-40"}`}
+          style={{
+            ...backgroundStyle,
+            ...customStyle,
+            ...style,
+          }}
+        >
+        </div>
+
+        <div
+          className={`absolute w-full h-full z-[-1] transition-all duration-1000 rotate-90 blur-lg ${isSelected ? "scale-[3] opacity-40" : "scale-125 opacity-70"}`}
+          style={{
+            ...backgroundStyle,
+            ...customStyle,
+            ...style,
+          }}
+        >
+        </div>
+
+        <div
+          className={`absolute w-full h-full z-[-1] transition-all duration-2500 rotate-45 blur-lg ${isSelected ? "scale-[3] opacity-20" : "scale-150 opacity-50"}`}
+          style={{
+            ...backgroundStyle,
+            ...customStyle,
+            ...style,
+          }}
+        >
+        </div>
       <img
         ref={imgRef}
         src={src}
@@ -103,10 +130,13 @@ export default function PlaylistCard({
         onLoad={extractImagePalette}
         width={130}
         alt="playlist"
+        className="m-auto mb-0 mt-0"
       />
       <h3 className="mt-4" style={{ color: textColor, fontWeight: "bold" }}>
         {name}
       </h3>
+      </div>
+      
     </button>
   );
 }

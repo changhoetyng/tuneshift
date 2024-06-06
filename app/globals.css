@@ -28,7 +28,11 @@
 }
 
 .expand-animation {
-  animation: expand 0.4s ease-out forwards;
+  //animation: expand 0.4s ease-out forwards;
+  transition: all ease-in-out 0.2s, opacity ease-in 0.05s 0.05s;
+  width: 160px;
+  transform: scale(1);
+  opacity: 1;
 }
 
 @keyframes shrink {
@@ -41,7 +45,11 @@
 }
 
 .shrink-animation {
-  animation: shrink 0.4s ease-out forwards;
+  //animation: shrink 0.4s ease-out forwards;
+  transition: all ease-in-out 0.2s, opacity ease-in 0.05s 0.05s;
+  width: 0px;
+  transform: scale(0);
+  opacity: 0;
 }
 
 @keyframes showOpacity {
