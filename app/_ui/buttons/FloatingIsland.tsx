@@ -40,6 +40,7 @@ export default function FloatingIsland({
   return (
     <div className={clsx("absolute inset-x-0 bottom-8 flex justify-center")}>
       <div
+        data-testid="floating-island"
         className={clsx(
           "rounded-full h-12 w-40 bg-secondary relative flex mr-4 justify-center items-center",
           isExpanding ? "expand-animation" : "shrink-animation"
@@ -64,6 +65,7 @@ export default function FloatingIsland({
         className={clsx(
           "transition-all rounded-full h-12 w-12 bg-secondary flex justify-center items-center cursor-pointer"
         )}
+        data-testid="arrow-button"
         onClick={onClick}
       >
         <Image src={Arrow} alt="Arrow" height={18} />
