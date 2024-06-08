@@ -136,10 +136,10 @@ export default class SpotifyApiHelper implements PlaylistHelper {
 
       useCredentialsPersistantStore
         .getState()
-        .updateSpotifyAccessToken(response.accessToken);
+        .updateSpotifyAccessToken(response.access_token);
       useCredentialsPersistantStore
         .getState()
-        .updateSpotifyRefreshToken(response.refreshToken);
+        .updateSpotifyRefreshToken(response.refresh_token);
     } else {
       throw new Error("Refresh token not found");
     }
