@@ -71,6 +71,19 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+      - name: Debug Environment Variables
+        run: |
+          echo "NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN=${{ secrets.NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN }}"
+          echo "NEXT_PUBLIC_SPOTIFY_CLIENT_ID=${{ secrets.NEXT_PUBLIC_SPOTIFY_CLIENT_ID }}"
+          echo "NEXT_PUBLIC_APP_NAME=${{ secrets.NEXT_PUBLIC_APP_NAME }}"
+          echo "NEXT_PUBLIC_APP_BUILD=${{ secrets.NEXT_PUBLIC_APP_BUILD }}"
+          echo "NEXT_PUBLIC_APP_CURRENT_URL=${{ secrets.NEXT_PUBLIC_APP_CURRENT_URL }}"
+        env:
+          NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN: ${{ secrets.NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN }}
+          NEXT_PUBLIC_SPOTIFY_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_SPOTIFY_CLIENT_ID }}
+          NEXT_PUBLIC_APP_NAME: ${{ secrets.NEXT_PUBLIC_APP_NAME }}
+          NEXT_PUBLIC_APP_BUILD: ${{ secrets.NEXT_PUBLIC_APP_BUILD }}
+          NEXT_PUBLIC_APP_CURRENT_URL: ${{ secrets.NEXT_PUBLIC_APP_CURRENT_URL }}
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
