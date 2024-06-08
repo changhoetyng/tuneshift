@@ -73,11 +73,11 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Debug Environment Variables
         run: |
-          echo "NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN=${{ secrets.NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN }}"
-          echo "NEXT_PUBLIC_SPOTIFY_CLIENT_ID=${{ secrets.NEXT_PUBLIC_SPOTIFY_CLIENT_ID }}"
-          echo "NEXT_PUBLIC_APP_NAME=${{ secrets.NEXT_PUBLIC_APP_NAME }}"
-          echo "NEXT_PUBLIC_APP_BUILD=${{ secrets.NEXT_PUBLIC_APP_BUILD }}"
-          echo "NEXT_PUBLIC_APP_CURRENT_URL=${{ secrets.NEXT_PUBLIC_APP_CURRENT_URL }}"
+          echo "NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN=${{ vars.NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN }}"
+          echo "NEXT_PUBLIC_SPOTIFY_CLIENT_ID=${{ vars.NEXT_PUBLIC_SPOTIFY_CLIENT_ID }}"
+          echo "NEXT_PUBLIC_APP_NAME=${{ vars.NEXT_PUBLIC_APP_NAME }}"
+          echo "NEXT_PUBLIC_APP_BUILD=${{ vars.NEXT_PUBLIC_APP_BUILD }}"
+          echo "NEXT_PUBLIC_APP_CURRENT_URL=${{ vars.NEXT_PUBLIC_APP_CURRENT_URL }}"
         env:
           NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN: ${{ secrets.NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN }}
           NEXT_PUBLIC_SPOTIFY_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_SPOTIFY_CLIENT_ID }}
