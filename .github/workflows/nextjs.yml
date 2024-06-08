@@ -75,6 +75,12 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        env:
+          NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN: ${{ vars.NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN }}
+          NEXT_PUBLIC_SPOTIFY_CLIENT_ID: ${{ vars.NEXT_PUBLIC_SPOTIFY_CLIENT_ID }}
+          NEXT_PUBLIC_APP_NAME: ${{ vars.NEXT_PUBLIC_APP_NAME }}
+          NEXT_PUBLIC_APP_BUILD: ${{ vars.NEXT_PUBLIC_APP_BUILD }}
+          NEXT_PUBLIC_APP_CURRENT_URL: ${{ vars.NEXT_PUBLIC_APP_CURRENT_URL }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
