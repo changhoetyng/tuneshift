@@ -8,7 +8,6 @@ import { useUIStateStore } from "@/stores/UIStateStore";
 import { useRouter } from "next/navigation";
 import { useCredentialsStore } from "@/stores/credentialsStore";
 import { PlaylistSongs } from "@/types/playlists";
-import AppleMusicApiHelper from "../_utils/apple-music-api-wrapper/AppleMusicApiHelper";
 
 const DEFAULT_ROTATION = -251;
 
@@ -37,13 +36,18 @@ function initialState(index: number, selectedIndex: number = 0) {
 export default function PlaylistMigrationStatusPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
-  const { selectedPlaylists, songsToMigrate, songsInfomationLoaded } =
-    useUIStateStore((state) => ({
-      // Migrate Context
-      selectedPlaylists: state.selectedPlaylists,
-      songsToMigrate: state.songsToMigrate,
-      songsInfomationLoaded: state.songsInfomationLoaded,
-    }));
+  const {
+    selectedPlaylists,
+    songsToMigrate,
+    songsInfomationLoaded,
+    migrationMethod,
+  } = useUIStateStore((state) => ({
+    // Migrate Context
+    selectedPlaylists: state.selectedPlaylists,
+    songsToMigrate: state.songsToMigrate,
+    songsInfomationLoaded: state.songsInfomationLoaded,
+    migrationMethod: state.migrationMethod,
+  }));
 
   const [springs, api] = useSprings(selectedPlaylists.length, (index) =>
     initialState(index, selectedIndex)
@@ -55,6 +59,25 @@ export default function PlaylistMigrationStatusPage() {
       appleMusicHelper: state.appleMusicHelper,
     })
   );
+
+  function getSourceAPI() {
+    if (migrationMethod === "spotify-to-apple-music") {
+      return spotifyApiHelper;
+    }
+
+    return null;
+  }
+
+  function getDestinationAPI() {
+    if (migrationMethod === "spotify-to-apple-music") {
+      return appleMusicHelper;
+    }
+
+    return null;
+  }
+
+  const sourceApiHelper = getSourceAPI();
+  const destinationApiHelper = getDestinationAPI();
 
   useEffect(() => {
     setSelectedIndex(0);
@@ -71,14 +94,18 @@ export default function PlaylistMigrationStatusPage() {
 
   useEffect(() => {
     async function animate() {
+      if (sourceApiHelper === null || destinationApiHelper === null) {
+        router.push("/error");
+        return;
+      }
       try {
-        const songs: PlaylistSongs[] = await spotifyApiHelper.getSongs(
+        const songs: PlaylistSongs[] = await sourceApiHelper.getSongs(
           selectedPlaylists[selectedIndex].id
         );
 
-        const songsIds = await appleMusicHelper.getSongsId(songs);
+        const songsIds = await destinationApiHelper.getSongsId(songs);
 
-        await appleMusicHelper.addSongsOntoPlaylist(
+        await destinationApiHelper.addSongsOntoPlaylist(
           songsIds,
           selectedPlaylists[selectedIndex]
         );
