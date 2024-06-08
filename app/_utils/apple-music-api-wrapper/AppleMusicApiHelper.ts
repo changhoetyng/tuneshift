@@ -54,6 +54,8 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
         continue;
       }
       musics.push(music.data.results.songs.data[0].id);
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     return musics;

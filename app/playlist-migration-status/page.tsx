@@ -142,7 +142,7 @@ export default function PlaylistMigrationStatusPage() {
           </div>
           <div className="w-full flex flex-col items-center mt-8 word text-xl font-semibold">
             <h1>
-              Transferring {songsInfomationLoaded} / {songsToMigrate} ...
+              Fetching {songsInfomationLoaded} / {songsToMigrate} ...
             </h1>
             <Progress
               value={(songsInfomationLoaded / songsToMigrate) * 100}
