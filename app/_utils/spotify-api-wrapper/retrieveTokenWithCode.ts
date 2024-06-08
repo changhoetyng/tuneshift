@@ -26,6 +26,5 @@ export default async function retrieveTokenWithCode(
   const body = await fetch("https://accounts.spotify.com/api/token", payload);
   const response = await body.json();
 
-  console.log(response);
   return response;
 }

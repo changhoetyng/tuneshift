@@ -19,12 +19,12 @@ export default function MigrationDone() {
   );
 
   useEffect(() => {
-    console.log(selectedPlaylists);
     if (selectedPlaylists.length <= 0) {
       return router.push("/migrate");
     }
 
     updateSelectedPlaylists([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

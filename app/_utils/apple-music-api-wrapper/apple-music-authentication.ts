@@ -38,12 +38,10 @@ export async function AppleMusicAuthentication() {
         },
       });
 
-      console.log("MusicKit instance", musicKitInstance);
       return musicKitInstance;
       // Further actions like musicKitInstance.authorize(), etc.
     }
   } catch (err) {
-    console.log("HELLOOOO");
     console.error(err);
   }
 }

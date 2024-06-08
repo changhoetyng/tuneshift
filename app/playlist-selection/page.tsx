@@ -136,7 +136,6 @@ export default function PlaylistSelection() {
   ]);
 
   const fetchMoreData = async (): Promise<boolean> => {
-    console.log("Fetching");
     return new Promise((resolve) => {
       if (userPlaylists?.length >= total) {
         resolve(false);

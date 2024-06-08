@@ -87,7 +87,6 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
         },
       });
 
-      console.log("Playlist created:", response.data);
       return true;
     } catch (error) {
       return false;

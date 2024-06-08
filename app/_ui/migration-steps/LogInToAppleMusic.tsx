@@ -32,7 +32,6 @@ export default function LoginToAppleMusic({
 
   useEffect(() => {
     updateIsMusicKitAuthorized(musicKitInstance?.isAuthorized);
-    console.log(musicKitInstance);
   }, [musicKitInstance, updateIsMusicKitAuthorized]);
 
   async function onLoginAppleMusic() {

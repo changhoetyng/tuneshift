@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   useCredentialsPersistantStore,
@@ -9,7 +9,7 @@ import retrieveTokenWithCode from "@/app/_utils/spotify-api-wrapper/retrieveToke
 import { useUIStateStore } from "@/stores/UIStateStore";
 import LoadingComponent from "../_ui/global/LoadingComponent";
 
-export default function SpotifyAuthenticationRedirection() {
+function SpotifyAuthRedirection() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -50,7 +50,6 @@ export default function SpotifyAuthenticationRedirection() {
         );
 
         updateSpotifyAccessToken(response.access_token);
-        console.log(response.refresh_token, "refresh token");
         updateSpotifyRefreshToken(response.refresh_token);
       }
       if (redirectionLink) {
@@ -64,7 +63,6 @@ export default function SpotifyAuthenticationRedirection() {
     }
 
     retrieveTokenAndRedirect();
-    // }
   }, [
     router,
     searchParams,
@@ -88,5 +86,15 @@ export default function SpotifyAuthenticationRedirection() {
         <h1 className="mt-3">Logged in. Redirecting...</h1>
       </div>
     </div>
+  );
+}
+
+export default function SpotifyAuthenticationRedirection() {
+  return (
+    <Suspense
+      fallback={<LoadingComponent size="small" type="apple-to-spotify" />}
+    >
+      <SpotifyAuthRedirection />
+    </Suspense>
   );
 }

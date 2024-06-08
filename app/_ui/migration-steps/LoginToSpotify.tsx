@@ -39,7 +39,6 @@ export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
   useEffect(() => {
     async function fetchData() {
       if (spotifyAccessToken) {
-        console.log(spotifyApiHelper);
         await spotifyApiHelper.getProfile().catch();
       }
     }
@@ -78,8 +77,6 @@ export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
   }
 
   async function logoutFromSpotify() {
-    console.log("Logging out from Spotify");
-
     updateSpotifyAccessToken(null);
     updateSpotifyRefreshToken(null);
 

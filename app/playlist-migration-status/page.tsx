@@ -71,7 +71,6 @@ export default function PlaylistMigrationStatusPage() {
 
   useEffect(() => {
     async function animate() {
-      console.log(selectedIndex);
       const songs: PlaylistSongs[] = await spotifyApiHelper.getSongs(
         selectedPlaylists[selectedIndex].id
       );
@@ -91,6 +90,8 @@ export default function PlaylistMigrationStatusPage() {
     } else {
       router.push("/migration-done");
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIndex]);
 
   const AnimatedDialog = animated(PlaylistCard);

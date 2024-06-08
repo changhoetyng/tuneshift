@@ -18,7 +18,10 @@ export default class SpotifyApiHelper implements PlaylistHelper {
     return Promise.resolve([]);
   }
 
-  addSongsOntoPlaylist(songs: PlaylistSongs[]): Promise<boolean> {
+  addSongsOntoPlaylist(
+    songsIds: string[],
+    playlist: UserPlaylist
+  ): Promise<boolean> {
     return Promise.resolve(true);
   }
 
