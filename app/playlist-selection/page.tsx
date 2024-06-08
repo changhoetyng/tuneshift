@@ -136,7 +136,7 @@ export default function PlaylistSelection() {
   ]);
 
   const fetchMoreData = async (): Promise<boolean> => {
-    console.log("Fetching")
+    console.log("Fetching");
     return new Promise((resolve) => {
       if (userPlaylists?.length >= total) {
         resolve(false);
@@ -191,10 +191,18 @@ export default function PlaylistSelection() {
           onScroll={fetchMoreData}
           style={{
             minWidth: "860px",
-            minHeight: "700px",
+            maxHeight: "700px",
           }}
         >
-          {!userPlaylists?.length && new Array(10).fill().map(() => <div className="w-[250px] h-[250px] animate-pulse"></div>)}
+          {!userPlaylists?.length &&
+            new Array(10)
+              .fill(0)
+              .map((_, idx) => (
+                <div
+                  key={idx}
+                  className="w-[250px] h-[250px] animate-pulse"
+                ></div>
+              ))}
           {userPlaylists?.map((playlist, index) => (
             <PlaylistCard
               onClick={() => onSetSelectedPlaylists(playlist.id)}
