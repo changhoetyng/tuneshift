@@ -78,18 +78,14 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
     };
     const url = "https://api.music.apple.com/v1/me/library/playlists";
 
-    try {
-      const response = await axios.post(url, payload, {
-        headers: {
-          Authorization: `Bearer ${this.musicKitInstance.developerToken}`,
-          "Music-User-Token": this.musicKitInstance.musicUserToken,
-          "Content-Type": "application/json",
-        },
-      });
+    const response = await axios.post(url, payload, {
+      headers: {
+        Authorization: `Bearer ${this.musicKitInstance.developerToken}`,
+        "Music-User-Token": this.musicKitInstance.musicUserToken,
+        "Content-Type": "application/json",
+      },
+    });
 
-      return true;
-    } catch (error) {
-      return false;
-    }
+    return true;
   }
 }

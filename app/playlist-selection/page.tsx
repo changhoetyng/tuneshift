@@ -149,7 +149,7 @@ export default function PlaylistSelection() {
           resolve(true);
         }
       }, 1000);
-      resolve(false); // Resolve false if no more data
+      resolve(true); // Resolve false if no more data
     });
   };
 

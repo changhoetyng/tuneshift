@@ -71,18 +71,22 @@ export default function PlaylistMigrationStatusPage() {
 
   useEffect(() => {
     async function animate() {
-      const songs: PlaylistSongs[] = await spotifyApiHelper.getSongs(
-        selectedPlaylists[selectedIndex].id
-      );
+      try {
+        const songs: PlaylistSongs[] = await spotifyApiHelper.getSongs(
+          selectedPlaylists[selectedIndex].id
+        );
 
-      const songsIds = await appleMusicHelper.getSongsId(songs);
+        const songsIds = await appleMusicHelper.getSongsId(songs);
 
-      await appleMusicHelper.addSongsOntoPlaylist(
-        songsIds,
-        selectedPlaylists[selectedIndex]
-      );
+        await appleMusicHelper.addSongsOntoPlaylist(
+          songsIds,
+          selectedPlaylists[selectedIndex]
+        );
 
-      setSelectedIndex(selectedIndex + 1);
+        setSelectedIndex(selectedIndex + 1);
+      } catch (e) {
+        router.push("/error");
+      }
     }
 
     if (selectedIndex < selectedPlaylists.length) {
