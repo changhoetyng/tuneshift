@@ -4,26 +4,26 @@ import SpotifyToAppleImage from "@/public//Spotify-Apple.png";
 import AppleToSpotifyImage from "@/public//Apple-Spotify.png";
 import LoadingComponent from "../_ui/global/LoadingComponent";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Migrate() {
   const [isAnimating, setIsAnimating] = useState(false);
-  const [countDown, setCountDown] = useState(0);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent, destination: string) => {
     e.preventDefault();
-    setTimeout(() => {
+    const routerTimeout = setTimeout(() => {
       router.push(destination);
     }, 250);
 
-    setInterval(() => {
-      setCountDown(countDown + 33.3);
-    }, 33.3);
+    const loadingTimeout = setTimeout(() => {
+      setLoading(true)
+    }, 350);
   };
 
-  return countDown <= 250 ? (
+  return !loading ? (
     <div
       className={`flex flex-col justify-center items-center h-full transition-all ease-in-out animate-fadeInUpFast ${
         isAnimating ? "animate-fadeOutUpFast" : ""

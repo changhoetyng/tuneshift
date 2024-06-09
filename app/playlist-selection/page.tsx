@@ -11,6 +11,7 @@ import PlaylistCard from "@/app/_ui/card/PlaylistCard";
 import FloatingIsland from "@/app/_ui/buttons/FloatingIsland";
 import InfiniteScrolling from "../_ui/global/InfiniteScrolling";
 import SpotifyApiHelper from "../_utils/spotify-api-wrapper/SpotifyApiHelper";
+import LoadingComponent from "../_ui/global/LoadingComponent";
 
 export default function PlaylistSelection() {
   const router = useRouter();
@@ -136,6 +137,7 @@ export default function PlaylistSelection() {
   ]);
 
   const fetchMoreData = async (): Promise<boolean> => {
+    console.log("Fetching More Data")
     return new Promise((resolve) => {
       if (userPlaylists?.length >= total) {
         resolve(false);
@@ -212,6 +214,12 @@ export default function PlaylistSelection() {
               id={"playlist-image-" + index}
             />
           ))}
+
+          <h2>{userPlaylists.length} loaded</h2>
+          <div className={"flex justify-end w-full"}>
+            <LoadingComponent/>
+          </div>
+          
         </InfiniteScrolling>
         <FloatingIsland islandText={selectedPlaylistLength} onClick={migrate} />
       </FloatingCard>

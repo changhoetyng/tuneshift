@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useCredentialsStore } from "@/stores/credentialsStore";
 import { PlaylistSongs } from "@/types/playlists";
 
-const DEFAULT_ROTATION = -251;
+const DEFAULT_POSITION = -251;
 
 function initialState(index: number, selectedIndex: number = 0) {
   if (index === selectedIndex) {
@@ -18,17 +18,19 @@ function initialState(index: number, selectedIndex: number = 0) {
       width: "262px",
       minWidth: "262px",
       opacity: 1,
-      translateX: DEFAULT_ROTATION * selectedIndex,
+      translateX: DEFAULT_POSITION * selectedIndex,
       filter: "grayscale(0%)",
+      transform: "scale(1)"
     };
   } else {
     return {
-      height: "235px",
+      height: "245px",
       width: "235px",
       minWidth: "235px",
       opacity: 1,
-      translateX: DEFAULT_ROTATION * selectedIndex,
+      translateX: DEFAULT_POSITION * selectedIndex,
       filter: "grayscale(100%)",
+      transform: "scale(0.8)"
     };
   }
 }

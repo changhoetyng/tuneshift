@@ -88,20 +88,23 @@ export default function PlaylistCard({
         styles["playlist-card"],
         className,
         isSelected ? "border-2 border-primary" : "",
-        "w-[262px] h-[253px]"
+        "w-[262px] h-[253px] overflow-visible group",
+        
         
       )}
+      style={{
+        ...customStyle,
+        ...style,
+      }}
       onClick={onClick}
     >
-      <div className={`flex flex-col relative z-[0] w-[262px] h-[253px] justify-center align-middle content-center transition-all overflow-hidden ${isSelected ? "scale-90 rounded-[5px]" : "rounded-[11px]"}`}
+      <div className={`flex flex-col relative z-[0] w-[262px] h-[253px] justify-center align-middle content-center transition-all duration-300 overflow-hidden ${isSelected ? "scale-90 rounded-[5px]" : "rounded-[11px]"}`}
       >
 
         <div
-          className={`absolute w-full h-full z-[-1] transition-all duration-1200 opacity-50 blur-lg ${isSelected ? "scale-[1.5] opacity-70" : "scale-100 opacity-40"}`}
+          className={`absolute w-full h-full z-[-1] transition-all duration-1200 blur-lg ${isSelected ? "scale-[1.5] opacity-70" : "scale-100 opacity-40"} group-hover:rotate-12 group-hover:scale-150 group-hover:rotate-12 duration-700 group-hover:opacity-90  duration-500`}
           style={{
             ...backgroundStyle,
-            ...customStyle,
-            ...style,
           }}
         >
         </div>
@@ -110,8 +113,6 @@ export default function PlaylistCard({
           className={`absolute w-full h-full z-[-1] transition-all duration-700 rotate-90 blur-lg ${isSelected ? "scale-[3] opacity-40" : "scale-125 opacity-70"}`}
           style={{
             ...backgroundStyle,
-            ...customStyle,
-            ...style,
           }}
         >
         </div>
@@ -120,8 +121,6 @@ export default function PlaylistCard({
           className={`absolute w-full h-full z-[-1] transition-all duration-2500 rotate-45 blur-lg ${isSelected ? "scale-[3] opacity-20" : "scale-150 opacity-50"}`}
           style={{
             ...backgroundStyle,
-            ...customStyle,
-            ...style,
           }}
         >
         </div>
