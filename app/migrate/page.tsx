@@ -3,14 +3,17 @@ import DestinationSelection from "@/app/migrate/_ui/DestinationSelection";
 import SpotifyToAppleImage from "@/public//Spotify-Apple.png";
 import AppleToSpotifyImage from "@/public//Apple-Spotify.png";
 import LoadingComponent from "../_ui/global/LoadingComponent";
-import Link from "next/link";
-import { useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Migrate() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    console.log("Build:", process.env.NEXT_PUBLIC_APP_BUILD);
+  }, []);
 
   const handleClick = (e: React.MouseEvent, destination: string) => {
     e.preventDefault();

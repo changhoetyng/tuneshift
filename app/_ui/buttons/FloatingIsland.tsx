@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import Arrow from "@/public/arrow.svg";
+import Arrow from "@/public/Arrow.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 interface IslandProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
