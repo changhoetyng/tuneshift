@@ -9,51 +9,21 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
     return useCredentialsStore.getState().musicKitInstance;
   }
 
-  async getPlaylist(
+  getPlaylist(
     limit: number,
     offset: number
   ): Promise<{ playlists: UserPlaylist[]; total: number }> {
-    let res = await this.musicKitInstance.api.music(
-      "/v1/me/library/playlists",
-      { limit: limit, offset: offset }
+    return new Promise<{ playlists: UserPlaylist[]; total: number }>(
+      (resolve, reject) => {
+        // Your implementation here
+      }
     );
-
-    let playlists = [];
-
-    for (const playlist of res.data.data) {
-      playlists.push({
-        id: playlist.id,
-        name: playlist.attributes.name,
-        image: playlist.attributes.artwork.url,
-      });
-    }
-    return {
-      playlists: playlists,
-      total: res.data.meta.total,
-    };
   }
 
-  async getSongs(playlistId: string): Promise<PlaylistSongs[]> {
-    let songs: PlaylistSongs[] = [];
-    let nextUrl:
-      | string
-      | null = `v1/me/library/playlists/${playlistId}/tracks?offset=0&limit=10`;
-
-    while (nextUrl) {
-      let res: any = await this.musicKitInstance.api.music(nextUrl);
-
-      const items = res.data.data;
-      items.forEach((item: any) => {
-        songs.push({
-          name: item.attributes.name,
-          artist: item.attributes.artistName,
-        });
-      });
-
-      nextUrl = res.data.next;
-    }
-
-    return songs;
+  getSongs(playlistId: string): Promise<PlaylistSongs[]> {
+    return new Promise<PlaylistSongs[]>((resolve, reject) => {
+      // Your implementation here
+    });
   }
 
   async getSongsId(songs: PlaylistSongs[]): Promise<string[]> {

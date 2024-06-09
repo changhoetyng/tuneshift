@@ -22,11 +22,9 @@ export default function MigrateToAppleMusic() {
     })
   );
 
-  const { isMusicKitInstanceAuthorized, appleMusicHelper } =
-    useCredentialsStore((state) => ({
-      isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
-      appleMusicHelper: state.appleMusicHelper,
-    }));
+  const { isMusicKitInstanceAuthorized } = useCredentialsStore((state) => ({
+    isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
+  }));
 
   const { spotifyAccessToken } = useCredentialsPersistantStore((state) => ({
     updateSpotifyCodeVerifier: state.updateSpotifyCodeVerifier,
@@ -40,8 +38,7 @@ export default function MigrateToAppleMusic() {
   }
 
   function backToOptions() {
-    console.log(appleMusicHelper.getSongs("p.KoKOW4OH3MKNoD8"));
-    // router.push("/" + "migrate");
+    router.push("/" + "migrate");
   }
 
   return (
