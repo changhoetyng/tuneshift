@@ -37,7 +37,7 @@ export default function MigrateToAppleMusic() {
     router.push("/playlist-selection");
   }
 
-  function backToOptions() {
+  async function backToOptions() {
     router.push("/" + "migrate");
   }
 

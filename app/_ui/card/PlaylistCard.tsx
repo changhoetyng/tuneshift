@@ -3,6 +3,8 @@ import styles from "./PlaylistCard.module.css";
 import ColorThief from "colorthief";
 import { useRef, useState, useEffect } from "react";
 import clsx from "clsx";
+import spotifyImg from "@/public/spotify.png";
+import NextImage from "next/image";
 
 export default function PlaylistCard({
   src,
@@ -13,6 +15,8 @@ export default function PlaylistCard({
   customStyle,
   className,
   style,
+  isSpotify,
+  originalLink,
 }: Readonly<{
   src: string;
   name: string;
@@ -20,6 +24,8 @@ export default function PlaylistCard({
   isSelected?: boolean;
   customStyle?: React.CSSProperties;
   className?: string;
+  originalLink?: string;
+  isSpotify?: boolean;
   onClick?: () => void;
   style?: React.CSSProperties;
 }>) {
@@ -33,6 +39,11 @@ export default function PlaylistCard({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function onClickSpotifyLogo(e: React.MouseEvent<HTMLImageElement>) {
+    e.stopPropagation();
+    window.open(originalLink, "_blank");
+  }
 
   function extractImagePalette() {
     let color_thief = new ColorThief();
@@ -88,9 +99,7 @@ export default function PlaylistCard({
         styles["playlist-card"],
         className,
         isSelected ? "border-2 border-primary" : "",
-        "w-[262px] h-[253px] overflow-visible group",
-        
-        
+        "w-[262px] h-[253px] overflow-visible group"
       )}
       style={{
         ...customStyle,
@@ -98,46 +107,65 @@ export default function PlaylistCard({
       }}
       onClick={onClick}
     >
-      <div className={`flex flex-col relative z-[0] w-[262px] h-[253px] justify-center align-middle content-center transition-all duration-300 overflow-hidden ${isSelected ? "scale-90 rounded-[5px]" : "rounded-[11px]"}`}
+      <div
+        className={`flex flex-col relative z-[0] w-[262px] h-[253px] justify-center align-middle content-center transition-all duration-300 overflow-hidden ${
+          isSelected ? "scale-90 rounded-[5px]" : "rounded-[11px]"
+        }`}
       >
-
         <div
-          className={`absolute w-full h-full z-[-1] transition-all duration-1200 blur-lg ${isSelected ? "scale-[1.5] opacity-70" : "scale-100 opacity-40"} group-hover:rotate-12 group-hover:scale-150 group-hover:rotate-12 duration-700 group-hover:opacity-90  duration-500`}
+          className={`absolute w-full h-full z-[-1] transition-all duration-1200 blur-lg ${
+            isSelected ? "scale-[1.5] opacity-70" : "scale-100 opacity-40"
+          } group-hover:rotate-12 group-hover:scale-150 duration-700 group-hover:opacity-90`}
           style={{
             ...backgroundStyle,
           }}
-        >
-        </div>
+        ></div>
 
         <div
-          className={`absolute w-full h-full z-[-1] transition-all duration-700 rotate-90 blur-lg ${isSelected ? "scale-[3] opacity-40" : "scale-125 opacity-70"}`}
+          className={`absolute w-full h-full z-[-1] transition-all duration-700 rotate-90 blur-lg ${
+            isSelected ? "scale-[3] opacity-40" : "scale-125 opacity-70"
+          }`}
           style={{
             ...backgroundStyle,
           }}
-        >
-        </div>
+        ></div>
 
         <div
-          className={`absolute w-full h-full z-[-1] transition-all duration-2500 rotate-45 blur-lg ${isSelected ? "scale-[3] opacity-20" : "scale-150 opacity-50"}`}
+          className={`absolute w-full h-full z-[-1] transition-all duration-2500 rotate-45 blur-lg ${
+            isSelected ? "scale-[3] opacity-20" : "scale-150 opacity-50"
+          }`}
           style={{
             ...backgroundStyle,
           }}
+        ></div>
+        <img
+          ref={imgRef}
+          src={src}
+          id={id}
+          onLoad={extractImagePalette}
+          width={130}
+          alt="playlist"
+          className={`m-auto mb-0 mt-0 transition-all duration-700 ${
+            isSelected ? "scale-[1.02]" : "scale-100"
+          }`}
+        />
+        <h3
+          className="mt-4 p-2 mix-blend-overlay"
+          style={{ color: textColor, fontWeight: "bold", opacity: "0.8" }}
         >
-        </div>
-      <img
-        ref={imgRef}
-        src={src}
-        id={id}
-        onLoad={extractImagePalette}
-        width={130}
-        alt="playlist"
-        className={`m-auto mb-0 mt-0 transition-all duration-700 ${isSelected ? "scale-[1.02]" : "scale-100"}`}
-      />
-      <h3 className="mt-4 p-2 mix-blend-overlay" style={{ color: textColor, fontWeight: "bold", opacity: "0.8"}}>
-        {name}
-      </h3>
+          {name}
+        </h3>
+        {isSpotify && (
+          <NextImage
+            src={spotifyImg}
+            alt="Spotify Logo"
+            className="absolute top-5 left-5"
+            onClick={onClickSpotifyLogo}
+            width={24}
+            height={24}
+          />
+        )}
       </div>
-      
     </button>
   );
 }

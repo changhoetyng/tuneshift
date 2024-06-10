@@ -104,6 +104,7 @@ export default class SpotifyApiHelper implements PlaylistHelper {
               id: playlist.id,
               name: playlist.name,
               image: playlist.images[0].url,
+              originalLink: playlist.external_urls.spotify,
             };
           }
         );

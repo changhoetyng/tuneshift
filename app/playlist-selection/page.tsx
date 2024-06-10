@@ -137,7 +137,7 @@ export default function PlaylistSelection() {
   ]);
 
   const fetchMoreData = async (): Promise<boolean> => {
-    console.log("Fetching More Data")
+    console.log("Fetching More Data");
     return new Promise((resolve) => {
       if (userPlaylists?.length >= total) {
         resolve(false);
@@ -210,6 +210,8 @@ export default function PlaylistSelection() {
               isSelected={selectedPlaylists.has(playlist.id)}
               src={playlist.image}
               name={playlist.name}
+              isSpotify={migrationMethod === "spotify-to-apple-music"}
+              originalLink={playlist.originalLink}
               key={"playlist-image-" + index}
               id={"playlist-image-" + index}
             />
@@ -217,9 +219,8 @@ export default function PlaylistSelection() {
 
           <h2>{userPlaylists.length} loaded</h2>
           <div className={"flex justify-end w-full"}>
-            <LoadingComponent/>
+            <LoadingComponent />
           </div>
-          
         </InfiniteScrolling>
         <FloatingIsland islandText={selectedPlaylistLength} onClick={migrate} />
       </FloatingCard>
