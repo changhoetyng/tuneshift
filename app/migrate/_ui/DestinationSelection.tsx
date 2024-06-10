@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 interface DestinationSelectionProps {
   logo?: StaticImageData;
-  className: string;
+  className?: string;
   title: string;
   titleHighlight: string;
 }

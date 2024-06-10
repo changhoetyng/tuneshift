@@ -40,12 +40,19 @@ export default function Migrate() {
     >
       <h1 className="text-3xl text-center font-bold p-6">Migrate Playlists</h1>
       <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 gap-12 mt-6">
-        <DestinationSelection
-          logo={AppleToSpotifyImage}
-          className="cursor-not-allowed "
-          title="Apple Music \n to"
-          titleHighlight="Spotify"
-        />
+        <a
+          onClick={(e) => {
+            handleClick(e, "apple-music-to-spotify");
+            setIsAnimating(true);
+          }}
+        >
+          <DestinationSelection
+            logo={AppleToSpotifyImage}
+            className="cursor-pointer bg-white/15 transition-none hover:bg-white/15"
+            title="Apple Music \n to"
+            titleHighlight="Spotify"
+          />
+        </a>
         <a
           onClick={(e) => {
             handleClick(e, "spotify-to-apple-music");
