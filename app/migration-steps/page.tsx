@@ -15,12 +15,10 @@ import { useUIStateStore } from "@/stores/UIStateStore";
 export default function MigrateToAppleMusic() {
   const router = useRouter();
 
-  const { updateCanMigrate, updateMigrationMethod } = useUIStateStore(
-    (state) => ({
-      updateCanMigrate: state.updateCanMigrate,
-      updateMigrationMethod: state.updateMigrationMethod,
-    })
-  );
+  const { updateCanMigrate, migrationMethod } = useUIStateStore((state) => ({
+    updateCanMigrate: state.updateCanMigrate,
+    migrationMethod: state.migrationMethod,
+  }));
 
   const { isMusicKitInstanceAuthorized } = useCredentialsStore((state) => ({
     isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
@@ -33,7 +31,6 @@ export default function MigrateToAppleMusic() {
 
   function onSelectPlaylist() {
     updateCanMigrate(true);
-    updateMigrationMethod("spotify-to-apple-music");
     router.push("/playlist-selection");
   }
 
@@ -51,7 +48,11 @@ export default function MigrateToAppleMusic() {
           </NavigationButton>
         }
       >
-        <h1 className="text-2xl text-center">Migrate To Apple Music</h1>
+        <h1 className="text-2xl text-center">
+          {migrationMethod == "spotify-to-apple-music"
+            ? "Migrate To Apple Music"
+            : "Migrate To Spotify"}
+        </h1>
         <VerticalSteps
           className="mt-6"
           height={80}

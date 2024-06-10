@@ -61,7 +61,7 @@ export default function PlaylistSelection() {
   }));
 
   function backToFlow() {
-    router.push("/" + migrationMethod);
+    router.push("/migration-steps");
   }
   useEffect(() => {
     function getApiHelper() {

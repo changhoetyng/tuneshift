@@ -5,6 +5,7 @@ import AppleToSpotifyImage from "@/public//Apple-Spotify.png";
 import LoadingComponent from "../_ui/global/LoadingComponent";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useUIStateStore } from "@/stores/UIStateStore";
 
 export default function Migrate() {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -15,14 +16,19 @@ export default function Migrate() {
     console.log("Build:", process.env.NEXT_PUBLIC_APP_BUILD);
   }, []);
 
+  const { updateMigrationMethod } = useUIStateStore((state) => ({
+    updateMigrationMethod: state.updateMigrationMethod,
+  }));
+
   const handleClick = (e: React.MouseEvent, destination: string) => {
     e.preventDefault();
     const routerTimeout = setTimeout(() => {
-      router.push(destination);
+      updateMigrationMethod(destination);
+      router.push("/migration-steps");
     }, 250);
 
     const loadingTimeout = setTimeout(() => {
-      setLoading(true)
+      setLoading(true);
     }, 350);
   };
 
@@ -42,7 +48,7 @@ export default function Migrate() {
         />
         <a
           onClick={(e) => {
-            handleClick(e, "/spotify-to-apple-music");
+            handleClick(e, "spotify-to-apple-music");
             setIsAnimating(true);
           }}
         >
@@ -53,12 +59,6 @@ export default function Migrate() {
             titleHighlight="Apple Music"
           />
         </a>
-
-        {/* <RoundedBorderCard className="flex flex-col justify-center items-center">
-          <h1 className="text-3xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
-            More destinations coming soon!
-          </h1>
-        </RoundedBorderCard> */}
       </div>
     </div>
   ) : (
