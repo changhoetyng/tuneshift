@@ -20,7 +20,7 @@ function initialState(index: number, selectedIndex: number = 0) {
       opacity: 1,
       translateX: DEFAULT_POSITION * selectedIndex,
       filter: "grayscale(0%)",
-      transform: "scale(1)"
+      transform: "scale(1)",
     };
   } else {
     return {
@@ -30,7 +30,7 @@ function initialState(index: number, selectedIndex: number = 0) {
       opacity: 1,
       translateX: DEFAULT_POSITION * selectedIndex,
       filter: "grayscale(100%)",
-      transform: "scale(0.8)"
+      transform: "scale(0.8)",
     };
   }
 }
@@ -67,12 +67,20 @@ export default function PlaylistMigrationStatusPage() {
       return spotifyApiHelper;
     }
 
+    if (migrationMethod === "apple-music-to-spotify") {
+      return appleMusicHelper;
+    }
+
     return null;
   }
 
   function getDestinationAPI() {
     if (migrationMethod === "spotify-to-apple-music") {
       return appleMusicHelper;
+    }
+
+    if (migrationMethod === "apple-music-to-spotify") {
+      return spotifyApiHelper;
     }
 
     return null;

@@ -12,10 +12,13 @@ import FloatingIsland from "@/app/_ui/buttons/FloatingIsland";
 import InfiniteScrolling from "../_ui/global/InfiniteScrolling";
 import SpotifyApiHelper from "../_utils/spotify-api-wrapper/SpotifyApiHelper";
 import LoadingComponent from "../_ui/global/LoadingComponent";
+import AppleMusicApiHelper from "../_utils/apple-music-api-wrapper/AppleMusicApiHelper";
 
 export default function PlaylistSelection() {
   const router = useRouter();
-  const [apiHelper, setApiHelper] = useState<SpotifyApiHelper | null>();
+  const [apiHelper, setApiHelper] = useState<
+    SpotifyApiHelper | AppleMusicApiHelper | null
+  >();
   const [total, setTotal] = useState<number>(0);
   const [selectedPlaylists, setSelectedPlaylists] = useState<Set<string>>(
     new Set()
@@ -46,9 +49,12 @@ export default function PlaylistSelection() {
     migrationMethod: state.migrationMethod,
   }));
 
-  const { spotifyApiHelper } = useCredentialsStore((state) => ({
-    spotifyApiHelper: state.spotifyApiHelper,
-  }));
+  const { spotifyApiHelper, appleMusicHelper } = useCredentialsStore(
+    (state) => ({
+      spotifyApiHelper: state.spotifyApiHelper,
+      appleMusicHelper: state.appleMusicHelper,
+    })
+  );
 
   // Playlists Data
   const [offset, setOffset] = useState(0);
@@ -61,7 +67,7 @@ export default function PlaylistSelection() {
   }));
 
   function backToFlow() {
-    router.push("/" + migrationMethod);
+    router.push("/migration-steps");
   }
   useEffect(() => {
     function getApiHelper() {
@@ -69,11 +75,15 @@ export default function PlaylistSelection() {
         return spotifyApiHelper;
       }
 
+      if (migrationMethod === "apple-music-to-spotify") {
+        return appleMusicHelper;
+      }
+
       return null;
     }
 
     function checkRoute() {
-      const VALID_MODE = ["spotify-to-apple-music"];
+      const VALID_MODE = ["spotify-to-apple-music", "apple-music-to-spotify"];
       if (migrationMethod === null || !VALID_MODE.includes(migrationMethod))
         router.push("/");
       if (!canMigrate) router.push("/");
@@ -81,7 +91,7 @@ export default function PlaylistSelection() {
 
     checkRoute();
     setApiHelper(getApiHelper());
-  }, [canMigrate, migrationMethod, router, spotifyApiHelper]);
+  }, [canMigrate, migrationMethod, router, spotifyApiHelper, appleMusicHelper]);
 
   const onSetSelectedPlaylists = (id: string) => {
     if (selectedPlaylists.has(id)) {
@@ -137,7 +147,7 @@ export default function PlaylistSelection() {
   ]);
 
   const fetchMoreData = async (): Promise<boolean> => {
-    console.log("Fetching More Data")
+    console.log("Fetching More Data");
     return new Promise((resolve) => {
       if (userPlaylists?.length >= total) {
         resolve(false);
@@ -210,16 +220,21 @@ export default function PlaylistSelection() {
               isSelected={selectedPlaylists.has(playlist.id)}
               src={playlist.image}
               name={playlist.name}
+              isSpotify={migrationMethod === "spotify-to-apple-music"}
+              originalLink={playlist.originalLink}
               key={"playlist-image-" + index}
               id={"playlist-image-" + index}
             />
           ))}
 
-          <h2>{userPlaylists.length} loaded</h2>
-          <div className={"flex justify-end w-full"}>
-            <LoadingComponent/>
-          </div>
-          
+          {userPlaylists?.length < total && (
+            <div>
+              <h2>{userPlaylists.length} loaded</h2>
+              <div className={"flex justify-end w-full"}>
+                <LoadingComponent />
+              </div>
+            </div>
+          )}
         </InfiniteScrolling>
         <FloatingIsland islandText={selectedPlaylistLength} onClick={migrate} />
       </FloatingCard>

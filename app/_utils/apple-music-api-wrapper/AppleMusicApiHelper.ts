@@ -25,8 +25,10 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
         id: playlist.id,
         name: playlist.attributes.name,
         image: playlist.attributes.artwork.url,
+        originalLink: "",
       });
     }
+
     return {
       playlists: playlists,
       total: res.data.meta.total,
