@@ -110,6 +110,10 @@ const config = {
           "40%": { opacity: "0" },
           "100%": { transform: "scale(0)", opacity: "0"  },
         },
+        popInto:{
+          "0%": { opacity: "0", transform: "scale(2)", filter: "blur(40px)" },
+          "100%": { transform: "scale(1)", opacity: "1" , filter: "blur(0px)"  },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -128,6 +132,7 @@ const config = {
         fadeOutUpFast: "fadeOutUpLess 0.3s ease-in-out forwards",
         popIn: "popIn 0.3s ease-in-out forwards",
         popOut: "popOut 0.3s ease-in-out forwards",
+        popIntoLong: "popInto 0.3s ease-in-out forwards",
         fadeInOut1: 'fadeInOutSpecial 2s infinite 0.5s',
         fadeInOut2: 'fadeInOut 2s infinite 1s',
         fadeInOut3: 'fadeInOut 2s infinite 1.5s',
