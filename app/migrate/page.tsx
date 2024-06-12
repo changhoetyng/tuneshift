@@ -34,7 +34,7 @@ export default function Migrate() {
 
   return !loading ? (
     <div
-      className={`flex flex-col justify-center items-center h-full transition-all ease-in-out animate-fadeInUpFast ${
+      className={`flex flex-col justify-center items-center h-full w-full transition-all ease-in-out animate-fadeInUpFast ${
         isAnimating ? "animate-fadeOutUpFast" : ""
       }`}
     >

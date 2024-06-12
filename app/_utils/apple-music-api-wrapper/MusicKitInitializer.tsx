@@ -17,5 +17,5 @@ export default function MigrateToAppleMusic() {
     authenticateDeveloperAPI();
   }, [updateMusicKitInstance, pathname]);
 
-  return <div></div>;
+  return <div className="w-full"></div>;
 }

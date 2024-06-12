@@ -188,9 +188,9 @@ export default function PlaylistSelection() {
   };
 
   return (
-    <div className="mt-6 min-h-fit min-w-fit">
+    <div className=" m-[7vh] ml-auto mr-auto w-full max-h-fit max-w-fit">
       <FloatingCard
-        className="p-5 pb-14 pt-8 relative"
+        className="w-full relative"
         optionsBar={
           <NavigationButton className="mb-6" onClick={() => backToFlow()}>
             Back to Flow
@@ -198,12 +198,12 @@ export default function PlaylistSelection() {
         }
       >
         <InfiniteScrolling
-          className="grid grid-cols-3 gap-6"
+          className="p-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3 grid-cols-2 md:gap-6 max-h-[850px] md:min-w-fit lg:min-w-[860px] lg:w-[800px]"
           onScroll={fetchMoreData}
-          style={{
-            minWidth: "860px",
-            maxHeight: "700px",
-          }}
+          // style={{
+          //   minWidth: "860px",
+          //   maxHeight: "700px",
+          // }}
         >
           {!userPlaylists?.length &&
             new Array(10)
@@ -236,8 +236,8 @@ export default function PlaylistSelection() {
             </div>
           )}
         </InfiniteScrolling>
-        <FloatingIsland islandText={selectedPlaylistLength} onClick={migrate} />
       </FloatingCard>
+      <FloatingIsland islandText={selectedPlaylistLength} onClick={migrate} />
     </div>
   );
 }

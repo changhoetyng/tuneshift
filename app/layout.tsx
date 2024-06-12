@@ -43,7 +43,7 @@ export default function RootLayout({
         <div className="mt-20">
           <NavigationHeader />
         </div>
-        <div className="flex-grow">
+        <div className="flex min-w-screen min-h-[calc(100vh-5rem)]">
           <NotificationComponent />
           {children}
         </div>

@@ -30,14 +30,14 @@ export default function VerticalSteps({
   }
 
   return (
-    <div className={clsx("relative", className)}>
+    <div className={clsx("relative w-full sm:min-w-[370px]", className)}>
       {steps.map((step, index) => (
         <div
-          className="relative flex items-start"
+          className="relative flex items-start w-full"
           key={index}
           style={{ marginTop: `${index == 0 ? 0 : height - 24}px` }}
         >
-          <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center w-full">
             <Steps
               className={clsx(
                 "mr-5",
@@ -47,7 +47,7 @@ export default function VerticalSteps({
             >
               {step.step}
             </Steps>
-            <div>
+            <div className="w-full">
               {step.element({
                 disabled: shouldDisableStep(index),
               })}

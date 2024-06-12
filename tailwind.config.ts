@@ -28,6 +28,8 @@ const config = {
       },
       fontFamily: {
         default: ["Helvetica", "Arial", "sans-serif"],
+        display: ["Tiny5", "sans-serif"],
+
       },
       colors: {
         border: "hsl(var(--border))",
@@ -111,8 +113,9 @@ const config = {
           "100%": { transform: "scale(0)", opacity: "0"  },
         },
         popInto:{
-          "0%": { opacity: "0", transform: "scale(2)", filter: "blur(40px)" },
-          "100%": { transform: "scale(1)", opacity: "1" , filter: "blur(0px)"  },
+          "0%": { opacity: "0", transform: "scale(1) skew(-0.15turn, 18deg) translateY(10px)", filter: "blur(40px)", fontSize: "2px", fontFamily: "Helvetica", fontWeight: "100" },
+          "40%": { transform: "scale(1) skew(-0.01turn, 5deg) translateY(5px)", opacity: "0.6" , filter: "blur(5px)", fontSize: "80px", fontFamily: "Helvetica", fontWeight: "200"},
+          "100%": { transform: "scale(1) skew(0turn, 0deg)", opacity: "1" , filter: "blur(0px)", fontSize: "80px", fontFamily: "Helvetica", fontWeight: "400" },
         },
         "accordion-down": {
           from: { height: "0" },
@@ -132,7 +135,7 @@ const config = {
         fadeOutUpFast: "fadeOutUpLess 0.3s ease-in-out forwards",
         popIn: "popIn 0.3s ease-in-out forwards",
         popOut: "popOut 0.3s ease-in-out forwards",
-        popIntoLong: "popInto 0.3s ease-in-out forwards",
+        popIntoLong: "popInto 0.9s ease-in-out forwards",
         fadeInOut1: 'fadeInOutSpecial 2s infinite 0.5s',
         fadeInOut2: 'fadeInOut 2s infinite 1s',
         fadeInOut3: 'fadeInOut 2s infinite 1.5s',

@@ -88,7 +88,7 @@ export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
   }
 
   return (
-    <div>
+    <div className="w-full">
       {spotifyAccessToken && (
         <LongRoundedButton onClick={logoutFromSpotify} disabled={disabled}>
           Logged In to Spotify

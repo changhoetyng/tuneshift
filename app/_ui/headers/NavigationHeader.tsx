@@ -8,7 +8,7 @@ import GithubLogo from "@/public//github-mark-white.svg";
 export default async function NavigationHeader() {
   return (
     <div className="inline-grid grid-cols-[auto_auto_auto_auto_auto] sm:grid-cols-[auto_auto_auto] justify-between p-5 fixed w-full top-0 z-50 h-20 bg-background-default">
-      <div className="w-auto flex flex-row sm:w-32 h-10 items-center col-span-1">
+      <Link href="/" className="w-auto flex flex-row sm:w-32 h-10 items-center col-span-1">
         <Image
             src={TuneShiftLogo}
             alt="TuneShift Logo"
@@ -25,7 +25,7 @@ export default async function NavigationHeader() {
           className="w-full h-4 sm:h-auto cursor-pointer sm:flex"
           priority
         />
-      </div>
+      </Link>
       <div className="flex flex-row col-start-4 sm:col-start-2">
         <Link href="/" className="hidden sm:flex">
           <HeaderButton>Home</HeaderButton>

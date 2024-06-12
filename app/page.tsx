@@ -14,18 +14,18 @@ export default async function IndexPage() {
   // }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-left md:items-center justify-center w-full h-full pl-10 md:p-0">
       <MainPageWelcomeText
         text="Welcome to TuneShift"
-        className="flex text-7xl text-center "
+        className="text-7xl text-center"
         // bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text
       />
-      <p className="text-center mt-10 animate-fadeInUp">
+      <p className="text-left w-full md:text-center mt-10 animate-fadeInUp">
         The easiest way to transfer your music between streaming services.
       </p>
 
       <Link href="/migrate">
-        <RountedButton className="mt-10 animate-fadeInUp mb-20">
+        <RountedButton className="flex-start mt-10 animate-fadeInUp mb-20">
           Get Started
         </RountedButton>
       </Link>

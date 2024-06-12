@@ -99,7 +99,7 @@ export default function PlaylistCard({
         styles["playlist-card"],
         className,
         isSelected ? "border-2 border-primary" : "",
-        "w-[262px] h-[253px] overflow-visible group"
+        "w-[240px] h-[230px] md:w-[262px] md:h-[253px] overflow-visible group"
       )}
       style={{
         ...customStyle,
@@ -108,7 +108,7 @@ export default function PlaylistCard({
       onClick={onClick}
     >
       <div
-        className={`flex flex-col relative z-[0] w-[262px] h-[253px] justify-center align-middle content-center transition-all duration-300 overflow-hidden ${
+        className={`flex flex-col relative z-[0] w-[240px] h-[230px] md:w-[262px] md:h-[253px] justify-center align-middle content-center transition-all duration-300 overflow-hidden ${
           isSelected ? "scale-90 rounded-[5px]" : "rounded-[11px]"
         }`}
       >
@@ -150,7 +150,7 @@ export default function PlaylistCard({
           }`}
         />
         <h3
-          className="mt-4 p-2 mix-blend-overlay"
+          className="sm:mt-2 md:mt-4 p-2 mix-blend-overlay"
           style={{ color: textColor, fontWeight: "bold", opacity: "0.8" }}
         >
           {name}

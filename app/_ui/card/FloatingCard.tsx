@@ -21,9 +21,9 @@ export default function FloatingCard({
         parentClassName
       )}
     >
-      <div className={clsx(parentClassName)}>
+      <div className={clsx("w-full sm:max-w-fit" , parentClassName)}>
         {optionsBar && <div className="self-start mb-3">{optionsBar}</div>}
-        <div className={clsx("bg-card", className)} {...rest}>
+        <div className={clsx("w-full bg-neutral-800 rounded-2xl", className)} {...rest}>
           {children}
         </div>
       </div>

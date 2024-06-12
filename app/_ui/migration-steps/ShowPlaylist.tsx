@@ -8,8 +8,8 @@ export default function ShowPlaylist({
   onSelectPlaylist: () => void;
 }) {
   return (
-    <div>
-      <div>
+    <div className="w-full">
+      <div className="w-full">
         <LongRoundedButton onClick={onSelectPlaylist} disabled={disabled}>
           Select Playlists
         </LongRoundedButton>

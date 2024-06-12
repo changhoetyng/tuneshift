@@ -39,22 +39,22 @@ export default function MigrateToAppleMusic() {
   }
 
   return (
-    <div className="flex animate-fadeInUpFast h-full justify-center align-center flex-col">
+    <div className="pl-5 pr-5 sm:p-0 flex animate-fadeInUpFast w-full h-full justify-center align-center flex-col">
       <FloatingCard
-        className="pl-14 pr-14 pb-14 pt-8 mb-40"
+        className="flex flex-col w-full p-5 pt-8 pb-8 sm:p-14 sm:pt-8 mb-40"
         optionsBar={
           <NavigationButton onClick={backToOptions}>
             Back to Options
           </NavigationButton>
         }
       >
-        <h1 className="text-2xl text-center">
+        <h1 className="text-2xl text-center mb-8 sm:mb-0">
           {migrationMethod == "spotify-to-apple-music"
             ? "Migrate To Apple Music"
             : "Migrate To Spotify"}
         </h1>
         <VerticalSteps
-          className="mt-6"
+          className="mt-6 w-full"
           height={80}
           steps={[
             {

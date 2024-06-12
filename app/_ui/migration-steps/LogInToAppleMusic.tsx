@@ -78,7 +78,7 @@ export default function LoginToAppleMusic({
   }
 
   return (
-    <div>
+    <div className="w-full">
       <MusicKitInitializer key={key} />
       {!isMusicKitInstanceAuthorized && (
         <LongRoundedButton onClick={onLoginAppleMusic} disabled={disabled}>

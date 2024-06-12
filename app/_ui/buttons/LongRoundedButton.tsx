@@ -20,9 +20,8 @@ export default function LongRoundedButton({
 }: LongRoundedButtonProps) {
   return (
     <button
-      style={{ width: "300px" }}
       className={clsx(
-        "rounded-lg h-9 font-bold pl-4 pr-4 pt-1 pb-1 bg-secondary border border-white text-white flex justify-between items-center",
+        "rounded-lg h-9 w-full font-bold pl-4 pr-4 pt-1 pb-1 bg-secondary border border-white text-white flex justify-between items-center",
         className,
         {
           "opacity-50 cursor-not-allowed": disabled,

@@ -8,6 +8,7 @@
   }
   50% {
     opacity: 0;
+    filter: blur(3px);
   }
   100% {
     opacity: 1;
@@ -28,7 +29,7 @@
 }
 
 .expand-animation {
-  //animation: expand 0.4s ease-out forwards;
+  /* animation: expand 0.4s ease-out forwards; */
   transition: all ease-in-out 0.2s, opacity ease-in 0.05s 0.05s;
   width: 160px;
   transform: scale(1);
@@ -45,7 +46,7 @@
 }
 
 .shrink-animation {
-  //animation: shrink 0.4s ease-out forwards;
+  /* animation: shrink 0.4s ease-out forwards; */
   transition: all ease-in-out 0.2s, opacity ease-in 0.05s 0.05s;
   width: 0px;
   transform: scale(0);
@@ -157,7 +158,10 @@
     --input: 215 27.9% 16.9%;
     --ring: 216 12.2% 83.9%;
   } */
+
 }
+
+
 
 @layer base {
   * {
@@ -165,6 +169,10 @@
   }
   body {
     @apply bg-zinc-900 text-white;
+  }
+  @font-face {
+    font-family: "Tiny5";
+    src: url("/font/Tiny5-Regular.ttf") format('truetype');
   }
 }
 
