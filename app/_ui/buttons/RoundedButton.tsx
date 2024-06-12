@@ -22,7 +22,7 @@ export default function RoundedButton({
     <button
       {...rest}
       className={clsx(
-        "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:to-yellow-500 font-bold py-2 px-4 rounded-lg",
+        "bg-gradient-to-br from-indigo-400/20 via-purple-500/40 to-pink-500/70 transition-all hover:brightness-110 hover:contrast-200 font-bold py-2 px-4 rounded-lg",
         className
       )}
     >

@@ -113,9 +113,10 @@ const config = {
           "100%": { transform: "scale(0)", opacity: "0"  },
         },
         popInto:{
-          "0%": { opacity: "0", transform: "scale(1) skew(-0.15turn, 18deg) translateY(10px)", filter: "blur(40px)", fontSize: "2px", fontFamily: "Helvetica", fontWeight: "100" },
-          "40%": { transform: "scale(1) skew(-0.01turn, 5deg) translateY(5px)", opacity: "0.6" , filter: "blur(5px)", fontSize: "80px", fontFamily: "Helvetica", fontWeight: "200"},
-          "100%": { transform: "scale(1) skew(0turn, 0deg)", opacity: "1" , filter: "blur(0px)", fontSize: "80px", fontFamily: "Helvetica", fontWeight: "400" },
+          "0%": { opacity: "0", transform: "scale(1) translateY(40px)", filter: "blur(10px)", fontSize: "2px", fontWeight: "100" },
+          "40%": { transform: "scale(1) translateY(5px)", opacity: "0.6" , filter: "blur(3px)", fontSize: "80px", fontFamily: "Helvetica", fontWeight: "200"},
+          "80%": { transform: "scale(1) translateY(1px)", opacity: "1" , filter: "blur(0px)", fontSize: "80px", fontFamily: "Helvetica", fontWeight: "400" },
+          "100%": { transform: "scale(1) translateY(0px)", fontFamily: "Helvetica", fontSize: "80px", fontWeight: "400" }
         },
         "accordion-down": {
           from: { height: "0" },

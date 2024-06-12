@@ -69,7 +69,7 @@ export default function Migrate() {
       </div>
     </div>
   ) : (
-    <div className="flex justify-center h-full">
+    <div className="flex items-center h-full w-full justify-center h-full">
       <LoadingComponent
         size="small"
         type="apple-to-spotify"
