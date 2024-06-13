@@ -115,7 +115,7 @@ export default function MainPageWelcomeText(props: ButtonProps) {
 
   return (
     <div className="flex flex-row h-15">
-      <h1 className={clsx("flex flex-wrap text-align-middle", props.className)}>{typedText.split("").map((e, i) => e == " " ? <p className="p-1 w-full m-0 md:p-2 md:w-auto"></p> : <p id={`text${i}`} style={i > 10 ? {mixBlendMode: "screen", textShadow :`0px 0px 100px ${gradientColors[i - 10]}, 0px 0px 200px ${gradientColors[i - 10]}, 0px 0px 50px ${gradientColors[i - 10]}`} : {}} className={`animate-popIntoLong font-display bg-clip-text tracking-tight align-center hover:translate-y-10`}>{e}</p> )}</h1>
+      <h1 className={clsx("flex flex-wrap text-align-middle", props.className)}>{typedText.split("").map((e, i) => e == " " ? <p className="p-1 w-full m-0 md:p-2 md:w-auto"></p> : <p id={`text${i}`} style={i > 10 ? {mixBlendMode: "screen", textShadow :`0px 0px 100px ${gradientColors[i - 10]}, 0px 0px 200px ${gradientColors[i - 10]}, 0px 0px 50px ${gradientColors[i - 10]}`} : {opacity: "70%"}} className={`animate-popIntoLong font-display bg-clip-text tracking-tight align-center hover:translate-y-10`}>{e}</p> )}</h1>
       <h1 className={clsx("cursor ml-3 hidden sm:flex", props.className)}>|</h1>
     </div>
   );
