@@ -138,8 +138,8 @@ export default function PlaylistMigrationStatusPage() {
   const AnimatedDialog = animated(PlaylistCard);
 
   return (
-    <div>
-      <FloatingCard className="pl-20 pr-20 pb-14 pt-8 relative">
+    <div className="flex w-full justify-center">
+      <FloatingCard className="pb-14 pt-8 relative">
         <div
           className="h-full"
           style={{
