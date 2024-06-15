@@ -1,4 +1,5 @@
 import { useCredentialsPersistantStore } from "@/stores/credentialsStore";
+import { useUIStateStore } from "@/stores/UIStateStore";
 import { PlaylistHelper } from "@/interfaces/PlaylistHelper";
 import axios, { AxiosResponse } from "axios";
 import { UserPlaylist, PlaylistSongs } from "@/types/playlists";
@@ -14,14 +15,64 @@ export default class SpotifyApiHelper implements PlaylistHelper {
     return useCredentialsPersistantStore.getState().spotifyAccessToken !== null;
   }
 
-  getSongsId(songs: PlaylistSongs[]): Promise<string[]> {
-    return Promise.resolve([]);
+  async getSongsId(songs: PlaylistSongs[]): Promise<string[]> {
+    useUIStateStore.getState().updateSongsToMigrate(songs.length);
+    useUIStateStore.getState().updateSongsMigrated(0);
+
+    let musics: string[] = [];
+    for (let i = 0; i < songs.length; i++) {
+      let song = songs[i];
+      let result = await this.spotifyApi.get(
+        "https://api.spotify.com/v1/search",
+        {
+          params: {
+            q: `${song.name} ${song.artist}`,
+            type: "track",
+            limit: 1,
+          },
+        }
+      );
+
+      useUIStateStore
+        .getState()
+        .updateSongsMigrated(
+          useUIStateStore.getState().songsInfomationLoaded + 1
+        );
+
+      if (result?.data?.tracks?.items?.length > 0) {
+        musics.push(result.data.tracks.items[0].id as string);
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+    return musics;
   }
 
-  addSongsOntoPlaylist(
+  async addSongsOntoPlaylist(
     songsIds: string[],
     playlist: UserPlaylist
   ): Promise<boolean> {
+    let userProfile = await this.spotifyApi.get(
+      "https://api.spotify.com/v1/me"
+    );
+    let userId = userProfile.data.id;
+
+    let playlistRes = await this.spotifyApi.post(
+      `https://api.spotify.com/v1/users/${userId}/playlists`,
+      {
+        name: playlist.name,
+        public: false,
+      }
+    );
+    for (let i = 0; i < songsIds.length; i += 150) {
+      let url = `https://api.spotify.com/v1/playlists/${playlistRes.data.id}/tracks`;
+      let body = {
+        uris: songsIds.slice(i, i + 150).map((x) => "spotify:track:" + x),
+        position: 0,
+      };
+
+      await this.spotifyApi.post(url, body);
+    }
+
     return Promise.resolve(true);
   }
 
