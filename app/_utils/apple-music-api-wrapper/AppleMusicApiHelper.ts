@@ -21,10 +21,11 @@ export default class AppleMusicApiHelper implements PlaylistHelper {
     let playlists = [];
 
     for (const playlist of res.data.data) {
+      console.log(playlist)
       playlists.push({
         id: playlist.id,
         name: playlist.attributes.name,
-        image: playlist.attributes.artwork.url,
+        image: playlist.attributes["artwork"] ? playlist.attributes.artwork.url : "/placeholder-image-dark.webp",
         originalLink: "",
       });
     }

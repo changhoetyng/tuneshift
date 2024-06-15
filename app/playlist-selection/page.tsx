@@ -233,7 +233,7 @@ export default function PlaylistSelection() {
               <h2>{userPlaylists.length} loaded</h2>
               <div className={"flex w-fit mt-5"}>
                 {userPlaylists?.length < total ? (
-                  <LoadingComponent />
+                  <LoadingComponent type={migrationMethod == "spotify-to-apple-music" ? "spotify-to-apple" : "apple-to-spotify"}/>
                 ) : <h3 className="font-bold">That's all folks!</h3>}
               </div>
 
