@@ -1,4 +1,4 @@
-import MainPageWelcomeText from "@/app/_ui/main-page/MainPageWelcomeTextv2";
+import MainPageWelcomeText from "@/app/_ui/main-page/MainPageWelcomeText";
 import RountedButton from "@/app/_ui/buttons/RoundedButton";
 import Link from "next/link";
 
