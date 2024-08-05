@@ -3,3 +3,17 @@
   color: black;
   position: relative;
 }
+
+.intro-text {
+  mix-blend-mode: screen;
+  text-shadow: 0px 0px 100px var(--gradient-color), 0px 0px 200px var(--gradient-color), 0px 0px 50px var(--gradient-color);
+}
+
+
+
+@media (max-width: 768px) {
+  .intro-text {
+    mix-blend-mode: screen;
+    text-shadow: 0px 0px 50px #ff00ff;
+  }
+}

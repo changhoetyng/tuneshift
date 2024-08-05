@@ -114,9 +114,16 @@ const config = {
         },
         popInto:{
           "0%": { opacity: "0", transform: "scale(1) translateY(40px)", filter: "blur(10px)", fontSize: "2px", fontWeight: "100" },
-          "40%": { transform: "scale(1) translateY(5px)", opacity: "0.6" , filter: "blur(3px)", fontSize: "80px", fontFamily: "Helvetica", fontWeight: "200"},
-          "80%": { transform: "scale(1) translateY(1px)", opacity: "1" , filter: "blur(0px)", fontSize: "80px", fontFamily: "Helvetica", fontWeight: "400" },
-          "100%": { transform: "scale(1) translateY(0px)", fontFamily: "Helvetica", fontSize: "80px", fontWeight: "400" }
+          "40%": { transform: "scale(1) translateY(5px)", opacity: "0.6" , filter: "blur(3px)", fontSize: "80px", fontWeight: "200"},
+          "80%": { transform: "scale(1) translateY(0px)", opacity: "1" , filter: "blur(0px)", fontSize: "80px", fontWeight: "400" },
+          "100%": { transform: "scale(1) translateY(0px)", fontSize: "80px", fontWeight: "400" }
+        },
+        popIntoMobile:{
+          "0%": { opacity: "0", transform: "scale(1) translateY(40px)", fontSize: "55px", fontWeight: "100" },
+          "40%": { transform: "scale(1) translateY(5px)", opacity: "0" , fontSize: "55px", fontWeight: "200"},
+          "70%": { opacity: "0.2"},
+          "80%": { transform: "scale(1) translateY(0px)", opacity: "1" , fontSize: "55px", fontWeight: "400" },
+          "100%": { transform: "scale(1) translateY(0px)", fontSize: "60px", fontWeight: "400" }
         },
         "accordion-down": {
           from: { height: "0" },
@@ -137,6 +144,7 @@ const config = {
         popIn: "popIn 0.3s ease-in-out forwards",
         popOut: "popOut 0.3s ease-in-out forwards",
         popIntoLong: "popInto 0.9s ease-in-out forwards",
+        popIntoMobileLong: "popIntoMobile 0.4s ease-in-out forwards",
         fadeInOut1: 'fadeInOutSpecial 2s infinite 0.5s',
         fadeInOut2: 'fadeInOut 2s infinite 1s',
         fadeInOut3: 'fadeInOut 2s infinite 1.5s',
