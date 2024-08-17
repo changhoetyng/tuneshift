@@ -22,6 +22,19 @@ export default function MainPageWelcomeText(props: ButtonProps) {
   const textRef = useRef<HTMLHeadingElement>(null);
 
   const [gradientColors, setGradientColors] = useState<string[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Update the state based on window size
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768); // Assuming 768px is the breakpoint for mobile
+    };
+
+    checkScreenSize(); // Initial check
+    window.addEventListener('resize', checkScreenSize); // Update on resize
+
+    return () => window.removeEventListener('resize', checkScreenSize); // Cleanup on unmount
+  }, []);
 
   useEffect(() => {
     const hexToRgb = (hex: string): { r: number; g: number; b: number } => {
@@ -122,9 +135,9 @@ export default function MainPageWelcomeText(props: ButtonProps) {
   }, [index, text]);
 
   return (
-    <div className="flex flex-row h-15">
-      <h1 className={clsx("flex flex-wrap text-align-middle", props.className)}>
-        {typedText.split("").map((e, i) =>
+    <div className="flex flex-row min-h-56 md:min-h-0 h-15 pr-4">
+      <h1 className={clsx("flex flex-wrap text-align-middle font-default mb-5", props.className)}>
+      {typedText.split("").map((e, i) =>
           e == " " ? (
             <p className="p-1 w-full m-0 md:p-2 md:w-auto" key={i}></p>
           ) : (
@@ -133,17 +146,18 @@ export default function MainPageWelcomeText(props: ButtonProps) {
               key={i}
               style={
                 i > 10
-                  ? {
-                      mixBlendMode: "screen",
-                      textShadow: `0px 0px 100px ${
-                        gradientColors[i - 10]
-                      }, 0px 0px 200px ${
-                        gradientColors[i - 10]
-                      }, 0px 0px 50px ${gradientColors[i - 10]}`,
-                    }
+                  ? isMobile
+                    ? {
+                        mixBlendMode: "screen",
+                        textShadow: `0px 0px 50px #ff00ff`,
+                      }
+                    : {
+                        mixBlendMode: "screen",
+                        textShadow: `0px 0px 100px ${gradientColors[i - 10]}, 0px 0px 200px ${gradientColors[i - 10]}, 0px 0px 50px ${gradientColors[i - 10]}`,
+                      }
                   : { opacity: "70%" }
               }
-              className={`animate-popIntoLong font-display bg-clip-text tracking-tight align-center hover:translate-y-10`}
+              className={`animate-popIntoMobileLong md:animate-popIntoLong tracking-tight align-center hover:translate-y-10`}
             >
               {e}
             </p>

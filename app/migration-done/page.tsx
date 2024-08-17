@@ -33,15 +33,18 @@ export default function MigrationDone() {
         className="relative flex flex-col items-center h-5/6 w-5/6 justify-center"
         parentClassName="h-full w-full flex justify-center items-center"
       >
-        <Image src={Tick} alt="Green Tick" height={50} priority />
-        <h1 className="text-2xl font-semibold mt-4">
-          Successfully Imported Playlist
-        </h1>
-        <Link href="/migrate">
-          <NavigationButton className="mt-6 rounded border-2 border-white">
-            Back to Migrate
-          </NavigationButton>
-        </Link>
+        <div className="flex flex-col w-screen max-w-[960px] items-center">
+          <Image src={Tick} alt="Green Tick" height={50} priority />
+          <h1 className="text-2xl font-semibold mt-4">
+            Successfully Imported Playlist
+          </h1>
+          <Link href="/migrate">
+            <NavigationButton className="mt-6 rounded border-2 border-white">
+              Back to Migrate
+            </NavigationButton>
+          </Link>
+        </div>
+
       </FloatingCard>
     </div>
   );

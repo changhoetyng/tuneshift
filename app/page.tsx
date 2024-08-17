@@ -14,7 +14,7 @@ export default async function IndexPage() {
   // }, []);
 
   return (
-    <div className="flex flex-col items-left md:items-center justify-center w-full h-full pl-10 md:p-0">
+    <div className="flex flex-col items-left md:items-center justify-center w-full h-full p-5 md:p-0">
       <MainPageWelcomeText
         text="Welcome to TuneShift"
         className="text-7xl text-center"

@@ -109,11 +109,11 @@ export default function PlaylistCard({
     >
       <div
         className={`flex flex-col relative z-[0] w-[240px] h-[230px] md:w-[262px] md:h-[253px] justify-center align-middle content-center transition-all duration-300 overflow-hidden ${
-          isSelected ? "scale-90 rounded-[5px]" : "rounded-[11px]"
+          isSelected ? "scale-95 rounded-[7px]" : "rounded-[11px]"
         }`}
       >
         <div
-          className={`absolute w-full h-full z-[-1] transition-all duration-1200 blur-lg ${
+          className={`absolute w-full h-full z-[-1] transition-all duration-800 blur-lg ${
             isSelected ? "scale-[1.5] opacity-70" : "scale-100 opacity-40"
           } group-hover:rotate-12 group-hover:scale-150 duration-700 group-hover:opacity-90`}
           style={{
@@ -151,7 +151,7 @@ export default function PlaylistCard({
         />
         <h3
           className="sm:mt-2 md:mt-4 p-2 mix-blend-overlay"
-          style={{ color: textColor, fontWeight: "bold", opacity: "0.8" }}
+          style={{ color: textColor, fontWeight: "bold", opacity: "0.95" }}
         >
           {name}
         </h3>

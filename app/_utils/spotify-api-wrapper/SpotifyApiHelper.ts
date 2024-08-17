@@ -3,6 +3,7 @@ import { useUIStateStore } from "@/stores/UIStateStore";
 import { PlaylistHelper } from "@/interfaces/PlaylistHelper";
 import axios, { AxiosResponse } from "axios";
 import { UserPlaylist, PlaylistSongs } from "@/types/playlists";
+import NoImage from "@/public/placeholder-image-dark.webp";
 
 export default class SpotifyApiHelper implements PlaylistHelper {
   private spotifyApi = axios.create();
@@ -151,10 +152,11 @@ export default class SpotifyApiHelper implements PlaylistHelper {
       .then((response) => {
         const playlists: UserPlaylist[] = response.data.items.map(
           (playlist: any) => {
+            console.log(playlist)
             return {
               id: playlist.id,
               name: playlist.name,
-              image: playlist.images[0].url,
+              image: playlist.images && playlist.images.length > 0 ? playlist.images[0].url : "/placeholder-image-dark.webp",
               originalLink: playlist.external_urls.spotify,
             };
           }
