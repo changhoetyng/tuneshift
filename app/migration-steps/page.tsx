@@ -12,7 +12,7 @@ import ShowPlaylist from "@/app/_ui/migration-steps/ShowPlaylist";
 import { useRouter } from "next/navigation";
 import { useUIStateStore } from "@/stores/UIStateStore";
 
-export default function MigrateToAppleMusic() {
+export default function MigrateSteps() {
   const router = useRouter();
 
   const { updateCanMigrate, migrationMethod } = useUIStateStore((state) => ({

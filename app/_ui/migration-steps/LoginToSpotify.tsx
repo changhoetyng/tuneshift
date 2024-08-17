@@ -26,10 +26,12 @@ export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
     updateNotificationMessage,
     updateNotificationTitle,
     updateNotificationRendererKey,
+    migrationMethod,
   } = useUIStateStore((state) => ({
     updateNotificationMessage: state.updateNotificationMessage,
     updateNotificationTitle: state.updateNotificationTitle,
     updateNotificationRendererKey: state.updateNotificationRendererKey,
+    migrationMethod: state.migrationMethod,
   }));
 
   const { spotifyApiHelper } = useCredentialsStore((state) => ({
@@ -49,7 +51,7 @@ export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
   async function spotifyAuthenticator() {
     try {
       const clientId = `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}`;
-      const redirectUri = `${process.env.NEXT_PUBLIC_APP_CURRENT_URL}/spotify-authentication-redirection?redirect_link=/migration-steps`;
+      const redirectUri = `${process.env.NEXT_PUBLIC_APP_CURRENT_URL}/spotify-authentication-redirection?redirect_link=/${migrationMethod}`;
 
       const codeVerifier = generateRandomString(64);
       const hashed = await sha256(codeVerifier);
