@@ -3,7 +3,7 @@ import PlaylistCard from "@/app/_ui/card/PlaylistCard";
 import FloatingCard from "../_ui/card/FloatingCard";
 import { animated, useSprings } from "@react-spring/web";
 import { Progress } from "@/components/ui/progress";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useUIStateStore } from "@/stores/UIStateStore";
 import { useRouter } from "next/navigation";
 import { useCredentialsStore } from "@/stores/credentialsStore";
