@@ -11,9 +11,10 @@ import LoginToSpotify from "@/app/_ui/migration-steps/LoginToSpotify";
 import ShowPlaylist from "@/app/_ui/migration-steps/ShowPlaylist";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUIStateStore } from "@/stores/UIStateStore";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
+import LoadingComponent from "../_ui/global/LoadingComponent";
 
-export default function MigrateSteps() {
+function MigrateSteps() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -95,5 +96,15 @@ export default function MigrateSteps() {
         ></VerticalSteps>
       </FloatingCard>
     </div>
+  );
+}
+
+export default function MigrateStepsRedirection() {
+  return (
+    <Suspense
+      fallback={<LoadingComponent size="small" type="apple-to-spotify" />}
+    >
+      <MigrateSteps />
+    </Suspense>
   );
 }
