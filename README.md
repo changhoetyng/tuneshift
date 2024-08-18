@@ -1,5 +1,7 @@
 # TuneShift: Open Source Music Migration Tool
 
+## This Website Is Deployed [Here](https://changhoetyng.github.io/tuneshift/)
+
 ## Getting Started
 
 1. Install dependencies
@@ -14,7 +16,6 @@ npm install
 ```javascript
 // .env.local
 NEXT_PUBLIC_MUSIC_KIT_DEVELOPER_TOKEN = "your_actual_musickit_developer_token";
-NEXT_PUBLIC_SPOTIFY_CLIENT_ID = "your_actual_spotify_client_id";
 NEXT_PUBLIC_APP_NAME = "TuneShift";
 NEXT_PUBLIC_APP_BUILD = "1.0.0";
 NEXT_PUBLIC_APP_CURRENT_URL = "your_actual_current_url";
