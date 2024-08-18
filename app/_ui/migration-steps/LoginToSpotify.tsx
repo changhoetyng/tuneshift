@@ -15,11 +15,13 @@ export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
     updateSpotifyCodeVerifier,
     updateSpotifyAccessToken,
     updateSpotifyRefreshToken,
+    spotifyAPIKey,
   } = useCredentialsPersistantStore((state) => ({
     updateSpotifyCodeVerifier: state.updateSpotifyCodeVerifier,
     updateSpotifyAccessToken: state.updateSpotifyAccessToken,
     updateSpotifyRefreshToken: state.updateSpotifyRefreshToken,
     spotifyAccessToken: state.spotifyAccessToken,
+    spotifyAPIKey: state.spotifyAPIKey,
   }));
 
   const {
@@ -50,8 +52,8 @@ export default function LoginToSpotify({ disabled }: { disabled?: boolean }) {
 
   async function spotifyAuthenticator() {
     try {
-      const clientId = `${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}`;
-      const redirectUri = `${process.env.NEXT_PUBLIC_APP_CURRENT_URL}/spotify-authentication-redirection?redirect_link=/${migrationMethod}`;
+      const clientId = `${spotifyAPIKey}`;
+      const redirectUri = `${process.env.NEXT_PUBLIC_APP_CURRENT_URL}/spotify-authentication-redirection?redirect_link=${migrationMethod}`;
 
       const codeVerifier = generateRandomString(64);
       const hashed = await sha256(codeVerifier);

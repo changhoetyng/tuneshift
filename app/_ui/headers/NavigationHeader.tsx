@@ -1,11 +1,40 @@
+"use client";
 import HeaderButton from "@/app/_ui/buttons/HeaderButton";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Image from "next/image";
 import Link from "next/link";
 import TuneShift from "@/public/TuneShift.svg";
 import TuneShiftLogo from "@/public/logo.png";
 import GithubLogo from "@/public//github-mark-white.svg";
+import { useState } from "react";
+import { useCredentialsPersistantStore } from "@/stores/credentialsStore";
+import { useUIStateStore } from "@/stores/UIStateStore";
 
-export default async function NavigationHeader() {
+export default function NavigationHeader() {
+  const [apiKey, setAPIKey] = useState("");
+
+  const { setSpotifyAPIKey } = useCredentialsPersistantStore((state) => ({
+    setSpotifyAPIKey: state.setSpotifyAPIKey,
+  }));
+
+  const {
+    updateNotificationMessage,
+    updateNotificationTitle,
+    updateNotificationRendererKey,
+  } = useUIStateStore((state) => ({
+    updateNotificationMessage: state.updateNotificationMessage,
+    updateNotificationTitle: state.updateNotificationTitle,
+    updateNotificationRendererKey: state.updateNotificationRendererKey,
+  }));
+
+  function onSaveAPIKey() {
+    // Save API Key
+    setSpotifyAPIKey(apiKey);
+    updateNotificationRendererKey();
+    updateNotificationTitle("Updated Spotify API Key");
+    updateNotificationMessage("API Key has been updated.");
+  }
+
   return (
     <div className="inline-grid grid-cols-[auto_auto_auto_auto_auto] sm:grid-cols-[auto_auto_auto] justify-between content-center p-2 pt-5 md:p-5 fixed w-full top-0 z-50 h-20 bg-background">
       <Link
@@ -38,6 +67,31 @@ export default async function NavigationHeader() {
             Migrate
           </HeaderButton>
         </Link>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger asChild>
+            <div>
+              <HeaderButton className="hidden mr-2 sm:flex">
+                Insert Spotify API Key
+              </HeaderButton>
+            </div>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            <div className="bg-white/15 p-6 flex flex-row items-center justify-center">
+              <h1 className="font-semibold mr-4">Spotify API Key</h1>
+              <input
+                value={apiKey}
+                onChange={(e) => setAPIKey(e.target.value)}
+                className="text-black px-2"
+              />
+              <HeaderButton
+                onClick={onSaveAPIKey}
+                className="bg-zinc-700 hover:bg-green-400 ml-3"
+              >
+                Save
+              </HeaderButton>
+            </div>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </div>
       <div className="flex flex-row items-center col-start-5 sm:col-start-3 pl-10">
         <div className="w-8 h-8 items-center">

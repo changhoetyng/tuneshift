@@ -1,9 +1,10 @@
 export default async function retrieveTokenWithCode(
   spotifyCodeVerifier: string,
   spotifyCode: string,
-  redirectUri: string
+  redirectUri: string,
+  spotifyAPIKey: string
 ) {
-  const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
+  const clientId = spotifyAPIKey;
 
   if (!clientId) {
     throw new Error("Spotify client ID not found");

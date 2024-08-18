@@ -5,7 +5,6 @@ import AppleToSpotifyImage from "@/public//Apple-Spotify.png";
 import LoadingComponent from "../_ui/global/LoadingComponent";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUIStateStore } from "@/stores/UIStateStore";
 
 export default function Migrate() {
   const [isAnimating, setIsAnimating] = useState(false);
@@ -16,15 +15,10 @@ export default function Migrate() {
     console.log("Build:", process.env.NEXT_PUBLIC_APP_BUILD);
   }, []);
 
-  const { updateMigrationMethod } = useUIStateStore((state) => ({
-    updateMigrationMethod: state.updateMigrationMethod,
-  }));
-
   const handleClick = (e: React.MouseEvent, destination: string) => {
     e.preventDefault();
     const routerTimeout = setTimeout(() => {
-      updateMigrationMethod(destination);
-      router.push("/migration-steps");
+      router.push(`/migration-steps?destination=/${destination}`);
     }, 250);
 
     const loadingTimeout = setTimeout(() => {
@@ -69,7 +63,7 @@ export default function Migrate() {
       </div>
     </div>
   ) : (
-    <div className="flex items-center h-full w-full justify-center h-full">
+    <div className="flex items-center h-full w-full justify-center">
       <LoadingComponent
         size="small"
         type="apple-to-spotify"

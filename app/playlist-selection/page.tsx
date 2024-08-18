@@ -67,15 +67,15 @@ export default function PlaylistSelection() {
   }));
 
   function backToFlow() {
-    router.push("/migration-steps");
+    router.push(`/migration-steps?destination=${migrationMethod}`);
   }
   useEffect(() => {
     function getApiHelper() {
-      if (migrationMethod === "spotify-to-apple-music") {
+      if (migrationMethod === "/spotify-to-apple-music") {
         return spotifyApiHelper;
       }
 
-      if (migrationMethod === "apple-music-to-spotify") {
+      if (migrationMethod === "/apple-music-to-spotify") {
         return appleMusicHelper;
       }
 
@@ -83,7 +83,7 @@ export default function PlaylistSelection() {
     }
 
     function checkRoute() {
-      const VALID_MODE = ["spotify-to-apple-music", "apple-music-to-spotify"];
+      const VALID_MODE = ["/spotify-to-apple-music", "/apple-music-to-spotify"];
       if (migrationMethod === null || !VALID_MODE.includes(migrationMethod))
         router.push("/");
       if (!canMigrate) router.push("/");
@@ -149,8 +149,8 @@ export default function PlaylistSelection() {
 
   const fetchMoreData = async (): Promise<boolean> => {
     console.log("Fetching More Data");
-    console.log(userPlaylists.length)
-    console.log(total)
+    console.log(userPlaylists.length);
+    console.log(total);
     return new Promise((resolve) => {
       if (userPlaylists?.length >= total) {
         resolve(false);
@@ -229,16 +229,22 @@ export default function PlaylistSelection() {
               id={"playlist-image-" + index}
             />
           ))}
-            <div className="flex flex-col align-center justify-center">
-              <h2>{userPlaylists.length} loaded</h2>
-              <div className={"flex w-fit mt-5"}>
-                {userPlaylists?.length < total ? (
-                  <LoadingComponent type={migrationMethod == "spotify-to-apple-music" ? "spotify-to-apple" : "apple-to-spotify"}/>
-                ) : <h3 className="font-bold">That's all folks!</h3>}
-              </div>
-
+          <div className="flex flex-col align-center justify-center">
+            <h2>{userPlaylists.length} loaded</h2>
+            <div className={"flex w-fit mt-5"}>
+              {userPlaylists?.length < total ? (
+                <LoadingComponent
+                  type={
+                    migrationMethod == "spotify-to-apple-music"
+                      ? "spotify-to-apple"
+                      : "apple-to-spotify"
+                  }
+                />
+              ) : (
+                <h3 className="font-bold">That's all folks!</h3>
+              )}
             </div>
-
+          </div>
         </InfiniteScrolling>
       </FloatingCard>
       <FloatingIsland islandText={selectedPlaylistLength} onClick={migrate} />
