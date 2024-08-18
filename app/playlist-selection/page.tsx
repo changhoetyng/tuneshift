@@ -241,7 +241,7 @@ export default function PlaylistSelection() {
                   }
                 />
               ) : (
-                <h3 className="font-bold">That's all folks!</h3>
+                <h3 className="font-bold">That&rsquo;s all folks!</h3>
               )}
             </div>
           </div>
