@@ -3,7 +3,6 @@ import { useUIStateStore } from "@/stores/UIStateStore";
 import { PlaylistHelper } from "@/interfaces/PlaylistHelper";
 import axios, { AxiosResponse } from "axios";
 import { UserPlaylist, PlaylistSongs } from "@/types/playlists";
-import NoImage from "@/public/placeholder-image-dark.webp";
 
 export default class SpotifyApiHelper implements PlaylistHelper {
   private spotifyApi = axios.create();
@@ -152,11 +151,14 @@ export default class SpotifyApiHelper implements PlaylistHelper {
       .then((response) => {
         const playlists: UserPlaylist[] = response.data.items.map(
           (playlist: any) => {
-            console.log(playlist)
+            console.log(playlist);
             return {
               id: playlist.id,
               name: playlist.name,
-              image: playlist.images && playlist.images.length > 0 ? playlist.images[0].url : "/placeholder-image-dark.webp",
+              image:
+                playlist.images && playlist.images.length > 0
+                  ? playlist.images[0].url
+                  : "/placeholder-image-dark.webp",
               originalLink: playlist.external_urls.spotify,
             };
           }
@@ -172,7 +174,10 @@ export default class SpotifyApiHelper implements PlaylistHelper {
     const refreshToken =
       useCredentialsPersistantStore.getState().spotifyRefreshToken;
     const url = "https://accounts.spotify.com/api/token";
-    if (refreshToken && process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID) {
+    if (
+      refreshToken &&
+      useCredentialsPersistantStore.getState().spotifyAPIKey
+    ) {
       const payload = {
         method: "POST",
         headers: {
@@ -181,7 +186,7 @@ export default class SpotifyApiHelper implements PlaylistHelper {
         body: new URLSearchParams({
           grant_type: "refresh_token",
           refresh_token: refreshToken,
-          client_id: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
+          client_id: useCredentialsPersistantStore.getState().spotifyAPIKey,
         }),
       };
 

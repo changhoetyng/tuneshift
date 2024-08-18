@@ -20,6 +20,10 @@ type CredentialsPersistentStore = {
   updateSpotifyCodeVerifier: (spotifyCodeVerifier: string | null) => void;
   updateSpotifyAccessToken: (spotifyAuthorizationCode: string | null) => void;
   updateSpotifyRefreshToken: (spotifyCode: string | null) => void;
+
+  // Spotify API Key
+  spotifyAPIKey: string;
+  setSpotifyAPIKey: (newKey: string) => void;
 };
 
 export const useCredentialsStore = create<CredentialsStore>((set) => ({
@@ -53,6 +57,10 @@ export const useCredentialsPersistantStore = create(
       spotifyRefreshToken: null,
       updateSpotifyRefreshToken: (spotifyRefreshToken: string | null) =>
         set({ spotifyRefreshToken: spotifyRefreshToken }),
+
+      // Spotify API Key
+      spotifyAPIKey: "",
+      setSpotifyAPIKey: (newKey: string) => set({ spotifyAPIKey: newKey }),
     }),
     {
       name: "credentials-storage",

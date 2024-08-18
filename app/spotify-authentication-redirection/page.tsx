@@ -17,20 +17,23 @@ function SpotifyAuthRedirection() {
     spotifyCodeVerifier: state.spotifyCodeVerifier,
   }));
 
-  const { updateSpotifyAccessToken, updateSpotifyRefreshToken } =
+  const { updateSpotifyAccessToken, updateSpotifyRefreshToken, spotifyAPIKey } =
     useCredentialsPersistantStore((state) => ({
       updateSpotifyAccessToken: state.updateSpotifyAccessToken,
       updateSpotifyRefreshToken: state.updateSpotifyRefreshToken,
+      spotifyAPIKey: state.spotifyAPIKey,
     }));
 
   const {
     updateNotificationMessage,
     updateNotificationTitle,
     updateNotificationRendererKey,
+    updateMigrationMethod,
   } = useUIStateStore((state) => ({
     updateNotificationMessage: state.updateNotificationMessage,
     updateNotificationTitle: state.updateNotificationTitle,
     updateNotificationRendererKey: state.updateNotificationRendererKey,
+    updateMigrationMethod: state.updateMigrationMethod,
   }));
 
   const { spotifyApiHelper } = useCredentialsStore((state) => ({
@@ -46,7 +49,8 @@ function SpotifyAuthRedirection() {
         const response = await retrieveTokenWithCode(
           spotifyCodeVerifier,
           code,
-          redirectionLink
+          redirectionLink,
+          spotifyAPIKey
         );
 
         updateSpotifyAccessToken(response.access_token);
@@ -55,8 +59,9 @@ function SpotifyAuthRedirection() {
       if (redirectionLink) {
         updateNotificationRendererKey();
         updateNotificationTitle("Success!");
+        updateMigrationMethod(redirectionLink);
         updateNotificationMessage("Logged in to Spotify");
-        router.push(redirectionLink);
+        router.push(`migration-steps?destination=${redirectionLink}`);
       } else {
         router.push("/");
       }
@@ -73,6 +78,8 @@ function SpotifyAuthRedirection() {
     updateNotificationRendererKey,
     updateNotificationTitle,
     updateNotificationMessage,
+    updateMigrationMethod,
+    spotifyAPIKey,
   ]);
 
   return (

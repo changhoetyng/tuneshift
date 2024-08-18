@@ -38,7 +38,7 @@ export default function FloatingIsland({
   }, [isExpanding, islandText, key]);
 
   return (
-    <div className={clsx("absolute inset-x-0 bottom-8 flex justify-center")}>
+    <div className={clsx("sticky inset-x-0 bottom-8 flex justify-center")}>
       <div
         data-testid="floating-island"
         className={clsx(

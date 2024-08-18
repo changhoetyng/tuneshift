@@ -9,16 +9,20 @@ import {
 import LoginToAppleMusic from "@/app/_ui/migration-steps/LogInToAppleMusic";
 import LoginToSpotify from "@/app/_ui/migration-steps/LoginToSpotify";
 import ShowPlaylist from "@/app/_ui/migration-steps/ShowPlaylist";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useUIStateStore } from "@/stores/UIStateStore";
+import { useEffect } from "react";
 
-export default function MigrateToAppleMusic() {
+export default function MigrateSteps() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const { updateCanMigrate, migrationMethod } = useUIStateStore((state) => ({
-    updateCanMigrate: state.updateCanMigrate,
-    migrationMethod: state.migrationMethod,
-  }));
+  const { updateCanMigrate, migrationMethod, updateMigrationMethod } =
+    useUIStateStore((state) => ({
+      updateCanMigrate: state.updateCanMigrate,
+      migrationMethod: state.migrationMethod,
+      updateMigrationMethod: state.updateMigrationMethod,
+    }));
 
   const { isMusicKitInstanceAuthorized } = useCredentialsStore((state) => ({
     isMusicKitInstanceAuthorized: state.isMusicKitInstanceAuthorized,
@@ -37,6 +41,14 @@ export default function MigrateToAppleMusic() {
   async function backToOptions() {
     router.push("/" + "migrate");
   }
+
+  useEffect(() => {
+    const destination = searchParams.get("destination");
+    console.log(destination);
+    if (destination) {
+      updateMigrationMethod(destination);
+    }
+  }, []);
 
   return (
     <div className="pl-5 pr-5 sm:p-0 flex animate-fadeInUpFast w-full h-full justify-center align-center flex-col">
