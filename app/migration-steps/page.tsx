@@ -48,7 +48,7 @@ export default function MigrateSteps() {
     if (destination) {
       updateMigrationMethod(destination);
     }
-  }, []);
+  }, [searchParams, updateMigrationMethod]);
 
   return (
     <div className="pl-5 pr-5 sm:p-0 flex animate-fadeInUpFast w-full h-full justify-center align-center flex-col">
