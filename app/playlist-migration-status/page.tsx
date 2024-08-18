@@ -63,11 +63,11 @@ export default function PlaylistMigrationStatusPage() {
   );
 
   function getSourceAPI() {
-    if (migrationMethod === "spotify-to-apple-music") {
+    if (migrationMethod === "/spotify-to-apple-music") {
       return spotifyApiHelper;
     }
 
-    if (migrationMethod === "apple-music-to-spotify") {
+    if (migrationMethod === "/apple-music-to-spotify") {
       return appleMusicHelper;
     }
 
@@ -75,11 +75,11 @@ export default function PlaylistMigrationStatusPage() {
   }
 
   function getDestinationAPI() {
-    if (migrationMethod === "spotify-to-apple-music") {
+    if (migrationMethod === "/spotify-to-apple-music") {
       return appleMusicHelper;
     }
 
-    if (migrationMethod === "apple-music-to-spotify") {
+    if (migrationMethod === "/apple-music-to-spotify") {
       return spotifyApiHelper;
     }
 
