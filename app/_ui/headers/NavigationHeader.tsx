@@ -1,12 +1,14 @@
 "use client";
 import HeaderButton from "@/app/_ui/buttons/HeaderButton";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import HoverComponent from "../global/HoverComponent";
 import Image from "next/image";
 import Link from "next/link";
 import TuneShift from "@/public/TuneShift.svg";
 import TuneShiftLogo from "@/public/logo.png";
 import GithubLogo from "@/public//github-mark-white.svg";
-import { useEffect, useState } from "react";
+import ErrorNotificationComponent from "../global/NotificationComponent";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useCredentialsPersistantStore } from "@/stores/credentialsStore";
 import { useUIStateStore } from "@/stores/UIStateStore";
 import {
@@ -50,67 +52,33 @@ export default function NavigationHeader() {
     updateNotificationMessage("API Key has been updated.");
   }
 
+  function copyOnClick(e : SyntheticEvent) {
+    navigator.clipboard.writeText(e.target.outerText)
+  }
+
   return (
-    <div className="inline-grid grid-cols-[auto_auto_auto_auto_auto] sm:grid-cols-[auto_auto_auto] justify-between content-center p-2 pt-5 md:p-5 fixed w-full top-0 z-50 h-20 bg-background">
+    <div className="inline-grid grid-cols-[auto_auto_auto_auto_auto] sm:grid-cols-[auto_auto_auto] justify-between content-center p-2 pt-5 md:p-5 fixed w-full top-0 z-50 h-20 bg-background ">
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}
         className="absolute z-50"
       >
-        <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-          <DialogPanel className="max-w-lg space-y-4 border bg-background p-12 h-2/3 overflow-y-auto relative">
-            <DialogTitle className="font-bold text-2xl">
-              Insert Spotify API Key
+        <div className="fixed inset-0 flex w-screen items-center justify-center p-4 bg-transparent">
+          <DialogPanel className="max-w-xl space-y-4 bg-neutral-800/90 p-12 pt-5 h-2/3 overflow-y-auto relative backdrop-blur-sm rounded-lg">
+          <div className="flex w-full justify-end align-right items-end">
+          <HeaderButton
+              onClick={() => setIsOpen(false)}
+              className="bg-neutral-700 relative justify-end text-neutral-300"
+            >
+              Skip
+            </HeaderButton>
+          </div>
+
+            <DialogTitle id="api-key">
+              <span className="font-bold text-2xl" >
+              Insert Spotify API Key 
+                </span><span className="text-red-500 ml-2">*Required</span>
             </DialogTitle>
-            <Description>
-              Before you can migrate your playlists, you need to insert your
-              Spotify API key on the top menu.
-            </Description>
-            <Description className="font-bold text-xl">
-              1. Go to Spotify Developer Site:
-            </Description>
-            <Description>
-              <a
-                className="underline"
-                href="https://developer.spotify.com/"
-                target="_blank"
-              >
-                https://developer.spotify.com/
-              </a>
-            </Description>
-            <Description className="font-bold text-xl">
-              2. Go to Dashboard
-            </Description>
-            <Description className="font-bold text-xl">
-              3. Create App
-            </Description>
-            <Description className="font-bold text-xl">
-              4. Create App
-            </Description>
-            <Description className="font-bold text-xl">
-              5. Redirection Link:
-            </Description>
-            <br />
-            <Description>
-              Copy these links onto the redirect link section.
-            </Description>
-            <br />
-            <Description className="underline">
-              https://changhoetyng.github.io/tuneshift/spotify-authentication-redirection?redirect_link=/spotify-to-apple-music
-            </Description>
-            <br />
-            <Description className="underline">
-              https://changhoetyng.github.io/tuneshift/spotify-authentication-redirection?redirect_link=/apple-music-to-spotify
-            </Description>
-            <Description className="font-bold text-xl">
-              6. Enable Web API
-            </Description>
-            <Description className="font-bold text-xl">
-              7. Copy Client ID
-            </Description>
-            <Description className="font-bold text-xl">
-              8. Insert Spotify Client ID
-            </Description>
             <div className="flex flex-row">
               <input
                 value={apiKey}
@@ -124,12 +92,86 @@ export default function NavigationHeader() {
                 Save
               </HeaderButton>
             </div>
-            <HeaderButton
+            <Description>
+              Before you can migrate your playlists, you need to insert your
+              Spotify API key here to allow the app to perform the migration functions using your Spotify.
+              <br></br><br></br>
+              Don't worry! You won't be charged by anyone and we don't access your precious private data.
+            </Description>
+            <Description className="flex flex-col bg-green-900 p-5 rounded-lg">
+              <span className="font-bold text-xl">
+                1. Go to Spotify Developer Site:
+              </span>
+              
+              <a
+                className="underline"
+                href="https://developer.spotify.com/"
+                target="_blank"
+              >
+                https://developer.spotify.com/
+              </a>
+            </Description>
+            <Description className="font-bold text-xl bg-neutral-700 p-5 rounded-lg">
+              2. Go to Dashboard
+              <img src="/Tutorial/Step 2 - Dashboard.webp" className="mt-5 w-100 rounded-sm"></img>
+            </Description>
+            <Description className="font-bold text-xl bg-neutral-700 p-5 rounded-lg">
+              3. Create App and Name it
+              <img src="/Tutorial/Step 3 - App Name and Description.webp" className="mt-5 w-100 rounded-sm"></img>
+            </Description>
+            <Description className="flex flex-col bg-neutral-700 p-5 rounded-lg">
+              <span className="font-bold text-xl">
+                4. Redirect URIs:
+              </span>
+
+              <span className="mt-5">
+                Click to copy these links onto the Redirect URIs section.
+              </span>
+
+              <img src="/Tutorial/Step 4 - Redirect URI.webp" className="mt-5 w-100 rounded-sm"></img>
+
+
+                <a className="mt-5 cursor-pointer hover:underline font-semibold" onClick={copyOnClick}>
+                  https://changhoetyng.github.io/tuneshift/spotify-authentication-redirection?redirect_link=/spotify-to-apple-music
+                  <img src="/copy.svg" width="15px" height="15px" className="absolute inline-block ml-2"></img>
+                </a>
+
+
+              
+              <a className="mt-5 cursor-pointer hover:underline font-semibold" onClick={copyOnClick}>
+                https://changhoetyng.github.io/tuneshift/spotify-authentication-redirection?redirect_link=/apple-music-to-spotify
+                <img src="/copy.svg" width="15px" height="15px" className="absolute inline-block ml-2"></img>
+              </a>
+              
+            </Description>
+
+            <Description className="font-bold text-xl bg-neutral-700 p-5 rounded-lg">
+              5. Enable Web API and Save
+              <img src="/Tutorial/Step 5 - Web API.webp" className="mt-5 w-100 rounded-sm"></img>
+              <img src="/Tutorial/Step 6 - Save.webp" className="mt-5 w-100 rounded-sm"></img>
+            </Description>
+            <Description className="font-bold text-xl bg-neutral-700 p-5 rounded-lg">
+              6. Navigate to Settings and copy the Client ID
+              <img src="/Tutorial/Step 7 - Settings.webp" className="mt-5 w-100 rounded-sm"></img>
+              <img src="/Tutorial/Step 8 - Copy Client ID.webp" className="mt-5 w-100 rounded-sm"></img>
+            </Description>
+            <Description className="bg-neutral-700 p-5 rounded-lg">
+              <span className="font-bold text-xl">
+                7. Insert Spotify Client ID into the field above!
+              </span>
+
+              <img src="/Tutorial/Step 9 - Paste and Save.webp" className="mt-5 w-100 rounded-sm"></img>
+              <br></br>
+              <a href="#api-key" className="bg-purple-500 p-2 rounded-md">Go insert API Key ^ </a>
+            </Description>
+            <div className="flex w-full justify-end align-right items-end">
+          <HeaderButton
               onClick={() => setIsOpen(false)}
-              className="bg-gray-100/10 sm:bg-gray-100/0 border border-white absolute right-5"
+              className="bg-neutral-600 relative justify-end text-neutral-100"
             >
-              Got it!
+              Got It!
             </HeaderButton>
+          </div>
           </DialogPanel>
         </div>
       </Dialog>
