@@ -84,6 +84,7 @@ export default function NavigationHeader() {
                 value={apiKey}
                 onChange={(e) => setAPIKey(e.target.value)}
                 className="text-black px-2"
+                placeholder="Key Here - XXXXXXXXXXXXXX"
               />
               <HeaderButton
                 onClick={onSaveAPIKey}
