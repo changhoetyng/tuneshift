@@ -21,7 +21,12 @@ export default async function IndexPage() {
         // bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text
       />
       <p className="text-left w-full md:text-center mt-10 animate-fadeInUp">
-        The easiest way to transfer your music between streaming services.
+        The easiest way to transfer your music between streaming services.{" "}
+      </p>
+      <p className="text-red-500  w-full md:text-center mt-10 animate-fadeInUp">
+        This isn’t currently functional because my Apple Developer account has
+        expired. However, if you have an active Apple Developer account, you can
+        deploy the app yourself and use it.
       </p>
 
       <Link href="/migrate">
