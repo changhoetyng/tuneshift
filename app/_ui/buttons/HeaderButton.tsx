@@ -20,7 +20,6 @@ export default function HeaderButton({
   ...rest
 }: ButtonProps) {
   return (
-    <div>
       <button
         {...rest}
         className={clsx(
@@ -30,6 +29,5 @@ export default function HeaderButton({
       >
         {children}
       </button>
-    </div>
   );
 }
